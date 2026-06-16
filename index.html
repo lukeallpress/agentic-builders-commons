@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic Builders Committee — K-12 AI Practitioners Commons</title>
+<style>
+  :root {
+    --ink:#1a2233; --muted:#5b6678; --line:#e6e9f0; --bg:#f7f8fb; --card:#ffffff;
+    --brand:#3b4cca; --brand-soft:#eef0ff; --accent:#0e9f6e; --accent-soft:#e7f6ef;
+    --radius:14px; --maxw:1080px;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:var(--bg); line-height:1.55; -webkit-font-smoothing:antialiased; }
+  a { color:var(--brand); }
+  .wrap { max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+  header.hero { background:linear-gradient(160deg,#2a338f 0%,#3b4cca 55%,#5a6bf0 100%); color:#fff; }
+  header.hero .wrap { padding:72px 22px 64px; }
+  .eyebrow { text-transform:uppercase; letter-spacing:.14em; font-size:.78rem; font-weight:700; opacity:.85; }
+  h1 { font-size:clamp(2.1rem,5vw,3.3rem); line-height:1.08; margin:.35em 0 .2em; font-weight:800; }
+  .lede { font-size:1.18rem; max-width:46ch; opacity:.95; }
+  .cta-row { margin-top:26px; display:flex; gap:12px; flex-wrap:wrap; }
+  .btn { display:inline-block; padding:12px 20px; border-radius:999px; font-weight:650; text-decoration:none; }
+  .btn.primary { background:#fff; color:var(--brand); }
+  .btn.ghost { background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.4); }
+  .stats { display:flex; flex-wrap:wrap; gap:10px; margin-top:38px; }
+  .stat { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.18); border-radius:12px;
+    padding:12px 18px; min-width:120px; }
+  .stat .num { display:block; font-size:1.7rem; font-weight:800; }
+  .stat .lbl { font-size:.82rem; opacity:.9; }
+  section { padding:56px 0; border-bottom:1px solid var(--line); }
+  section h2 { font-size:1.7rem; margin:0 0 6px; }
+  section .sub { color:var(--muted); margin:0 0 26px; max-width:60ch; }
+  .grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); }
+  .grid.people { grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px;
+    transition:transform .12s ease, box-shadow .12s ease; }
+  .card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(26,34,51,.08); }
+  .card h3 { margin:.1em 0 .35em; font-size:1.08rem; }
+  .card p { margin:0; color:var(--muted); font-size:.95rem; }
+  .card.person h3 { font-size:1.05rem; }
+  .person .role { color:var(--ink); font-weight:600; font-size:.92rem; }
+  .person .org { color:var(--muted); font-size:.88rem; margin-top:2px; }
+  .tagrow { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .tag { background:var(--brand-soft); color:var(--brand); font-size:.74rem; font-weight:700;
+    padding:3px 9px; border-radius:999px; text-transform:uppercase; letter-spacing:.04em; }
+  .muted { color:var(--muted); font-size:.8rem; }
+  .chips { margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { background:#f0f2f7; color:#48526a; font-size:.74rem; padding:3px 8px; border-radius:6px; }
+  ul.questions { list-style:none; padding:0; margin:0; display:grid; gap:12px; }
+  ul.questions li { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .status { display:inline-block; font-size:.7rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.04em; padding:3px 8px; border-radius:6px; margin-right:10px; vertical-align:1px; }
+  .status-open { background:#fdeedd; color:#9a5b00; }
+  .status-investigating { background:var(--brand-soft); color:var(--brand); }
+  .status-resolved { background:var(--accent-soft); color:var(--accent); }
+  .call .date { color:var(--muted); font-size:.82rem; font-weight:600; }
+  .goals { display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+  .goal { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--brand);
+    border-radius:12px; padding:20px; }
+  .goal h3 { margin:0 0 6px; font-size:1.05rem; }
+  .goal p { margin:0; color:var(--muted); font-size:.95rem; }
+  .tablelinks { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+  .tablelink { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 16px;
+    text-decoration:none; color:var(--ink); font-weight:600; }
+  .tablelink span { color:var(--brand); }
+  .tablelink:hover { border-color:var(--brand); }
+  .joinbox { background:linear-gradient(160deg,#0e9f6e,#0b8f63); color:#fff; border-radius:var(--radius);
+    padding:34px; }
+  .joinbox h2 { color:#fff; }
+  .joinbox .sub { color:rgba(255,255,255,.92); }
+  footer { padding:34px 0 56px; color:var(--muted); font-size:.86rem; }
+  .note { background:#fff7e8; border:1px solid #f3e2bd; color:#7a5a12; border-radius:10px;
+    padding:12px 16px; font-size:.85rem; margin-top:16px; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">A K-12 AI Practitioners Commons</p>
+    <h1>The Agentic Builders Committee</h1>
+    <p class="lede">A nationwide group of K-12 technology leaders actually building, deploying, and
+      governing AI agents in real school systems — and sharing what works so others don't have to
+      rebuild the wheel.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#join">Get involved</a>
+      <a class="btn ghost" href="#ideas">Ideas worth stealing</a>
+    </div>
+    <div class="stats"><div class="stat"><span class="num">11</span><span class="lbl">practitioners</span></div><div class="stat"><span class="num">2</span><span class="lbl">calls so far</span></div><div class="stat"><span class="num">15</span><span class="lbl">ideas to steal</span></div><div class="stat"><span class="num">10</span><span class="lbl">recipes</span></div><div class="stat"><span class="num">6</span><span class="lbl">open questions</span></div></div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>Why we exist</h2>
+    <p class="sub">Most AI groups are still defining agentic AI. This is a practitioners' group:
+      people moving past awareness into the practical work of building with agents — against real
+      data, real privacy constraints, and real users — without creating avoidable risk.</p>
+    <div class="goals">
+      <div class="goal"><h3>Solve infrastructure together</h3><p>Hosting, local/open-weight models,
+        MCP servers, authentication, delegated accounts, role-based data access, and cost.</p></div>
+      <div class="goal"><h3>Make building safe</h3><p>Training, guardrails, starter packs, and
+        "builder's permit" pathways so staff can innovate without risking student data.</p></div>
+      <div class="goal"><h3>Share what works</h3><p>Concrete recipes, code patterns, and use cases
+        — the implementation-level ideas too technical for broad policy groups.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="people">
+  <div class="wrap">
+    <h2>The practitioners</h2>
+    <p class="sub">Technology and data leaders from districts and organizations across the country.</p>
+    <div class="grid people"><article class="card person">
+          <h3>Luke Allpress</h3>
+          <p class="role">Director of Innovative Solutions</p>
+          <p class="org">Agua Fria Union High School District · AZ</p>
+        </article><article class="card person">
+          <h3>Kris Hagel</h3>
+          <p class="role">District technology / digital learning leader</p>
+          <p class="org">Peninsula School District · WA</p>
+        </article><article class="card person">
+          <h3>Brian Graham</h3>
+          <p class="role">Superintendent</p>
+          <p class="org">Grand Island Central School District · NY</p>
+        </article><article class="card person">
+          <h3>Anna McDonough</h3>
+          <p class="role">Data / analytics leader</p>
+          <p class="org">Alpha Public Schools · CA</p>
+        </article><article class="card person">
+          <h3>Lauren Owens</h3>
+          <p class="role">Chief Technology Officer (transitioning)</p>
+          <p class="org">New Trier Township High School District (formerly Agua Fria) · IL</p>
+        </article><article class="card person">
+          <h3>Drew Olsson</h3>
+          <p class="role">Director of AI</p>
+          <p class="org">Agua Fria Union High School District · AZ</p>
+        </article><article class="card person">
+          <h3>Ryan Gravette</h3>
+          <p class="role">Technology Director (incoming Boise School District)</p>
+          <p class="org">Idaho Digital Learning Alliance / Boise School District · ID</p>
+        </article><article class="card person">
+          <h3>James Byrne</h3>
+          <p class="role">&nbsp;</p>
+          <p class="org">New Trier Township High School District · IL</p>
+        </article><article class="card person">
+          <h3>Andrew Schmitt</h3>
+          <p class="role">&nbsp;</p>
+          <p class="org">New Trier Township High School District · IL</p>
+        </article><article class="card person">
+          <h3>Seth Gautam</h3>
+          <p class="role">&nbsp;</p>
+          <p class="org">Fairfax County Public Schools · VA</p>
+        </article><article class="card person">
+          <h3>Jason Neiffer</h3>
+          <p class="role">&nbsp;</p>
+          <p class="org"></p>
+        </article></div>
+  </div>
+</section>
+
+<section id="ideas">
+  <div class="wrap">
+    <h2>Ideas worth stealing</h2>
+    <p class="sub">Reusable patterns and guardrails the group has surfaced. Take any of them.</p>
+    <div class="grid"><article class="card">
+          <div class="tagrow"><span class="tag">Data Layer</span>
+            <span class="muted">Pilot</span></div>
+          <h3>MCP server with role-based data access</h3>
+          <p>A Python MCP server sits between LLMs/agents and the district data warehouse (Redshift/PostgreSQL, PowerSchool) and enforces role-based access control, so a principal, teacher, cabinet member, or analyst only retrieves the rows and fields appropriate to their role. Agents ask approved tools rather than querying production databases directly.</p>
+          <div class="chips"><span class="chip">MCP</span><span class="chip">Python</span><span class="chip">Redshift</span><span class="chip">PostgreSQL</span><span class="chip">PowerSchool</span><span class="chip">AWS</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Governance</span>
+            <span class="muted">Prototype</span></div>
+          <h3>Builder&#x27;s permit / responsible-builder pathway</h3>
+          <p>A training-and-certification pathway staff must complete before publishing user-facing or data-facing tools. Builders demonstrate competence in FERPA/data privacy, authentication, secure deployment, validation, documentation, and maintenance. Permission to publish is tied to training and review; starter packs/boilerplates are provided for common build paths. Motivated by an incident where a well-intentioned champion built a dashboard that raised FERPA concerns.</p>
+          <div class="chips"><span class="chip">Async learning module</span><span class="chip">starter packs</span><span class="chip">boilerplates</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Operations</span>
+            <span class="muted">Pilot</span></div>
+          <h3>Self-healing software pipeline</h3>
+          <p>Claude Code monitors bug reports in the IT ticketing system, triages them, creates GitHub issues, and on a recurring schedule generates pull requests. Multiple models (Gemini, Copilot, Claude) review the PRs; an automation reviews the reviews; the system iterates until the issue is resolved.</p>
+          <div class="chips"><span class="chip">Claude Code</span><span class="chip">GitHub Actions</span><span class="chip">Gemini</span><span class="chip">Copilot</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Data Layer</span>
+            <span class="muted">Concept</span></div>
+          <h3>Data-first artifact generation</h3>
+          <p>Rather than maintaining a static guidebook or website, organize the group&#x27;s collective knowledge into structured raw data and let AI act as the translation layer that dynamically generates artifacts (briefs, onboarding materials, guides, slide decks, sites) per request. This is the group&#x27;s adopted strategy and the rationale for this Coda knowledge base.</p>
+          <div class="chips"><span class="chip">Coda</span><span class="chip">REST API</span><span class="chip">MCP</span><span class="chip">Claude</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Infrastructure</span>
+            <span class="muted">Pilot</span></div>
+          <h3>Delegated agent accounts (assistant model)</h3>
+          <p>Each agent gets its own Google Workspace account with delegated access to a user&#x27;s email and calendar — scoped like an executive assistant rather than an unrestricted clone of the user. Agents can draft emails but cannot send them.</p>
+          <div class="chips"><span class="chip">Google Workspace</span><span class="chip">Google Chat</span><span class="chip">OpenClaw</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Infrastructure</span>
+            <span class="muted">Production</span></div>
+          <h3>Segmented per-user micro-VM agent runtime</h3>
+          <p>Each user&#x27;s agent runs in its own AWS micro-VM (Agent Core), with per-user S3 storage, that terminates after ~30 minutes of inactivity and cold-starts (1-3 min) on the next interaction. AWS EventBridge and Lambda handle scheduling and prompt-triggered events (&#x27;remind me at X to Y&#x27;). Segmentation reduces cross-user contamination and controls cost.</p>
+          <div class="chips"><span class="chip">AWS</span><span class="chip">micro-VMs</span><span class="chip">S3</span><span class="chip">EventBridge</span><span class="chip">Lambda</span><span class="chip">OpenClaw</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Data Layer</span>
+            <span class="muted">Concept</span></div>
+          <h3>Semantic / intelligence layer over the data warehouse</h3>
+          <p>A semantic layer so agents correctly interpret business terms — e.g. what &#x27;average daily attendance&#x27; or &#x27;present&#x27; means — consistently across districts, without hardcoding values. Current approach uses field comments and a &#x27;learnings&#x27; tool in the MCP server to capture context. Open challenge: how to maintain this at scale.</p>
+          <div class="chips"><span class="chip">BigQuery</span><span class="chip">MCP</span><span class="chip">dbt</span><span class="chip">field comments</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Workflow</span>
+            <span class="muted">Concept</span></div>
+          <h3>The four phases of an agentic workflow</h3>
+          <p>An agentic workflow is a designed sequence, not just a better prompt: (1) Context Engineering — decide what the agent can see; (2) Prompt Engineering — define the job, boundaries, and stop conditions; (3) Tool Use — give only the tools needed; (4) Use/Evaluate — humans verify, decide, and own the action. Human design lives at the beginning; human judgment returns at the end.</p>
+          <div class="chips"><span class="chip">Framework / guidance</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Governance</span>
+            <span class="muted">Concept</span></div>
+          <h3>Narrow access + human review (the chef model)</h3>
+          <p>The core design lesson across the group: choose the pantry, limit the appliances, and require review before serving. Give the agent the smallest set of evidence and tools needed, and keep a human accountable for the final action. &#x27;Do not hand the agent a blowtorch when the task needed a flashlight.&#x27;</p>
+          <div class="chips"><span class="chip">Framework / guidance</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Operations</span>
+            <span class="muted">Pilot</span></div>
+          <h3>AI-generated data briefs for leaders</h3>
+          <p>Weekly culture/data briefs (discipline, referrals, PBIS) generated for district leaders. Data is prepped in BigQuery, analyzed with Gemini/Vertex AI, hosted on Google Cloud Run, and emailed for approval before being tailored per school and sent to directors.</p>
+          <div class="chips"><span class="chip">BigQuery</span><span class="chip">Vertex AI</span><span class="chip">Gemini</span><span class="chip">Google Cloud Run</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Infrastructure</span>
+            <span class="muted">Prototype</span></div>
+          <h3>Local / open-weight models for privacy</h3>
+          <p>Hosting open-weight models (Gemma, Llama) on local or district servers for privacy-sensitive experimentation, avoiding the data exposure of large external cloud servers. Discussed running on local servers or a NY BOCES to enable deeper use without external data leakage.</p>
+          <div class="chips"><span class="chip">Gemma</span><span class="chip">Llama</span><span class="chip">local servers</span><span class="chip">Nvidia DGX Spark</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Operations</span>
+            <span class="muted">Production</span></div>
+          <h3>Automated multi-model code review</h3>
+          <p>When a pull request is opened, three major models (Gemini, Codex, Copilot) review it as automated GitHub Actions, including FERPA/security/compliance audits from different angles. Claude Code then refines the code based on the feedback, reducing human review even for unfamiliar languages.</p>
+          <div class="chips"><span class="chip">GitHub Actions</span><span class="chip">Gemini</span><span class="chip">Codex</span><span class="chip">Copilot</span><span class="chip">Claude Code</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Data Layer</span>
+            <span class="muted">Prototype</span></div>
+          <h3>Learnings vs. skills for agent knowledge</h3>
+          <p>Agents expose get-learnings / write-learnings tools so that when an LLM discovers something useful it records a &#x27;learning&#x27; others can reuse — akin to a skill exposed by the MCP server. Open debate: is this the right schema, and how do you store knowledge scalably without overflowing the context window, versus building formal &#x27;skills&#x27;?</p>
+          <div class="chips"><span class="chip">MCP</span><span class="chip">skills</span><span class="chip">Claude Code</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Workflow</span>
+            <span class="muted">Prototype</span></div>
+          <h3>Self-contained HTML artifacts</h3>
+          <p>Generate self-contained HTML files that can be embedded directly in an email, removing the need to host a dashboard. Claude Code is well-suited to producing these; noted that some teams are simply sending HTML files instead of standing up hosted dashboards.</p>
+          <div class="chips"><span class="chip">Claude Code</span><span class="chip">HTML</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Governance</span>
+            <span class="muted">Concept</span></div>
+          <h3>Read-only-first deployment ladder</h3>
+          <p>Tools turn an answer engine into a workflow partner, so add capability in stages: Inspect (read files, search approved docs, query scoped data), then Draft (prepare emails, reports, tickets, code), then Act (send, update, route, publish, change records). Reserve real-world action for approved workflows.</p>
+          <div class="chips"><span class="chip">Framework / guidance</span></div>
+        </article></div>
+  </div>
+</section>
+
+<section id="recipes">
+  <div class="wrap">
+    <h2>Projects &amp; recipes</h2>
+    <p class="sub">Working implementations and starter blueprints, with the problem each one solves.</p>
+    <div class="grid"><article class="card">
+          <h3>OpenClaw rollout to executive cabinet</h3>
+          <p class="problem">Give district leaders a personal AI assistant that can run scheduled briefings and draft work, without giving any agent unrestricted access to a user&#x27;s account or to production data.</p>
+          <div class="chips"><span class="chip">OpenClaw</span><span class="chip">AWS micro-VMs (Agent Core)</span><span class="chip">S3</span><span class="chip">EventBridge</span><span class="chip">Lambda</span><span class="chip">Google Chat</span></div>
+        </article><article class="card">
+          <h3>Role-based Data MCP server</h3>
+          <p class="problem">Let LLMs/agents answer questions over the district data warehouse while guaranteeing each user (and their agent) sees only the data their role permits.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">MCP</span><span class="chip">Redshift/PostgreSQL/BigQuery</span><span class="chip">PowerSchool</span><span class="chip">role mapping</span></div>
+        </article><article class="card">
+          <h3>Self-healing software triage pipeline</h3>
+          <p class="problem">Reduce manual bug-fixing toil by having agents triage tickets, propose fixes, and review each other, while keeping humans in control of what ships.</p>
+          <div class="chips"><span class="chip">Claude Code (web)</span><span class="chip">GitHub Actions</span><span class="chip">Gemini</span><span class="chip">Copilot</span></div>
+        </article><article class="card">
+          <h3>Weekly culture data-brief web app</h3>
+          <p class="problem">Deliver leaders a weekly, school-tailored brief on culture data (discipline, referrals, PBIS) without manual report assembly.</p>
+          <div class="chips"><span class="chip">BigQuery</span><span class="chip">Vertex AI</span><span class="chip">Gemini</span><span class="chip">Google Cloud Run</span></div>
+        </article><article class="card">
+          <h3>Multi-model automated PR review</h3>
+          <p class="problem">Raise deployment quality and compliance for staff-built tools by having several models review every pull request from different angles before a human merges.</p>
+          <div class="chips"><span class="chip">GitHub Actions</span><span class="chip">Gemini</span><span class="chip">Codex</span><span class="chip">Copilot</span><span class="chip">Claude Code</span></div>
+        </article><article class="card">
+          <h3>Builder&#x27;s permit async learning module</h3>
+          <p class="problem">Let staff innovate and build tools while ensuring they can deploy safely, so capability does not outrun the security/privacy mindset.</p>
+          <div class="chips"><span class="chip">Async learning module</span><span class="chip">starter packs</span><span class="chip">boilerplates</span><span class="chip">CLAUDE.md templates</span></div>
+        </article><article class="card">
+          <h3>District-approved app starter pack</h3>
+          <p class="problem">Let the next builder start quickly without rebuilding authentication, hosting, and config from scratch each time.</p>
+          <div class="chips"><span class="chip">.NET Core</span><span class="chip">Python</span><span class="chip">CLAUDE.md / agent guidance files</span><span class="chip">GitHub Education</span></div>
+        </article><article class="card">
+          <h3>Personal AI-in-education news brief agent</h3>
+          <p class="problem">Save leaders time by delivering a daily digest of relevant AI-in-education articles (plus light personal tasks) from a private, non-data-collecting setup.</p>
+          <div class="chips"><span class="chip">Perplexity (Personal Computer)</span><span class="chip">Mac Mini</span></div>
+        </article><article class="card">
+          <h3>Personalized job-board matching dashboard</h3>
+          <p class="problem">Help a job seeker find roles that fit their specific resume rather than scrolling generic listings.</p>
+          <div class="chips"><span class="chip">Perplexity</span><span class="chip">Claude</span></div>
+        </article><article class="card">
+          <h3>Year-over-year assessment calendar updater</h3>
+          <p class="problem">Avoid rebuilding the assessment schedule each year by updating it from the school&#x27;s new calendar.</p>
+          <div class="chips"><span class="chip">Agent workflow</span><span class="chip">spreadsheet/calendar data</span></div>
+        </article></div>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="wrap">
+    <h2>Open questions we're chewing on</h2>
+    <p class="sub">The thorny ones. If you've solved any of these, we want to hear from you.</p>
+    <ul class="questions"><li><span class="status status-open">Open</span>
+          Should AI make recommendations in leadership data briefs, or only summarize and let humans decide?</li><li><span class="status status-investigating">Investigating</span>
+          How do we store agent knowledge (&#x27;learnings&#x27;) scalably without overflowing the context window?</li><li><span class="status status-open">Open</span>
+          Is the &#x27;learnings&#x27; tool the right schema for reusable agent knowledge, or should it be formal &#x27;skills&#x27;?</li><li><span class="status status-investigating">Investigating</span>
+          How do we maintain a semantic/intelligence layer so agents interpret terms (e.g. &#x27;average daily attendance&#x27;) consistently across districts?</li><li><span class="status status-open">Open</span>
+          Is there a way to formalize this practitioners group within CoSN, or should it be a separate group?</li><li><span class="status status-open">Open</span>
+          Should agents be able to query each other&#x27;s agents, and how do we keep that safe?</li></ul>
+  </div>
+</section>
+
+<section id="calls">
+  <div class="wrap">
+    <h2>Call archive</h2>
+    <p class="sub">Monthly syncs where members share what they're building.</p>
+    <div class="grid"><article class="card call">
+          <p class="date">2026-04-23</p>
+          <h3>Builders Community Call #1</h3>
+          <p>First gathering of a nationwide group of K-12 practitioners building AI agents. Members introduced their stacks and current work, surfacing a shared opportunity to become a practitioner-builder community focused on actually building, deploying, governing, and scaling agentic tools in education — not just defining agent…</p>
+          <div class="chips"><span class="chip">agentic-ai</span><span class="chip">mcp</span><span class="chip">role-based-access</span><span class="chip">ferpa</span><span class="chip">builder-permit</span><span class="chip">starter-pack</span></div>
+        </article><article class="card call">
+          <p class="date">2026-05-19</p>
+          <h3>Agent / Building Call #2</h3>
+          <p>Second call. Members shared what they are excited about building and moved to formalize a collaborative roadmap. Kris detailed the OpenClaw rollout to the executive cabinet on AWS micro-VMs with MCP-mediated role-based data access and Google Workspace integration. Ryan raised the challenge of an intelligence/semantic l…</p>
+          <div class="chips"><span class="chip">agentic-ai</span><span class="chip">mcp</span><span class="chip">semantic-layer</span><span class="chip">self-healing-software</span><span class="chip">data-briefs</span><span class="chip">data-first-design</span></div>
+        </article></div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="wrap">
+    <div class="joinbox">
+      <h2>Interested in the group?</h2>
+      <p class="sub">We're looking for K-12 technical practitioners who are already building with
+        agents and want to share, steal, and push each other's work forward. Reach out to a member
+        you know, or get in touch through your CoSN network to be connected.</p>
+      <a class="btn primary" href="https://coda.io/d/_d6SpujExxEK">Explore the full workspace →</a>
+    </div>
+    <h2 style="margin-top:40px">Browse the live data</h2>
+    <p class="sub">The structured knowledge base lives in Coda (group access required):</p>
+    <div class="tablelinks"><a class="tablelink" href="https://coda.io/d/_d6SpujExxEK#_tugrid-AgXJhtBpy2">People <span>→</span></a><a class="tablelink" href="https://coda.io/d/_d6SpujExxEK#_tugrid-V7tMrt_e1C">Calls <span>→</span></a><a class="tablelink" href="https://coda.io/d/_d6SpujExxEK#_tugrid-663JIJwl0t">Ideas <span>→</span></a><a class="tablelink" href="https://coda.io/d/_d6SpujExxEK#_tugrid-Ui92Nuzprs">Projects / Recipes <span>→</span></a><a class="tablelink" href="https://coda.io/d/_d6SpujExxEK#_tugrid-nmWjBygJE-">Open Questions <span>→</span></a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>The Agentic Builders Committee · a growing, practitioner-led commons. This page is generated
+      from the group's shared knowledge base and evolves as the work does. Practitioner contact
+      details are kept private and shared only within the group.</p>
+  </div>
+</footer>
+</body>
+</html>
