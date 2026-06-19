@@ -87,7 +87,7 @@
       <a class="btn primary" href="#join">Get involved</a>
       <a class="btn ghost" href="#ideas">Ideas worth stealing</a>
     </div>
-    <div class="stats"><div class="stat"><span class="num">11</span><span class="lbl">practitioners</span></div><div class="stat"><span class="num">2</span><span class="lbl">calls so far</span></div><div class="stat"><span class="num">15</span><span class="lbl">ideas to steal</span></div><div class="stat"><span class="num">10</span><span class="lbl">recipes</span></div><div class="stat"><span class="num">6</span><span class="lbl">open questions</span></div></div>
+    <div class="stats"><div class="stat"><span class="num">11</span><span class="lbl">practitioners</span></div><div class="stat"><span class="num">3</span><span class="lbl">calls so far</span></div><div class="stat"><span class="num">21</span><span class="lbl">ideas to steal</span></div><div class="stat"><span class="num">16</span><span class="lbl">recipes</span></div><div class="stat"><span class="num">9</span><span class="lbl">open questions</span></div></div>
   </div>
 </header>
 
@@ -138,24 +138,24 @@
           <p class="org">Agua Fria Union High School District · AZ</p>
         </article><article class="card person">
           <h3>Ryan Gravette</h3>
-          <p class="role">Technology Director (incoming Boise School District)</p>
-          <p class="org">Idaho Digital Learning Alliance / Boise School District · ID</p>
+          <p class="role">Technology Director, Boise School District</p>
+          <p class="org">Boise School District (formerly Idaho Digital Learning Alliance) · ID</p>
         </article><article class="card person">
           <h3>James Byrne</h3>
-          <p class="role">&nbsp;</p>
+          <p class="role">Systems / network engineer</p>
           <p class="org">New Trier Township High School District · IL</p>
         </article><article class="card person">
           <h3>Andrew Schmitt</h3>
           <p class="role">&nbsp;</p>
           <p class="org">New Trier Township High School District · IL</p>
         </article><article class="card person">
-          <h3>Seth Gautam</h3>
+          <h3>Gautam Sethi</h3>
           <p class="role">&nbsp;</p>
           <p class="org">Fairfax County Public Schools · VA</p>
         </article><article class="card person">
           <h3>Jason Neiffer</h3>
-          <p class="role">&nbsp;</p>
-          <p class="org"></p>
+          <p class="role">AI Lab lead (&quot;wild idea generator in chief&quot;)</p>
+          <p class="org">Montana State Virtual School (Montana Digital Academy) · MT</p>
         </article></div>
   </div>
 </section>
@@ -254,6 +254,42 @@
           <h3>Read-only-first deployment ladder</h3>
           <p>Tools turn an answer engine into a workflow partner, so add capability in stages: Inspect (read files, search approved docs, query scoped data), then Draft (prepare emails, reports, tickets, code), then Act (send, update, route, publish, change records). Reserve real-world action for approved workflows.</p>
           <div class="chips"><span class="chip">Framework / guidance</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Governance</span>
+            <span class="muted">Concept</span></div>
+          <h3>Vetted GitHub repository for shared agent code</h3>
+          <p>Share the group&#x27;s agentic code through a central, peer-audited GitHub repository so others can safely adopt and replicate it. Code is vetted via peer audits/reviews (security flaws, implementability) before it&#x27;s recommended — modeled on practices like reviews.md files used at larger orgs.</p>
+          <div class="chips"><span class="chip">GitHub</span><span class="chip">reviews.md</span><span class="chip">peer review</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Workflow</span>
+            <span class="muted">Prototype</span></div>
+          <h3>Agent skill colony (self-writing feedback loop)</h3>
+          <p>A pattern adapted from software practice for curriculum design: multiple &#x27;roles&#x27; (e.g. curriculum auditor, lesson renderer) review and modify their own skills based on the output, iterating until the system produces a successful result. Generated curriculum well, but hit limits on quality-control tasks like visual consistency.</p>
+          <div class="chips"><span class="chip">Claude</span><span class="chip">agent roles/skills</span><span class="chip">feedback loops</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Leadership</span>
+            <span class="muted">Concept</span></div>
+          <h3>Building hyper-local tools in-house vs buying</h3>
+          <p>School systems can increasingly build their own tools in-house to save money and bake in local context that commercial vendors miss — enabling hyper-local solutions that weren&#x27;t feasible a year ago. The group wants to push this conversation beyond product-specific ideas to its systemic implications.</p>
+          <div class="chips"><span class="chip">Internal dev</span><span class="chip">district context</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Infrastructure</span>
+            <span class="muted">Prototype</span></div>
+          <h3>Scraping hidden APIs to build agent skills</h3>
+          <p>Where an edtech platform offers no native API, scrape its hidden API calls and server processing to create custom agent skills that let agents interact with the proprietary tool (demonstrated against Parent Square).</p>
+          <div class="chips"><span class="chip">HTML/API scraping</span><span class="chip">agent skills</span><span class="chip">Parent Square</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Operations</span>
+            <span class="muted">Concept</span></div>
+          <h3>AI meeting knowledge-capture tool</h3>
+          <p>A custom voice-enabled AI tool that captures meeting context and scopes projects from transcripts, replacing manual documentation so non-attendees can learn from the group&#x27;s work. An agreed build for the group.</p>
+          <div class="chips"><span class="chip">Voice/multimodal agent</span><span class="chip">transcripts</span></div>
+        </article><article class="card">
+          <div class="tagrow"><span class="tag">Community</span>
+            <span class="muted">Prototype</span></div>
+          <h3>Centralized project library (shared repo index)</h3>
+          <p>A central database (e.g. KOD.io) collecting the group&#x27;s project links and repositories as a permanent, accessible library so members and newcomers can view and replicate each other&#x27;s work as the group grows.</p>
+          <div class="chips"><span class="chip">KOD.io</span><span class="chip">GitHub</span><span class="chip">Coda</span></div>
         </article></div>
   </div>
 </section>
@@ -302,6 +338,30 @@
           <h3>Year-over-year assessment calendar updater</h3>
           <p class="problem">Avoid rebuilding the assessment schedule each year by updating it from the school&#x27;s new calendar.</p>
           <div class="chips"><span class="chip">Agent workflow</span><span class="chip">spreadsheet/calendar data</span></div>
+        </article><article class="card">
+          <h3>Course Intelligence Agent</h3>
+          <p class="problem">Continuously improve virtual-school courses by capturing and synthesizing scattered feedback (student surveys, parent complaints, teacher notes) into actionable course revisions.</p>
+          <div class="chips"><span class="chip">Obsidian</span><span class="chip">NotebookLM</span><span class="chip">Claude Cowork</span><span class="chip">Codex</span><span class="chip">Hermes Agent</span></div>
+        </article><article class="card">
+          <h3>Frontier Intelligence System (Hermes)</h3>
+          <p class="problem">Give a virtual school actionable open-source intelligence for resource planning and recruitment by aggregating signals from across many districts.</p>
+          <div class="chips"><span class="chip">Hermes Agent</span><span class="chip">Obsidian</span><span class="chip">n8n</span><span class="chip">OpenClaw</span><span class="chip">Zoho CRM (MCP)</span></div>
+        </article><article class="card">
+          <h3>Agent Skill Colony framework</h3>
+          <p class="problem">Generate and refine curriculum at scale using a self-improving set of specialized agents instead of a single prompt.</p>
+          <div class="chips"><span class="chip">Claude</span><span class="chip">agent roles/skills</span><span class="chip">self-writing feedback loop</span></div>
+        </article><article class="card">
+          <h3>Strategic Implementation Agent (AI consultant)</h3>
+          <p class="problem">Help a school district produce a tailored strategic implementation plan by gathering and synthesizing feedback from many stakeholder groups.</p>
+          <div class="chips"><span class="chip">Orchestrator + sub-agents</span><span class="chip">district hosting (IIS / Google Cloud)</span></div>
+        </article><article class="card">
+          <h3>Portrait Forge (capstone generator)</h3>
+          <p class="problem">Generate high-quality capstone/portfolio projects tailored to grade level, subject, and &#x27;Portrait of a Graduate&#x27; attributes, grounded in a proven instructional framework.</p>
+          <div class="chips"><span class="chip">Perplexity</span><span class="chip">Claude</span><span class="chip">Understanding by Design framework</span></div>
+        </article><article class="card">
+          <h3>Parent Square integration via hidden APIs</h3>
+          <p class="problem">Let agents interact with an edtech platform (Parent Square) that offers no native/public API.</p>
+          <div class="chips"><span class="chip">HTML/API scraping</span><span class="chip">agent skills</span></div>
         </article></div>
   </div>
 </section>
@@ -316,7 +376,10 @@
           Is the &#x27;learnings&#x27; tool the right schema for reusable agent knowledge, or should it be formal &#x27;skills&#x27;?</li><li><span class="status status-investigating">Investigating</span>
           How do we maintain a semantic/intelligence layer so agents interpret terms (e.g. &#x27;average daily attendance&#x27;) consistently across districts?</li><li><span class="status status-open">Open</span>
           Is there a way to formalize this practitioners group within CoSN, or should it be a separate group?</li><li><span class="status status-open">Open</span>
-          Should agents be able to query each other&#x27;s agents, and how do we keep that safe?</li></ul>
+          Should agents be able to query each other&#x27;s agents, and how do we keep that safe?</li><li><span class="status status-open">Open</span>
+          How do we fund the collaborative vetting / peer review of shared agent code?</li><li><span class="status status-open">Open</span>
+          What mechanism should we use to vet shared agent code for safety and implementability?</li><li><span class="status status-investigating">Investigating</span>
+          Where do autonomous agent feedback loops break down and require human oversight?</li></ul>
   </div>
 </section>
 
@@ -334,6 +397,11 @@
           <h3>Agent / Building Call #2</h3>
           <p>Second call. Members shared what they are excited about building and moved to formalize a collaborative roadmap. Kris detailed the OpenClaw rollout to the executive cabinet on AWS micro-VMs with MCP-mediated role-based data access and Google Workspace integration. Ryan raised the challenge of an intelligence/semantic l…</p>
           <div class="chips"><span class="chip">agentic-ai</span><span class="chip">mcp</span><span class="chip">semantic-layer</span><span class="chip">self-healing-software</span><span class="chip">data-briefs</span><span class="chip">data-first-design</span></div>
+        </article><article class="card call">
+          <p class="date">2026-06-16</p>
+          <h3>Agent Building Practitioners Call #3</h3>
+          <p>Members reviewed updated stacks and demonstrated a wave of working education agents: Jason Neiffer&#x27;s Course Intelligence Agent (an Obsidian-vault course-revision system with NotebookLM &#x27;committees&#x27;) and Frontier Intelligence System / Hermes (OSINT aggregation into a CRM); Ryan Gravette&#x27;s agent-skill…</p>
+          <div class="chips"><span class="chip">vetted-code-sharing</span><span class="chip">peer-review</span><span class="chip">agent-skill-colony</span><span class="chip">knowledge-capture</span><span class="chip">in-house-tools</span><span class="chip">curriculum-agents</span></div>
         </article></div>
   </div>
 </section>
