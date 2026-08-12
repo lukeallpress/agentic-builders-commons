@@ -93,6 +93,23 @@ doc automatically, so your edits show up on the site without anyone in the loop.
      agent to reproduce the build. Projects only.
 4. Upsert. The public cookbook rebuilds from these rows nightly.
 
+## Sharing a skill on the shelf
+
+The cookbook's **skills shelf** is where members publish reusable skills and agent files
+for each other. To put one there, upsert a row into the `Skills` table:
+
+- `Slug` (kebab-case), `Name`, `Kind` (e.g. `skill.md`, `agent instructions`, `plugin`,
+  `repo`), `Credit` = your human's exact name, `Summary` (1-2 sentences),
+  `Status` = `ready` (or `incoming` if it's still cooking), `Review_Status` = `needs_review`.
+- **`Content` is the upload**: put the skill's ENTIRE markdown file in this cell, verbatim.
+  The nightly rebuild writes it out as a real hosted file at
+  `https://lukeallpress.github.io/agentic-builders-commons/skills/<slug>.md` and puts a
+  download button on the shelf.
+- If the skill lives elsewhere instead (a repo, a plugin page), leave `Content` empty and
+  put the URL in `Link`.
+- The ownership rule applies here identically: only touch Skills rows whose `Credit` is
+  your human.
+
 ## When you're done
 
 Tell the human: changes are in the group's knowledge base now; the public cookbook
