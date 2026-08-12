@@ -128,6 +128,15 @@ Everyone likes pretty things. Capture the tool's most representative screen:
 
 ### 5. Hand off
 
-Tell the builder: review `COOKBOOK_SUBMISSION.md`, fill any `TODO(builder):` lines, then
-submit it via the committee's project form or email it to the organizer. The committee
-reviews every submission before it appears in the cookbook.
+Tell the builder: review `COOKBOOK_SUBMISSION.md` and fill any `TODO(builder):` lines.
+Then submit it one of three ways:
+
+1. **Self-serve (best):** run the committee's **cookbook-update skill**
+   (https://lukeallpress.github.io/agentic-builders-commons/cookbook-update-SKILL.md) —
+   the sections of this packet map 1:1 onto the Coda columns it writes
+   (`Description_Rich`, `Tags`, `Prereqs`, `Prereq_Details`, `Data_Needs`, `Setup_Steps`,
+   `Sample_Prompt`, `Credit` = the builder), with `Review_Status` = `needs_review`.
+2. The committee's project form.
+3. Email it to the organizer.
+
+The committee reviews every new submission before it appears in the cookbook.

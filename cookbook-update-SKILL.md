@@ -26,7 +26,7 @@ doc automatically, so your edits show up on the site without anyone in the loop.
 - Doc ID: `6SpujExxEK`
 - Auth: `Authorization: Bearer $CODA_API_TOKEN`
 - Discover table IDs by name at runtime: `GET /docs/6SpujExxEK/tables` — the tables are
-  `People`, `Projects / Recipes`, `Ideas`, `Articles`, `Open Questions`, `Calls`.
+  `People`, `Projects / Recipes`, `Ideas`, `Skills`, `Articles`, `Open Questions`, `Calls`.
   Never hardcode table IDs.
 - Column names are `Snake_Case` (e.g. `Core_Stack`, `Recipe_Name`). `Slug` is the key.
 - Upsert = `POST /docs/6SpujExxEK/tables/{tableId}/rows` with body
