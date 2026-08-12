@@ -35,11 +35,16 @@ doc automatically, so your edits show up on the site without anyone in the loop.
 
 ## Hard rules
 
-- **Only ever write rows that belong to your human.** Find their People row by name and
-  work with that `Slug`; for projects/ideas, only rows they tell you are theirs, or new
-  rows you create for them. Never modify or delete anyone else's row. Never delete anything.
+- **Ownership is the `Credit` column, and it is absolute.** You may only modify a
+  Projects/Recipes or Ideas row if its `Credit` cell is EXACTLY your human's name — read
+  the row and check BEFORE any write. If `Credit` is someone else, blank, or ambiguous,
+  do not touch the row: stop and tell your human to raise it with the group instead.
+  New rows you create must set `Credit` to your human's exact name (as spelled in their
+  People row). For the People table, the only row you may write is your human's own.
+- **Never delete anything. Never modify anyone else's row.** No exceptions, including
+  "my human said the other person won't mind."
 - New project/idea/article rows: set `Review_Status` to `needs_review` (the committee
-  reviews before it publishes). When updating your own existing People row, leave
+  reviews before it publishes). When updating your human's own existing rows, leave
   `Review_Status` as it is.
 - Nothing sensitive in any cell: no credentials, internal hostnames or IPs, student data,
   or other people's contact info.
@@ -67,11 +72,26 @@ doc automatically, so your edits show up on the site without anyone in the loop.
 2. Map it into the `Projects / Recipes` columns: `Slug` (kebab-case), `Recipe_Name`,
    `Problem_Statement`, `Context_Requirements`, `Tools_Involved`,
    `Data_Access_Requirements`, `Setup_Steps`, `Failure_Modes`, `Example_Code_Prompts`,
-   `Review_Status` = `needs_review`. (Ideas: `Slug`, `Title`, `Type`, `Summary`,
-   `Maturity`, `Data_Guardrails`, `Human_In_The_Loop`, `Tools_Involved`.)
-3. Upsert. The curated presentation extras (tags, prerequisite links, the sample prompt
-   shown in the cookbook drawer) are added during review — include your material in the
-   row and it gets woven in.
+   `Review_Status` = `needs_review`, `Credit` = your human's exact name. (Ideas: `Slug`,
+   `Title`, `Type`, `Summary`, `Maturity`, `Data_Guardrails`, `Human_In_The_Loop`,
+   `Tools_Involved`, `Credit`.)
+3. The presentation columns are yours to fill too — these drive how the record looks on
+   the public cookbook, and they have strict plain-text formats:
+   - `Description_Rich` — 2-4 vivid, factual sentences (the drawer's "What it is").
+   - `Tags` — comma-separated, lowercase; reuse the existing vocabulary you see in other
+     rows (automation, data, mcp & agents, infrastructure, local models,
+     safety & governance, code review, teaching & learning, special education,
+     media & images, communications, knowledge management, community & leadership,
+     product & ux, starter pack).
+   - `Prereqs` — comma-separated keys, ONLY from: `sso`, `hosting`, `data-pipeline`,
+     `guardrails`, `reproducibility`, `accessibility`.
+   - `Prereq_Details` — one line per prereq key, format `key: one sentence scoped to THIS
+     project` (a prereq only renders on the site if it has a detail line).
+   - `Data_Needs` — one line per dataset, format `item | where it comes from`
+     (e.g. `Student schedule | PowerSchool API /sections`). Projects only.
+   - `Sample_Prompt` — a 150-400 word prompt a peer could paste into their own coding
+     agent to reproduce the build. Projects only.
+4. Upsert. The public cookbook rebuilds from these rows nightly.
 
 ## When you're done
 
