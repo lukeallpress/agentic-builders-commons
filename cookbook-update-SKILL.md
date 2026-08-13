@@ -13,12 +13,17 @@ doc automatically, so your edits show up on the site without anyone in the loop.
 **Claude Code users:** drop this file at `.claude/skills/cookbook-update/SKILL.md` and say
 "update my cookbook profile". **Any other agent:** just tell it to read this file and follow it.
 
-## One-time setup (human does this)
+## One-time setup (human does this — no OAuth, ~60 seconds)
 
 1. You must be a collaborator on the committee's Coda doc (ask Luke if you're not).
 2. Create your own Coda API token: **Coda → Account Settings → API → Generate token.**
+   Recommended: use **Restrict token** to scope it to just the committee doc.
 3. Store it as the environment variable `CODA_API_TOKEN` (e.g. in a local `.env`).
    **Never commit it, never paste it into a chat that gets shared.**
+4. Verify it works:
+   `curl -H "Authorization: Bearer $CODA_API_TOKEN" https://coda.io/apis/v1/whoami`
+   — it should return your own name. (Revoke and re-mint anytime from the same
+   settings page; nothing else needs to change except your `.env`.)
 
 ## API facts (for the agent)
 
