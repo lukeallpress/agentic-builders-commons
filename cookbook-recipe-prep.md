@@ -69,11 +69,18 @@ and how to verify it works. 10-25 steps is typical. Name real tools and versions
 ## Watch out for
 <The failure modes: what broke, what you'd do differently, where the sharp edges are.>
 
+## Repo
+<If this project's code is PUBLIC, the repo URL — often more useful to a peer than any
+prompt. Ask the builder before assuming: never list a private or internal-only repo, and
+never a URL that exposes district infrastructure. Write "None — not public" if so.>
+
 ## Sample prompt
 <A single long prompt (150-400 words) that a peer could paste into their own coding
 agent to reproduce the core of this build. Imperative voice. Include the architecture,
 the stack, the guardrails, and the definition of done. Write it as if briefing a
-capable engineer who has the prerequisites in place but has never seen this project.>
+capable engineer who has the prerequisites in place but has never seen this project.
+If there's a public repo, this is still worth writing, but it can be shorter — the two
+are complementary, and either alone is enough to publish.>
 
 ## Screenshot
 <See step 3.>
@@ -135,7 +142,8 @@ Then submit it one of three ways:
    (https://lukeallpress.github.io/agentic-builders-commons/cookbook-update-SKILL.md) —
    the sections of this packet map 1:1 onto the Coda columns it writes
    (`Description_Rich`, `Tags`, `Prereqs`, `Prereq_Details`, `Data_Needs`, `Setup_Steps`,
-   `Sample_Prompt`, `Credit` = the builder), with `Review_Status` = `needs_review`.
+   `Sample_Prompt`, `Repo_Link`, `Credit` = the builder), with
+   `Review_Status` = `needs_review`.
 2. The committee's project form.
 3. Email it to the organizer.
 

@@ -96,6 +96,9 @@ doc automatically, so your edits show up on the site without anyone in the loop.
      (e.g. `Student schedule | PowerSchool API /sections`). Projects only.
    - `Sample_Prompt` — a 150-400 word prompt a peer could paste into their own coding
      agent to reproduce the build. Projects only.
+   - `Repo_Link` — optional public URL to the project's repo (must start with `https://`).
+     Projects only. If the code is public, this is often more useful than the prompt —
+     either one alone is fine; both is better. Never link a private or internal-only repo.
 4. Upsert. The public cookbook rebuilds from these rows nightly.
 
 ## Sharing a skill on the shelf
