@@ -57,6 +57,10 @@
   .status-investigating { background:var(--brand-soft); color:var(--brand); }
   .status-resolved { background:var(--accent-soft); color:var(--accent); }
   .call .date { color:var(--muted); font-size:.82rem; font-weight:600; }
+  .card.read h3 { margin:.5em 0 .4em; line-height:1.3; }
+  .card.read h3 a { text-decoration:none; }
+  .card.read h3 a:hover { text-decoration:underline; }
+  .card.read .byline { margin-top:12px; }
   .goals { display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
   .goal { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--brand);
     border-radius:12px; padding:20px; }
@@ -97,7 +101,7 @@
       <a class="btn primary" href="mailto:lallpress@aguafria.org?subject=Interested%20in%20the%20Agentic%20Builders%20Committee">Get involved</a>
       <a class="btn ghost" href="cookbook.html">Read the cookbook →</a>
     </div>
-    <div class="stats"><div class="stat"><span class="num">21</span><span class="lbl">practitioners</span></div><div class="stat"><span class="num">8</span><span class="lbl">calls so far</span></div><div class="stat"><span class="num">34</span><span class="lbl">ideas to steal</span></div><div class="stat"><span class="num">76</span><span class="lbl">recipes</span></div><div class="stat"><span class="num">13</span><span class="lbl">open questions</span></div></div>
+    <div class="stats"><div class="stat"><span class="num">21</span><span class="lbl">practitioners</span></div><div class="stat"><span class="num">8</span><span class="lbl">calls so far</span></div><div class="stat"><span class="num">34</span><span class="lbl">ideas to steal</span></div><div class="stat"><span class="num">76</span><span class="lbl">recipes</span></div><div class="stat"><span class="num">13</span><span class="lbl">open questions</span></div><div class="stat"><span class="num">6</span><span class="lbl">worth reading</span></div></div>
   </div>
 </header>
 
@@ -243,6 +247,45 @@
           How do we maintain a semantic/intelligence layer so agents interpret terms (e.g. &#x27;average daily attendance&#x27;) consistently across districts?</li><li><span class="status status-open">Open</span>
           Is there a way to formalize this practitioners group within CoSN, or should it be a separate group?</li><li><span class="status status-open">Open</span>
           Should agents be able to query each other&#x27;s agents, and how do we keep that safe?</li></ul>
+  </div>
+</section>
+
+<section id="reading">
+  <div class="wrap">
+    <h2>Reading list</h2>
+    <p class="sub">What members are passing around — articles, posts and episodes worth your time,
+      with a note on why. Links go to the original sources.</p>
+    <div class="grid"><article class="card read">
+          <div class="chips"><span class="chip">vibe-coding</span><span class="chip">district-ai-strategy</span><span class="chip">cost-savings</span><span class="chip">governance</span><span class="chip">personal-agents</span><span class="chip">k12</span></div>
+          <h3><a href="https://www.buzzsprout.com/2041840/episodes/20003570" target="_blank" rel="noopener noreferrer">From Ideas to Impact: Vibe Coding and the AI-Ready School District with Kris Hagel</a></h3>
+          <p>Two members of this group, in long form: Brian Graham (Grand Island CSD) interviews Kris Hagel (Peninsula SD) for 50 minutes on the Erie Niagara superintendents&#x27; podcast. Worth it for the numbers and the governance rather than the enthusiasm — roughly $500k in subscriptions avoided so far and about $300k/year projected, two cancelled contracts at ~$75k each, against a token spend that could reach ~$10k/month…</p>
+          <p class="muted byline">Luke Allpress · 2026-10-22</p>
+        </article><article class="card read">
+          <div class="chips"><span class="chip">leadership</span><span class="chip">ai-adoption</span><span class="chip">k12</span></div>
+          <h3><a href="https://www.amazon.com/s?k=The+AI+Ready+School+Leader" target="_blank" rel="noopener noreferrer">The AI Ready School Leader: Leading Districts, Schools, and Classrooms Through the AI Era</a></h3>
+          <p>Collaborative book led by Brian Graham with chapters from members of this group, including Luke Allpress, Drew Olsson and Lauren Owens. Launched October 2026.</p>
+          <p class="muted byline">Brian Graham · 2026-10-21</p>
+        </article><article class="card read">
+          <div class="chips"><span class="chip">Practice</span></div>
+          <h3><a href="https://lnkd.in/p/guxq-mFA" target="_blank" rel="noopener noreferrer">The other side of vibe coding</a></h3>
+          <p>Shared during the cookbook discussion on the Aug 11 call — the counterweight perspective on conversational building.</p>
+          <p class="muted byline">2026-08-11</p>
+        </article><article class="card read">
+          <div class="chips"><span class="chip">Practice</span></div>
+          <h3><a href="https://moekhalil.substack.com/p/how-to-become-a-10x-ramble-coder" target="_blank" rel="noopener noreferrer">How to become a 10x ramble coder</a></h3>
+          <p>Dictate the context you&#x27;d normally edit out of a typed prompt — rambling gives the agent the conversational detail it needs. Luke&#x27;s been trying it with success.</p>
+          <p class="muted byline">Luke Allpress · 2026-08-11</p>
+        </article><article class="card read">
+          <div class="chips"><span class="chip">agentic-access</span><span class="chip">edtech</span><span class="chip">mcp</span></div>
+          <h3><a href="https://psd401.ai/blog/build-products-our-agents-can-use" target="_blank" rel="noopener noreferrer">Build Products Our Agents Can Use</a></h3>
+          <p>Kris Hagel&#x27;s case that EdTech vendors should make their systems agent-ready — safely accessible to district-owned AI agents coordinating across platforms — rather than shipping isolated chatbots, or districts will build the replacements themselves. Grounds the group&#x27;s &#x27;agentic access for vendors&#x27; thread.</p>
+          <p class="muted byline">Kris Hagel · 2026-07-08</p>
+        </article><article class="card read">
+          <div class="chips"><span class="chip">agentic-development</span><span class="chip">multi-agent</span><span class="chip">code-quality</span></div>
+          <h3><a href="https://posthog.com/blog/sql-parser" target="_blank" rel="noopener noreferrer">I wrote a 70x faster SQL parser while barely looking at the code</a></h3>
+          <p>Development strategy using multiple agents in concert to create a vetted, deployable solution that resulted in 70x-450x improvement in SQL parsing.</p>
+          <p class="muted byline">Luke Allpress · 2026-06-19</p>
+        </article></div>
   </div>
 </section>
 
