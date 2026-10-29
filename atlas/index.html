@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>District AI Atlas — Agentic Builders Commons</title>
+<meta name="description" content="How K-12 districts actually run AI: identity platforms, which AI tools are on, governance and app review, and the guardrails under staff-built software. Contributed by districts, answered by their own AI assistants.">
+<meta property="og:title" content="District AI Atlas">
+<meta property="og:description" content="Map your district's AI infrastructure in 10 minutes. Your AI assistant does the digging.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%232a338f'/><stop offset='1' stop-color='%235a6bf0'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='url(%23g)'/><path d='M32 21 21 42M32 21 43 42M21 42h22' stroke='white' stroke-width='4' fill='none' stroke-linecap='round'/><circle cx='32' cy='20' r='6.5' fill='white'/><circle cx='20' cy='43' r='6.5' fill='white'/><circle cx='44' cy='43' r='6.5' fill='white'/></svg>">
+<style>
+  :root {
+    color-scheme: light;
+    --ink:#1a2233; --ink-2:#3d4759; --muted:#5b6678; --faint:#8a93a3; --line:#e6e9f0; --bg:#f7f8fb; --card:#ffffff;
+    --brand:#3b4cca; --brand-deep:#2a338f; --brand-soft:#eef0ff; --accent:#0e9f6e; --accent-soft:#e7f6ef;
+    --amber:#9a5b00; --amber-soft:#fdf1e1;
+    --o1:#184f95; --o2:#256abf; --o3:#3987e5; --o4:#5598e7; --o5:#86b6ef;
+    --t-both:#184f95; --t-staff:#3987e5; --t-pilot:#86b6ef; --t-off:#dcdbd4; --t-blocked:#9a988f;
+    --grid:#e1e0d9; --radius:16px; --maxw:1120px;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:var(--bg); line-height:1.55; -webkit-font-smoothing:antialiased; }
+  a { color:var(--brand); }
+  .wrap { max-width:var(--maxw); margin:0 auto; padding:0 16px; }
+  @media (min-width:700px) { .wrap { padding:0 24px; } }
+  button { font:inherit; cursor:pointer; }
+
+  /* ---------- hero + contribute ---------- */
+  header.hero { background:radial-gradient(120% 90% at 85% 0%,#5a6bf0 0%,rgba(90,107,240,0) 60%),
+      linear-gradient(160deg,#1f2670 0%,#2a338f 45%,#3b4cca 100%); color:#fff; overflow:hidden; }
+  header.hero .wrap { padding:28px 16px 40px; }
+  @media (min-width:700px) { header.hero .wrap { padding:44px 24px 64px; } }
+  .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:.86rem; }
+  .topbar a { color:#fff; opacity:.85; text-decoration:none; }
+  .topbar a:hover { opacity:1; text-decoration:underline; }
+  .hero-grid { display:grid; gap:28px; margin-top:28px; }
+  @media (min-width:940px) { .hero-grid { grid-template-columns:1fr 1.05fr; gap:44px; align-items:start; margin-top:40px; } }
+  .eyebrow { text-transform:uppercase; letter-spacing:.14em; font-size:.74rem; font-weight:700; opacity:.85; }
+  h1 { font-size:clamp(2.05rem,6vw,3.4rem); line-height:1.04; margin:.3em 0 .3em; font-weight:800; letter-spacing:-.01em; }
+  .lede { font-size:1.1rem; max-width:44ch; opacity:.95; margin:0; }
+  .stats { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:26px; max-width:440px; }
+  @media (min-width:520px) { .stats { grid-template-columns:repeat(4,1fr); max-width:none; } }
+  .stat { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:12px; padding:10px 14px; }
+  .stat .num { display:block; font-size:1.65rem; font-weight:800; line-height:1.15; }
+  .stat .lbl { font-size:.78rem; opacity:.88; }
+
+  .contribute { background:#fff; color:var(--ink); border-radius:20px; padding:22px 18px;
+    box-shadow:0 24px 60px rgba(10,14,50,.35); }
+  @media (min-width:700px) { .contribute { padding:28px 28px; } }
+  .contribute h2 { margin:0; font-size:1.4rem; line-height:1.2; }
+  .contribute .kicker { color:var(--accent); font-weight:750; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; }
+  .contribute .why { color:var(--muted); margin:.4em 0 1em; font-size:.95rem; }
+  ol.steps { list-style:none; margin:0; padding:0; display:grid; gap:14px; }
+  ol.steps li { display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start; }
+  .stepnum { width:34px; height:34px; border-radius:50%; background:var(--brand-soft); color:var(--brand);
+    font-weight:800; display:grid; place-items:center; }
+  .steps h3 { margin:3px 0 2px; font-size:1rem; }
+  .steps p { margin:0; color:var(--muted); font-size:.92rem; }
+  .prompt-box { margin-top:8px; background:#f3f4f9; border:1px solid var(--line); border-radius:12px; padding:10px 12px;
+    font-size:.86rem; color:var(--ink-2); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; line-height:1.45;
+    word-break:break-word; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:11px 18px; border-radius:999px;
+    font-weight:700; text-decoration:none; border:0; font-size:.95rem; min-height:44px; }
+  .btn.primary { background:var(--brand); color:#fff; }
+  .btn.primary:hover { background:var(--brand-deep); }
+  .btn.soft { background:var(--brand-soft); color:var(--brand); }
+  .btn.soft:hover { background:#e0e4ff; }
+  .btn.copied { background:var(--accent); color:#fff; }
+  .btnrow { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .fineprint { margin:16px 0 0; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:.84rem; }
+  .fineprint a { font-weight:600; }
+
+  /* ---------- nav ---------- */
+  nav.jump { position:sticky; top:0; z-index:20; background:rgba(247,248,251,.92); backdrop-filter:saturate(1.4) blur(10px);
+    -webkit-backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid var(--line); }
+  nav.jump .wrap { display:flex; gap:6px; overflow-x:auto; padding-top:10px; padding-bottom:10px; scrollbar-width:none; }
+  nav.jump .wrap::-webkit-scrollbar { display:none; }
+  nav.jump a { flex:0 0 auto; padding:7px 14px; border-radius:999px; text-decoration:none; color:var(--ink-2);
+    font-weight:650; font-size:.88rem; background:#fff; border:1px solid var(--line); }
+  nav.jump a:hover { border-color:var(--brand); color:var(--brand); }
+
+  /* ---------- sections + cards ---------- */
+  section { padding:44px 0 8px; scroll-margin-top:60px; }
+  @media (min-width:700px) { section { padding:64px 0 12px; } }
+  section > .wrap > h2 { font-size:clamp(1.45rem,3.6vw,1.95rem); margin:0 0 6px; line-height:1.15; letter-spacing:-.01em; }
+  .sub { color:var(--muted); margin:0 0 22px; max-width:62ch; }
+  .tag { display:inline-block; font-size:.72rem; font-weight:750; letter-spacing:.1em; text-transform:uppercase; color:var(--brand); margin-bottom:6px; }
+  .cards { display:grid; gap:16px; }
+  @media (min-width:860px) { .cards.two { grid-template-columns:1fr 1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 16px; min-width:0; }
+  @media (min-width:700px) { .card { padding:22px 24px; } }
+  .card h3 { margin:0 0 2px; font-size:1.05rem; }
+  .card .note { color:var(--muted); font-size:.86rem; margin:0 0 14px; }
+
+  /* ---------- tile map ---------- */
+  .map-layout { display:grid; gap:18px; }
+  @media (min-width:860px) { .map-layout { grid-template-columns:1.6fr 1fr; align-items:center; } }
+  .tilemap { display:grid; grid-template-columns:repeat(11,1fr); gap:3px; width:100%; max-width:620px; }
+  .tile { aspect-ratio:1; border-radius:5px; background:#eceef3; color:var(--faint); font-size:clamp(.5rem,1.9vw,.72rem);
+    font-weight:700; display:grid; place-items:center; border:0; padding:0; position:relative; }
+  .tile.has { color:#fff; }
+  .tile.home::after { content:""; position:absolute; inset:-3px; border:2px solid var(--accent); border-radius:7px; }
+  .tile.has:hover, .tile.has:focus-visible { outline:2px solid var(--ink); outline-offset:1px; }
+  .map-legend { display:flex; align-items:center; gap:8px; font-size:.8rem; color:var(--muted); margin-top:12px; flex-wrap:wrap; }
+  .ramp { display:inline-flex; border-radius:4px; overflow:hidden; }
+  .ramp i { width:18px; height:10px; display:block; }
+  .homekey { display:inline-flex; align-items:center; gap:6px; }
+  .homekey i { width:12px; height:12px; border:2px solid var(--accent); border-radius:3px; display:block; }
+  .statelist { display:grid; gap:8px; }
+  .staterow { display:flex; justify-content:space-between; gap:10px; padding:10px 12px; border-radius:10px; background:var(--bg);
+    font-size:.92rem; border:1px solid transparent; text-align:left; width:100%; color:var(--ink); }
+  .staterow:hover { border-color:var(--line); background:#fff; }
+  .staterow b { font-variant-numeric:tabular-nums; }
+
+  /* ---------- unit (dot) chart ---------- */
+  .unit-row { display:grid; grid-template-columns:minmax(92px,150px) 1fr; gap:10px; align-items:center; padding:7px 0;
+    border-top:1px solid var(--line); }
+  .unit-row:first-child { border-top:0; }
+  .unit-row .lbl { font-size:.88rem; color:var(--ink-2); font-weight:600; }
+  .unit-row .lbl span { display:block; font-weight:500; color:var(--faint); font-size:.78rem; }
+  .dots { display:flex; flex-wrap:wrap; gap:5px; }
+  .dot { width:20px; height:20px; border-radius:50%; background:var(--o3); border:0; padding:0; box-shadow:0 0 0 2px #fff; }
+  .dot.home { background:var(--accent); }
+  .dot:hover, .dot:focus-visible { transform:scale(1.18); outline:none; }
+
+  /* ---------- stacked bars ---------- */
+  .legend { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.8rem; color:var(--ink-2); margin:0 0 12px; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .legend i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+  .bars { display:grid; gap:2px; }
+  .bar-row { display:grid; grid-template-columns:minmax(104px,190px) 1fr 40px; gap:10px; align-items:center; padding:5px 0; }
+  .bar-row .lbl { font-size:.86rem; color:var(--ink-2); line-height:1.25; }
+  .bar-row .val { font-size:.8rem; color:var(--muted); text-align:right; font-variant-numeric:tabular-nums; }
+  .track { display:flex; gap:2px; height:18px; min-width:0; }
+  .seg { height:100%; border:0; padding:0; min-width:4px; }
+  .seg:first-child { border-radius:4px 0 0 4px; }
+  .seg:last-child { border-radius:0 4px 4px 0; }
+  .seg:only-child { border-radius:4px; }
+  .seg:hover, .seg:focus-visible { filter:brightness(1.12); outline:none; }
+  .track .rest { flex:1; background:#f0f1f5; border-radius:0 4px 4px 0; }
+  .mbar { margin-bottom:18px; }
+  .mbar:last-child { margin-bottom:0; }
+  .mbar .mq { font-size:.9rem; font-weight:650; color:var(--ink); margin:0 0 6px; display:flex; justify-content:space-between; gap:12px; }
+  .mbar .mq small { color:var(--faint); font-weight:500; white-space:nowrap; }
+  .mtrack { display:flex; gap:2px; height:26px; }
+  .mtrack .rest { flex:1; background:#f0f1f5; border-radius:0 4px 4px 0; }
+  .mtrack .seg { color:#fff; font-size:.74rem; font-weight:700; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .mlegend { display:flex; flex-wrap:wrap; gap:4px 12px; margin-top:6px; font-size:.76rem; color:var(--muted); }
+  .mlegend span { display:inline-flex; align-items:center; gap:5px; }
+  .mlegend b { color:var(--ink-2); font-variant-numeric:tabular-nums; }
+  .mlegend i { width:10px; height:10px; border-radius:2px; display:inline-block; }
+  .countbar .track { height:14px; }
+  @media (max-width:600px) {
+    .bar-row { grid-template-columns:1fr 44px; row-gap:4px; padding:6px 0; }
+    .bar-row .lbl { grid-column:1 / -1; }
+    .matrix td.name { max-width:104px; font-size:.8rem; }
+    .matrix td { padding:5px 1px; }
+    .pip { width:16px; height:16px; }
+    .topbar > span:last-child { white-space:nowrap; }
+  }
+  .countbar .seg { background:var(--o2); }
+
+  /* ---------- readiness matrix ---------- */
+  .matrix-wrap { overflow-x:auto; margin:0 -4px; padding:0 4px; }
+  table.matrix { border-collapse:collapse; width:100%; min-width:340px; }
+  .matrix th { font-size:.7rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;
+    padding:0 2px 8px; vertical-align:bottom; height:96px; }
+  .matrix th.rot > div { writing-mode:vertical-rl; transform:rotate(180deg); white-space:nowrap; margin:0 auto; }
+  .matrix th.name { text-align:left; height:auto; }
+  .matrix td { padding:5px 2px; border-top:1px solid var(--line); text-align:center; }
+  .matrix td.name { text-align:left; font-size:.86rem; font-weight:600; color:var(--ink-2); max-width:150px; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; padding-right:8px; }
+  .matrix td.name small { color:var(--faint); font-weight:600; margin-left:4px; }
+  .pip { width:18px; height:18px; border-radius:50%; display:inline-block; border:0; padding:0; vertical-align:middle; }
+  .pip.l2 { background:var(--o1); }
+  .pip.l1 { background:linear-gradient(90deg,var(--o3) 50%,#fff 50%); box-shadow:inset 0 0 0 2px var(--o3); }
+  .pip.l0 { background:#fff; box-shadow:inset 0 0 0 2px var(--t-blocked); }
+  .pip.na { background:radial-gradient(circle,var(--grid) 0 3px,transparent 3.5px); }
+  .pip:hover, .pip:focus-visible { transform:scale(1.2); outline:none; }
+  .matrix-key { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:.8rem; color:var(--ink-2); margin-top:12px; }
+  .matrix-key span { display:inline-flex; align-items:center; gap:6px; }
+  .matrix-key .pip { width:14px; height:14px; }
+
+  /* ---------- reference standard ---------- */
+  .standard { background:linear-gradient(180deg,#fff, #fbfcff); }
+  .pillars { display:grid; gap:12px; margin-top:16px; }
+  @media (min-width:700px) { .pillars { grid-template-columns:repeat(2,1fr); } }
+  @media (min-width:1000px) { .pillars { grid-template-columns:repeat(3,1fr); } }
+  .pillar { border:1px solid var(--line); border-radius:12px; padding:14px 16px; background:#fff; }
+  .pillar h4 { margin:0 0 4px; font-size:.96rem; color:var(--brand-deep); }
+  .pillar p { margin:0; font-size:.88rem; color:var(--ink-2); }
+  .pillar summary { margin-top:8px; font-size:.8rem; font-weight:650; color:var(--brand); cursor:pointer; }
+  .pillar ul { margin:8px 0 0; padding-left:18px; font-size:.82rem; color:var(--muted); }
+  .pillar li { margin:2px 0; }
+
+  /* ---------- database ---------- */
+  .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .filters input, .filters select { font:inherit; font-size:.95rem; padding:10px 12px; border-radius:10px; border:1px solid var(--line);
+    background:#fff; color:var(--ink); min-height:44px; }
+  .filters input { flex:1 1 220px; }
+  .filters select { flex:0 1 auto; }
+  .count-line { font-size:.86rem; color:var(--muted); margin:0 0 12px; }
+  .dlist { display:grid; gap:12px; }
+  @media (min-width:860px) { .dlist { grid-template-columns:1fr 1fr; align-items:start; } }
+  .dcard { background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+  .dhead { display:block; width:100%; text-align:left; background:none; border:0; padding:16px 16px 14px; color:var(--ink); }
+  .dhead:hover { background:#fbfbfe; }
+  .dtitle { display:flex; justify-content:space-between; gap:10px; align-items:start; }
+  .dtitle h3 { margin:0; font-size:1.04rem; line-height:1.25; }
+  .badge { font-size:.68rem; font-weight:750; letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:999px; white-space:nowrap; }
+  .badge.seeded { background:var(--amber-soft); color:var(--amber); }
+  .badge.submitted { background:var(--accent-soft); color:#08744f; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .chip { font-size:.76rem; padding:3px 9px; border-radius:999px; background:var(--bg); border:1px solid var(--line); color:var(--ink-2); }
+  .hl { margin:10px 0 0; padding:0; list-style:none; font-size:.88rem; color:var(--ink-2); }
+  .hl li { padding-left:16px; position:relative; margin:4px 0; }
+  .hl li::before { content:""; position:absolute; left:2px; top:.6em; width:6px; height:6px; border-radius:50%; background:var(--brand); }
+  .meter { display:flex; align-items:center; gap:8px; font-size:.76rem; color:var(--muted); margin-top:10px; }
+  .meter .m { flex:1; height:6px; border-radius:3px; background:var(--line); overflow:hidden; max-width:160px; }
+  .meter .m i { display:block; height:100%; background:var(--accent); }
+  .ddetail { border-top:1px solid var(--line); padding:6px 16px 16px; display:none; }
+  .dcard.open .ddetail { display:block; }
+  .dsec h4 { margin:14px 0 6px; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--brand); }
+  .qa { display:grid; gap:2px; padding:6px 0; border-top:1px dashed var(--line); }
+  .qa:first-of-type { border-top:0; }
+  .qa .q { font-size:.78rem; color:var(--faint); }
+  .qa .a { font-size:.9rem; color:var(--ink); }
+  .toolgrid { display:flex; flex-wrap:wrap; gap:5px; }
+  .tstat { font-size:.76rem; padding:3px 8px; border-radius:6px; color:#fff; }
+  .empty { color:var(--muted); font-size:.9rem; padding:16px; text-align:center; }
+
+  /* ---------- tooltip ---------- */
+  #tip { position:fixed; z-index:50; pointer-events:none; background:#141a2b; color:#fff; font-size:.8rem; line-height:1.4;
+    padding:8px 10px; border-radius:8px; max-width:260px; box-shadow:0 8px 24px rgba(0,0,0,.25); opacity:0; transition:opacity .08s; }
+  #tip.on { opacity:1; }
+  #tip b { display:block; font-size:.84rem; }
+  #tip .tm { color:#b9c0d4; }
+
+  /* ---------- footer ---------- */
+  footer { padding:48px 0 60px; color:var(--muted); font-size:.88rem; }
+  footer .cols { display:grid; gap:18px; border-top:1px solid var(--line); padding-top:28px; }
+  @media (min-width:800px) { footer .cols { grid-template-columns:1.2fr 1fr 1fr; } }
+  footer h4 { margin:0 0 6px; color:var(--ink); font-size:.92rem; }
+  footer p { margin:0 0 6px; }
+  .toast { position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(20px); background:#141a2b; color:#fff;
+    padding:10px 16px; border-radius:999px; font-size:.9rem; opacity:0; transition:all .2s; z-index:60; pointer-events:none; }
+  .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <span class="eyebrow">Agentic Builders Commons</span>
+      <span><a href="../">Commons</a> &nbsp;·&nbsp; <a href="../cookbook.html">Cookbook</a></span>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">District AI Atlas</div>
+        <h1>How districts actually run&nbsp;AI.</h1>
+        <p class="lede">Identity platforms, which AI tools are on, how apps get approved, and the guardrails under staff-built software. Mapped district by district, so nobody has to figure it out alone.</p>
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <div class="contribute" id="contribute">
+        <div class="kicker">Contribute to the database</div>
+        <h2>Add your district in about 10 minutes</h2>
+        <p class="why">Your AI assistant does the digging. It reads your email, files and chat for the answers, asks you what it can't find, and drafts the submission for you to send.</p>
+        <ol class="steps">
+          <li><span class="stepnum">1</span><div>
+            <h3>Copy this prompt</h3>
+            <div class="prompt-box" id="promptText"></div>
+            <div class="btnrow">
+              <button class="btn primary" id="copyPrompt" type="button">Copy prompt</button>
+            </div>
+          </div></li>
+          <li><span class="stepnum">2</span><div>
+            <h3>Paste it into your work AI assistant</h3>
+            <p>Gemini, Copilot, ChatGPT or Claude, ideally the one connected to your district email and drive. Works on your phone.</p>
+          </div></li>
+          <li><span class="stepnum">3</span><div>
+            <h3>Review, then send</h3>
+            <p>It shows you a draft and emails it only after you approve. No assistant connected to email? Copy its answer and tap below.</p>
+            <div class="btnrow"><a class="btn soft" id="mailBtn" href="#">Email my answers</a></div>
+          </div></li>
+        </ol>
+        <p class="fineprint">Assistant can't open links? <a href="#" id="copyBrief">Copy the full brief</a> instead. &nbsp;·&nbsp; <a href="agent.md">Read the questions</a><br>District-level only: no names, no student data, no passwords or server details.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Sections">
+  <div class="wrap">
+    <a href="#map">Map</a><a href="#platforms">Platforms</a><a href="#tools">AI tools</a><a href="#governance">Governance</a><a href="#sandbox">Builder sandbox</a><a href="#database">Database</a>
+  </div>
+</nav>
+
+<main>
+  <section id="map"><div class="wrap">
+    <span class="tag">Coverage</span>
+    <h2>Where the atlas reaches</h2>
+    <p class="sub">Every district here was mapped from Agentic Builders conversations or submitted by the district itself. Tap a state to see its districts.</p>
+    <div class="card"><div class="map-layout">
+      <div>
+        <div class="tilemap" id="tilemap" role="group" aria-label="Districts by state"></div>
+        <div class="map-legend"><span>Districts</span><span class="ramp" id="mapRamp"></span><span id="mapRampMax"></span>
+          <span class="homekey"><i></i>Home base: Arizona</span></div>
+      </div>
+      <div class="statelist" id="statelist"></div>
+    </div></div>
+  </div></section>
+
+  <section id="platforms"><div class="wrap">
+    <span class="tag">Identity &amp; platforms</span>
+    <h2>Google or Microsoft decides a lot</h2>
+    <p class="sub">The suite a district runs shapes which AI tools arrive by default and how sign-in works for everything staff build. Each dot is one district.</p>
+    <div class="cards two">
+      <div class="card"><h3>Productivity suite</h3><p class="note">Where staff live all day.</p><div id="unitSuite"></div></div>
+      <div class="card"><h3>Identity provider</h3><p class="note">Where accounts live and sign-in starts.</p><div id="unitIdp"></div></div>
+    </div>
+  </div></section>
+
+  <section id="tools"><div class="wrap">
+    <span class="tag">AI tools</span>
+    <h2>What's turned on, and for whom</h2>
+    <p class="sub">District counts by tool. Longer, darker bars mean more districts have it on for more people. Hover or tap a segment to see which districts.</p>
+    <div class="card">
+      <div class="legend" id="toolLegend"></div>
+      <div class="bars" id="toolBars"></div>
+    </div>
+  </div></section>
+
+  <section id="governance"><div class="wrap">
+    <span class="tag">Governance &amp; review</span>
+    <h2>How decisions get made</h2>
+    <p class="sub">Policy, ownership of what staff build, and what an app has to clear before it reaches classrooms. Darker means further along.</p>
+    <div class="cards two">
+      <div class="card"><h3>Policy and posture</h3><p class="note">Bar length is share of all districts; gray is not reported yet.</p><div id="govBars"></div></div>
+      <div class="card"><h3>What app vetting requires</h3><p class="note">Districts listing each requirement.</p><div class="bars countbar" id="vettingBars"></div></div>
+    </div>
+  </div></section>
+
+  <section id="sandbox"><div class="wrap">
+    <span class="tag">Democratized building</span>
+    <h2>The builder sandbox: guardrails under staff-built software</h2>
+    <p class="sub">When teachers and staff build with AI, the protocols matter: version control, review, sign-in, data rules, and how tools reach production. This is the part of the atlas no one else is mapping.</p>
+    <div class="card" style="margin-bottom:16px">
+      <h3>Builder readiness, district by district</h3>
+      <p class="note">Each row is a district; each column a practice. Hover or tap a circle for the answer.</p>
+      <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+      <div class="matrix-key"><span><i class="pip l2"></i>In place</span><span><i class="pip l1"></i>Partial or in progress</span><span><i class="pip l0"></i>Not yet</span><span><i class="pip na"></i>Not reported</span></div>
+    </div>
+    <div class="cards two">
+      <div class="card"><h3>Sandbox protocols</h3><p class="note">Bar length is share of all districts; gray is not reported yet.</p><div id="sandboxBars"></div></div>
+      <div class="card"><h3>What builders use</h3><p class="note">Districts listing each tool, host, or database.</p>
+        <div class="bars countbar" id="builderToolBars"></div>
+        <h3 style="margin-top:22px">Where staff-built apps run</h3><div class="bars countbar" id="hostingBars" style="margin-top:8px"></div>
+        <h3 style="margin-top:22px">Databases builders may use</h3><div class="bars countbar" id="dbBars" style="margin-top:8px"></div>
+      </div>
+    </div>
+    <div class="cards two" style="margin-top:16px">
+      <div class="card"><h3>Agents &amp; MCP governance</h3><p class="note">Where permission lives when a model touches district data.</p><div id="agentBars"></div></div>
+      <div class="card"><h3>App data architecture</h3><p class="note">How staff-built apps reach district data.</p><div id="dataBars"></div></div>
+    </div>
+    <div class="card standard" id="standardCard" style="margin-top:16px; display:none"></div>
+  </div></section>
+
+  <section id="database"><div class="wrap">
+    <span class="tag">The database</span>
+    <h2>Every district, every answer</h2>
+    <p class="sub">Open a district to read its full answer sheet. <span class="badge seeded">Seeded</span> entries come from committee conversations and are waiting for the district to confirm; <span class="badge submitted">Submitted</span> entries came from the district.</p>
+    <div class="filters">
+      <input id="q" type="search" placeholder="Search districts, tools, practices…" aria-label="Search districts">
+      <select id="fState" aria-label="Filter by state"><option value="">All states</option></select>
+      <select id="fSuite" aria-label="Filter by suite"><option value="">Any suite</option></select>
+    </div>
+    <p class="count-line" id="countLine"></p>
+    <div class="dlist" id="dlist"></div>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><div class="cols">
+  <div><h4>About the atlas</h4><p>Built by the <a href="../">Agentic Builders Committee</a>, a nationwide group of K-12 AI practitioners who meet monthly to show working tools and share how they build them. Organized by Agua Fria Union High School District, Arizona.</p></div>
+  <div><h4>What we collect</h4><p>District-level practices only. No personal names, student data, credentials, server details, or security weaknesses. Districts can correct or remove their entry any time.</p></div>
+  <div><h4>Use the data</h4><p><a href="districts.json">Download the database (JSON)</a></p><p><a href="agent.md">The question set</a></p><p id="contactLine"></p><p id="genLine"></p></div>
+</div></div></footer>
+
+<div id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const ATLAS = {"districts": [{"slug": "asu-prep-digital", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "ASU Prep Digital", "state": "AZ", "org_type": "charter network", "grade_span": "K-12", "locale": "virtual", "lms": "Canvas", "ai_tools": {"Claude": "staff", "ChatGPT (consumer)": "staff", "MagicSchool": "staff"}, "ai_tools_other": ["Canva", "Kami (elementary)", "Padlet"], "ai_policy": "administrative guidance / AUP", "academic_integrity": "district-wide framework", "app_launch_review": "Proposed applications are reviewed against a security checklist before they are hosted.", "can_share": ["Public handbook generative AI policy", "Five-level AI-use framework for assignments", "Application security review checklist"]}, "highlights": ["Teachers set the allowed level of AI use on every assignment with a five-level framework, and students cite any AI they use.", "Proposed applications go through a security checklist before they are hosted."]}, {"slug": "agua-fria-uhsd", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Agua Fria Union High School District", "state": "AZ", "city": "Avondale", "org_type": "public district", "enrollment_band": "5k-15k", "grade_span": "9-12", "locale": "suburban", "respondent_role": "Director of Innovation (district office)", "productivity_suite": "Google Workspace", "primary_idp": "Google", "sso_portal": "ClassLink", "lms": "Google Classroom", "sis": "Synergy", "ai_tools": {"Gemini": "staff+students", "NotebookLM": "staff+students", "ChatGPT (Edu/Enterprise)": "staff", "Gemini Gems / custom GPTs": "staff", "Claude": "pilot", "Self-hosted / local models": "pilot"}, "default_posture": "allowlist: blocked until approved", "student_ai_age_gate": "No age gate inside the high school span; students may use only the district-approved AI tools (Gemini, the Gemini notebook tool and Canva) and about fifty other AI sites are blocked for students. Ninth graders get mandatory lessons on evaluating AI critically.", "ai_tools_other": ["Canva (students)", "District data connector inside the enterprise ChatGPT workspace (teachers' own students, read-only)", "Admin Data Agent: a question page for campus administrators answered by the district MCP server and the self-hosted model", "GitHub Copilot for Builder's Permit holders"], "ai_policy": "administrative guidance / AUP", "ai_review_structure": "Software and online services need Technology approval before use on district devices, and a new web resource needs both Academics (instructional value, curriculum fit, accessibility) and Technology (privacy, security, integration, cost); either can veto. Staff-built tools go through the innovation office, and every production deploy waits on the Director of Innovation's approval (a named backup can click).", "app_vetting": ["security questionnaire", "accessibility (VPAT/WCAG) check", "instructional review", "curriculum alignment", "cost/procurement review"], "vetting_checklist": ["compliant privacy policy", "what student data is collected and how it is stored", "SIS / LMS integration and compatibility", "data lands in the district warehouse without hand mapping", "WCAG 2.1 accessibility", "security compliance", "vendor support and reputation", "cost, licensing and scalability", "content and network impact"], "teacher_ip_policy": "in progress", "teacher_ip_notes": "Under discussion, not adopted: the builder keeps the intellectual property and the district keeps a free perpetual licence, pending legal review.", "data_tiers": "The district's self-hosted model is preferred for work over student records; a hosted model may receive student data only under a district agreement that covers it (the enterprise ChatGPT workspace is the first). Apps send counts and keys, not values, to assistants by default; no student names in code repositories; nothing personal is retained or learned from.", "academic_integrity": "district-wide framework", "who_builds": ["IT / data team", "innovation or ed-tech team", "teachers", "outside contractors"], "vibe_coding_support": "formal program with permits/training", "builder_tools": ["Claude Code", "OpenAI Codex", "GitHub Copilot", "VS Code", "Apps Script", "n8n", "Antigravity"], "builder_pathway": "The Builder's Permit: an invite-only, roughly fifteen-hour asynchronous course of three modules (FERPA and Arizona privacy, district policy, security, GitHub, sign-on), each passed at 80 percent, ending in a GitHub capstone a human reviews. The permit unlocks GitHub Copilot and, after a month's notice, is required to author Apps Script.", "app_launch_review": "A pull request in a private district repository, CI green, an adversarial review by a second AI agent, a human merge, then the Director of Innovation's approval at the production environment gate; health check, rollback on failure, and an accessibility scan of the pages touched. Rollout is staged: the innovation office, about five testers at one campus, one whole school, then everyone.", "hosting": ["on-prem (IIS/Linux)", "Apps Script web apps"], "mcp_servers": "built our own, in production", "mcp_details": "Role-checked read tools over the district's reporting warehouse (roster, attendance, struggling-student flags, assignment scores, intervention placements, campus summaries), resolved server-side to the signed-in user's scope: a teacher sees only students they teach, campus administrators their campus. Served to the enterprise ChatGPT workspace, a district portal and the self-hosted model; writes stay in the district's own apps.", "agents_in_production": ["Admin Data Agent: campus administrators ask questions about their own campus on the self-hosted model", "District data connector: teachers query their own students from the enterprise chat workspace", "Weekly headless audit that checks the shared agent skills against live systems and pushes factual fixes", "Weekly headless refresh of the organizational ontology, opened as a pull request for review", "Daily job-fleet digest with a model-assisted advisory on what changed", "Project-board agent that proposes items; a person accepts and is the author of record", "Help-desk intake (pilot) that drafts structured tickets on the self-hosted model for a person to confirm"], "model_api_access": ["self-hosted models"], "version_control": "required, district GitHub/GitLab org", "code_review": "required review by IT", "secrets_handling": "Passwordless by default: each app runs as its own directory service identity with Windows-integrated database access and no password in any config. Model tokens are per caller, shown once, never pasted into an AI, and rotated (not re-minted) on exposure. Remaining secrets live in a team password manager; a pre-commit hook and CI secret scans block credentials in repositories.", "database": ["SQL Server"], "sandbox_data": "synthetic only", "app_auth": "district SSO required", "logging_audit": "yes", "promotion_path": "Prototype on the builder's machine against an empty local database, or as a single page in the reviewed ideas sandbox; then a development copy on its own host, deployed by a non-administrator runner; then production after a merge to main and the Director of Innovation's approval at the deploy gate. A good prototype is either folded into an existing district tool or given its own hosted app, after a privacy review.", "ownership_handoff": "Tools live in the district's GitHub organization with code owners, so a departure does not orphan them; the innovation office takes over sign-in, security review and data feeds when a prototype is adopted, and the builder keeps shaping it. Records name roles, never people, and a departing role holder follows a dated handoff (handoff docs, an assistant built on them, access reduced on schedule).", "coding_standards": ["every app uses the shared district sign-in", "one database and one service identity per app", "stored procedures only, never table grants", "numbered, forward-only, idempotent SQL migrations", "app events go to the one central event log", "the district job scheduler is the only scheduler and reminder engine", "WCAG 2.1 AA by the district's April 2027 target", "a help-page section ships with every feature", "no student names in repositories", "a second agent reviews before any live change", "warnings as errors, pinned SDKs and packages", "failures exit non-zero; a skipped test never reads as passed", "times shown to people are Arizona time", "an app that refuses someone shows a page and never signs them out"], "cost_controls": "Compute is treated as a finite resource: general staff are on the fast default model in the ChatGPT workspace with costlier features off, the heaviest users are steered to Gemini, student-data work prefers the self-hosted model, and new automation tools start as free-edition pilots with no budget line.", "data_warehouse": "SQL Server / on-prem warehouse", "sis_integration": "scheduled exports", "semantic_layer": "yes", "pd_model": ["cohorts / communities of practice", "self-paced courses"], "biggest_win": "A district MCP server where the permission check lives in the tools, not the model: teachers ask about their own students from the enterprise chat workspace and administrators about their own campus on a self-hosted model, and a question outside their scope returns nothing because the tool refuses.", "open_question": "How do you scale democratized building safely, including the governance for exposing a district MCP server to external assistant connectors?", "can_share": ["Shared sign-in app template (.NET Razor Pages)", "Passwordless app-hosting standard as an agent skill", "Accessibility scanning skill and the five manual passes", "Builder's Permit course outline", "Public-readiness checklist for publishing a repository", "Organizational ontology schemas (process, decision, role)", "Cookbook recipe-prep agent instructions"], "sandbox_env": "yes, separate on-prem dev host/environment", "dev_environments": ["local machine, empty or synthetic database", "per-app dev copy", "shared dev server or host", "low-code page sandbox with a review gate"], "ai_code_review": "required for every live change", "deploy_gate": "named human approves the deploy run", "staged_rollout": "staged pilot, then one site, then all", "app_identity": "passwordless per-app identity (managed/integrated)", "secret_scanning": ["full-history scan before a repo goes public", "forbidden-string scan (hostnames, names)"], "agent_context_standard": "shared repo every builder's agent pulls before each build", "reporting_copy": "district-owned reporting copy/warehouse only", "db_per_app": "own database and own identity per app", "data_access_pattern": "stored procedures or views only, EXECUTE grants", "schema_changes": "numbered migration scripts in the repo, run by a DBA", "central_ops_plumbing": ["shared sign-in", "central event/audit log", "district job scheduler", "central reminder/notification service", "shared hosting template"], "mcp_scope_enforcement": "in the tools, scope resolved server-side per user", "model_generated_queries": "never; predefined tools only", "agent_write_authority": "propose; a person accepts and is the author of record", "model_task_validation": "A smaller self-hosted model earns a production task by being scored against a frontier model's answers on that same task."}, "highlights": ["The permission check lives in the tools, not the model: a district MCP server resolves each user's scope server-side, so a teacher's question about other students returns nothing.", "A Builder's Permit (about fifteen hours, three modules plus a reviewed GitHub capstone) gates builder tooling, and Apps Script authoring follows it.", "One shared sign-in for every staff app, passwordless hosting, one database per app, and stored-procedure-only data access.", "Every live change is reviewed by a second AI agent, merged by a human, and published only after one named approver clicks the production gate.", "Student-data work prefers a self-hosted model; hosted models receive it only under a district agreement."]}, {"slug": "buckeye-union-high-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Buckeye Union High School District", "state": "AZ", "city": "Buckeye", "org_type": "public district", "grade_span": "9-12", "locale": "suburban", "sis": "Synergy", "open_question": "With a small IT team, what level of production support is realistic for district-built AI tools, and how do you decide what to take on?"}, "highlights": ["Visited a peer district to study an in-house AI stack (nightly SIS data warehouse, permission-scoped MCP server, self-hosted LLM) as a model to adapt."]}, {"slug": "chandler-unified-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Chandler Unified School District", "state": "AZ", "city": "Chandler", "org_type": "public district", "enrollment_band": "15k-50k", "grade_span": "K-12", "locale": "suburban", "productivity_suite": "both, Google-led", "ai_tools": {"Gemini": "staff+students", "NotebookLM": "staff+students", "Microsoft Copilot Chat": "staff", "Microsoft 365 Copilot (licensed)": "pilot"}, "student_ai_age_gate": "Student access to Gemini and NotebookLM (Education Plus) is limited to high school.", "ai_tools_other": ["Google AI Pro (small group of staff)", "Canva", "Kami", "Screencastify"], "parent_comms": "yes", "can_share": ["Public district AI web page", "CoSN TLE business-practices evidence (in progress)"]}, "highlights": ["High school students get Gemini and NotebookLM under Education Plus; staff get Gemini plus a small paid Copilot group.", "Working toward the CoSN Trusted Learning Environment seal through the Arizona TLE cohort, with business practices as a strength."]}, {"slug": "gilbert-public-schools", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Gilbert Public Schools", "state": "AZ", "city": "Gilbert", "org_type": "public district", "enrollment_band": "15k-50k", "grade_span": "K-12", "locale": "suburban", "productivity_suite": "Google Workspace", "ai_tools": {"Self-hosted / local models": "pilot"}, "default_posture": "allowlist: blocked until approved", "ai_review_structure": "Staff submit any unlisted online tool for approval; the curriculum and assessment department reviews it first, then the technology services leadership team reviews the data sharing agreement and privacy policy. Finance will not issue a purchase order until vetting is complete.", "app_vetting": ["signed DPA", "SDPC / NDPA", "instructional review", "cost/procurement review"], "vetting_checklist": ["Check the approved-apps list first", "Curriculum and assessment approval", "Technology leadership review of DPA and privacy policy", "DPA required for every cloud-based tool", "No purchase order without completed vetting"], "who_builds": ["IT / data team"], "model_api_access": ["self-hosted models"], "can_share": ["Public Google Site listing approved and denied apps", "App vetting workflow document"]}, "highlights": ["Finance will not approve a purchase order for an online tool until it clears the privacy vetting workflow.", "Keeps a public, searchable Google Site of approved and denied apps.", "Internal team stood up a local AI server and meets weekly to work through scaling it."]}, {"slug": "marana-unified-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Marana Unified School District", "state": "AZ", "city": "Marana", "org_type": "public district", "enrollment_band": "5k-15k", "grade_span": "K-12", "locale": "suburban", "ai_policy": "administrative guidance / AUP", "can_share": ["District AI guidance document"]}, "highlights": ["Publishes district AI guidance and shares it with the Arizona AI Alliance learning network."]}, {"slug": "premier-prep-online-academy", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Premier Prep Online Academy", "state": "AZ", "org_type": "other", "grade_span": "other", "locale": "virtual", "productivity_suite": "Google Workspace", "ai_tools": {"Gemini": "staff+students", "NotebookLM": "staff+students", "ChatGPT (consumer)": "staff", "Claude": "staff"}, "ai_tools_other": ["Kami (built-in AI tools)", "Padlet (built-in AI tools)", "Canva"], "ai_policy": "administrative guidance / AUP", "academic_integrity": "district-wide framework", "parent_comms": "yes", "can_share": ["AI Usage Guide (reviewed each December and June)", "Family AI Guide", "Student-facing AI Guide", "AI literacy pilot misuse data"]}, "highlights": ["After an 8th grade AI literacy class that teaches how AI works, reported AI misuse fell by more than 60% from the prior year.", "Publishes separate AI guides for staff, families and students, and reviews them every December and June."]}, {"slug": "scottsdale-unified-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Scottsdale Unified School District", "state": "AZ", "city": "Scottsdale", "org_type": "public district", "enrollment_band": "15k-50k", "grade_span": "K-12", "locale": "suburban", "ai_tools": {"Microsoft Copilot Chat": "staff", "MagicSchool": "staff"}, "ai_review_structure": "A digital resource committee with members from curriculum, IT and finance reviews requests under a written SOP. Requesters view a short data privacy explainer before submitting.", "app_vetting": ["signed DPA", "state privacy agreement", "instructional review", "cost/procurement review"], "vetting_checklist": ["Requester views a data privacy explainer before submitting", "Committee review across curriculum, IT and finance", "Arizona DPA sent to the vendor", "Written role guidelines for each review step"], "can_share": ["Digital resource request SOP", "Dashboard of vetted, district-approved resources"]}, "highlights": ["Staff who request a new digital tool first watch a short data privacy explainer, then a curriculum, IT and finance committee reviews the request.", "A staff member built a dashboard that shows which resources are vetted and approved."]}, {"slug": "tempe-union-high-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Tempe Union High School District", "state": "AZ", "city": "Tempe", "org_type": "public district", "enrollment_band": "5k-15k", "grade_span": "9-12", "locale": "suburban", "productivity_suite": "Google Workspace", "lms": "Canvas", "ai_tools": {"Gemini": "staff+students", "NotebookLM": "staff+students", "ChatGPT (consumer)": "staff+students", "MagicSchool": "staff", "Gemini Gems / custom GPTs": "staff+students"}, "ai_tools_other": ["NoRedInk (AI writing assistant)", "SciSpace", "Suno", "Napkin AI", "Canva", "Padlet"], "ai_policy": "administrative guidance / AUP", "can_share": ["Public AI guidelines page", "Canvas train-the-trainer AI modules for leaders (in development)", "Teacher playbook for AI conversations with students (in development)"]}, "highlights": ["Teachers are trained to build custom Gemini Gems and embed them in Canvas, so students use purpose-built bots instead of open-ended chat.", "Building Canvas train-the-trainer AI modules for school leaders."]}, {"slug": "vail-unified-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Vail Unified School District", "state": "AZ", "city": "Vail", "org_type": "public district", "enrollment_band": "5k-15k", "grade_span": "K-12", "productivity_suite": "Google Workspace", "ai_tools": {"MagicSchool": "staff+students", "Gemini": "staff"}, "student_ai_age_gate": "MagicSchool Enterprise for students in grades 2-12; NotebookLM for high school students.", "ai_tools_other": ["Vail Edge (district-built custom AI tool, in development)", "Google AI Pro (administrators only)", "Canva", "Kami"], "who_builds": ["IT / data team"], "model_api_access": ["self-hosted models"], "can_share": ["Student AI Advisory Panel overview", "9-12 AI literacy lessons (in development)"]}, "highlights": ["Runs a Student AI Advisory Panel, and its curriculum team is writing 9-12 AI literacy lessons.", "Runs its own self-hosted AI infrastructure and is building a district custom AI tool."]}, {"slug": "washington-elementary-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Washington Elementary School District", "state": "AZ", "city": "Phoenix", "org_type": "public district", "enrollment_band": "15k-50k", "grade_span": "K-8", "locale": "urban", "ai_policy": "administrative guidance / AUP", "can_share": ["District AI guidance document (being updated to align with 2026 Arizona guidance)"]}, "highlights": ["Updating its district AI guidance to align with Arizona's 2026 K-12 AI guidance."]}, {"slug": "yuma-union-high-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Yuma Union High School District", "state": "AZ", "city": "Yuma", "org_type": "public district", "enrollment_band": "5k-15k", "grade_span": "9-12", "productivity_suite": "Google Workspace", "ai_tools": {"Gemini": "staff+students", "ChatGPT (consumer)": "staff+students", "Claude": "staff+students", "NotebookLM": "staff+students", "Brisk": "pilot", "Google AI Studio": "staff"}, "ai_tools_other": ["Gamma", "Canva"], "ai_policy": "administrative guidance / AUP", "who_builds": ["instructional coaches", "teachers"], "builder_tools": ["Apps Script", "Google AI Studio"], "can_share": ["District AI guidance document", "AI habits PD resource", "AI needs assessment data"]}, "highlights": ["High school students can use free tiers of Gemini, ChatGPT, Claude and NotebookLM.", "Ed tech coaches teach teachers to build Apps Script tools that keep data inside Google Workspace."]}, {"slug": "alpha-public-schools", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Alpha Public Schools", "state": "CA", "city": "San Jose", "org_type": "charter network", "enrollment_band": "1k-5k", "grade_span": "K-12", "locale": "urban", "productivity_suite": "Google Workspace", "primary_idp": "Google", "ai_tools": {"Gemini": "staff", "Claude": "pilot"}, "ai_tools_other": ["Vertex AI for data analysis inside the organization's Google Cloud project", "An OpenClaw agent being trialed in a container on a dedicated machine"], "data_tiers": "AI analysis runs on Gemini under the Workspace agreement and stays inside the organization's Google Cloud project. Coaching-meeting audio is destroyed once transcribed, and student-identifiable detail is kept out of distributed data briefs.", "who_builds": ["IT / data team"], "builder_tools": ["Claude Code"], "hosting": ["Firebase / Google Cloud"], "agents_in_production": ["Weekly school culture data brief (discipline, referrals, PBIS) drafted with Gemini and approved by a person before it goes to directors", "Teacher observation and coaching app that matches notes to rubric rows for the coach to confirm", "Weekly staff update app that replaced three hours of manual assembly", "Assessment calendar that realigns to each new school-year calendar"], "model_api_access": ["Gemini API / Vertex AI"], "database": ["BigQuery"], "data_warehouse": "BigQuery", "biggest_win": "An observation and coaching cycle that took a coach two to three hours now takes about thirty minutes, with a human coach making every rating.", "open_question": "When should AI make recommendations to leaders, and when should it only summarize and leave the decision to people?", "can_share": ["Weekly staff update app recipe", "Teacher observation and coaching app pattern"]}, "highlights": ["Keeps every AI workload inside its own Google Cloud project as a hard boundary, even when coding assistants suggest hosting elsewhere.", "Cut a teacher observation and coaching cycle from two to three hours to about thirty minutes; coaches still make every rating, and meeting audio is destroyed after transcription.", "Sends leaders a weekly culture-data brief drafted by Gemini that a person approves before it goes out."]}, {"slug": "cajon-valley-union-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Cajon Valley Union School District", "state": "CA", "city": "El Cajon", "org_type": "public district", "enrollment_band": "15k-50k", "grade_span": "K-8", "locale": "urban", "productivity_suite": "Google Workspace", "ai_policy": "in progress", "who_builds": ["innovation or ed-tech team"], "builder_tools": ["Apps Script"], "builder_pathway": "Planning a 5-6 person Apps Script builder cohort, modeled on a peer district's builder permit course.", "agents_in_production": ["Apps Script parent-teacher conference scheduler: families book one block covering all their children's teachers, with interpreter availability as a constraint"], "biggest_win": "A self-built conference scheduler that handles teacher availability, interpreters (45+ languages) and siblings, for a task principals estimated at about 200 hours a year.", "open_question": "How should an innovation lead structure the partnership with IT when launching a staff builder program?"}, "highlights": ["Built a conference scheduler for a district with 45+ home languages; it books every sibling's teachers, with interpreters, in one visit.", "Starting a small Apps Script builder cohort to spread building beyond the innovation office."]}, {"slug": "desert-sands-unified-school-district", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Desert Sands Unified School District", "state": "CA", "city": "La Quinta", "org_type": "public district", "enrollment_band": "15k-50k", "grade_span": "K-12", "locale": "suburban", "productivity_suite": "Google Workspace", "sis": "Synergy", "default_posture": "case-by-case", "ai_review_structure": "Software purchases route through a purchasing sheet that needs data privacy sign-off. A regional nonprofit privacy service negotiates and redlines vendor agreements, and the district attorney is consulted on ambiguous terms. AI vendors are interviewed about how their system is built and who their subprocessors are.", "app_vetting": ["signed DPA", "state privacy agreement", "cost/procurement review"], "vetting_checklist": ["Auto-renewal terms", "Breach notification procedures", "Data destruction at contract end", "No selling, advertising or third-party sharing", "AI: proprietary vs third-party model and subprocessor disclosure", "Parent consent where data use requires it"], "data_tiers": "Share the minimum data needed. Basic identifiers can be shared under a signed agreement; highly protected categories such as meal-program eligibility are not released to outside parties. Vendors may keep de-identified data after a contract ends only if the agreement says so."}, "highlights": ["Contracts a regional nonprofit privacy service to negotiate vendor data privacy agreements, including AI terms.", "Asks AI vendors directly whether models are proprietary or third-party and who their subprocessors are before approving them.", "De-identifies data for community partners with a key held by the assessment department."]}, {"slug": "stem-prep", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "STEM Prep", "state": "CA", "city": "Los Angeles", "org_type": "charter network", "locale": "urban", "sis": "PowerSchool", "ai_tools": {"Claude": "pilot"}, "who_builds": ["IT / data team"], "database": ["BigQuery"], "data_warehouse": "BigQuery", "open_question": "What are the best practices for a one-person, self-taught data team building internal tools with AI?"}, "highlights": ["A one-person data team feeding the SIS into BigQuery and building internal tools with Claude."]}, {"slug": "boise-sd", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Boise School District", "state": "ID", "city": "Boise", "org_type": "public district", "enrollment_band": "15k-50k", "grade_span": "K-12", "locale": "urban", "productivity_suite": "Google Workspace", "primary_idp": "Google", "sso_portal": "ClassLink", "sis": "Infinite Campus", "ai_tools": {"Claude": "pilot"}, "data_tiers": "Builders start with no student data. Access to student data and district systems comes only after a privacy and security review (level two); district-wide applications are a third gate.", "teacher_ip_policy": "yes, written policy", "teacher_ip_notes": "Builders may spin a tool out into a business later; in exchange for using district technology and AI resources, the district keeps a perpetual free license to the software.", "who_builds": ["IT / data team", "teachers"], "vibe_coding_support": "formal program with permits/training", "builder_tools": ["Claude Code", "OpenAI Codex", "VS Code"], "builder_pathway": "A three-gate Agentic Builder program: level one is training with no student data, level two adds student data and systems after a privacy and security review, level three is district-wide. Each level unlocks more tokens, hosting and support, plus a builders' community. Approved with a $35,000 budget.", "app_launch_review": "A privacy and security review before any builder touches student data or district systems; a separate gate before a tool goes district-wide.", "hosting": ["Vercel / Netlify"], "mcp_servers": "built our own, piloting", "mcp_details": "A read-only, local-only (stdio) MCP server and CLI for web-filter reporting, with no create, update or delete operations.", "agents_in_production": ["Daily filter-evasion detection that finds bypass patterns and grows the block list", "Project-level context agent that gathers email, Drive, calendar and meeting notes per project and drafts updates for human review", "Semantic model that writes SIS queries, run after school hours"], "version_control": "required, district GitHub/GitLab org", "database": ["Supabase / Postgres", "SQLite / local files"], "cost_controls": "Token, hosting and support allowances grow with each builder-program level, funded from an approved program budget.", "semantic_layer": "partial", "pd_model": ["cohorts / communities of practice"], "biggest_win": "A gated builder program that makes the sanctioned path more attractive than shadow IT, with IP terms settled up front.", "open_question": "How should districts handle public-records requests that could sweep in agent memory files? And how do you keep a semantic layer consistent so agents read terms like 'average daily attendance' the same way?", "can_share": ["Staff builder program briefing", "Read-only web-filter reporting CLI and MCP server", "Filter-evasion detection skill", "PHP vulnerability exposure-sweep prompt"]}, "highlights": ["Runs a three-gate staff builder program: no student data at level one, a privacy and security review before student data, and a separate gate for district-wide tools.", "Settles builder IP up front: staff may spin a tool into a company, and the district keeps a perpetual free license.", "Building a semantic model over its SIS so AI-written queries reflect how attendance and grading actually work, not just the schema."]}, {"slug": "new-trier-hsd", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "New Trier Township High School District 203", "state": "IL", "city": "Winnetka", "org_type": "public district", "enrollment_band": "1k-5k", "grade_span": "9-12", "locale": "suburban", "who_builds": ["IT / data team"], "builder_tools": ["Claude Code", "Cursor"], "hosting": ["on-prem (IIS/Linux)", "AWS"]}, "highlights": ["Technology team exploring agentic coding tools, with any deployments planned for self-hosted servers or AWS."]}, {"slug": "montana-digital-academy", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Montana Digital Academy (Montana State Virtual School)", "state": "MT", "city": "Missoula", "org_type": "state virtual school", "grade_span": "other", "locale": "virtual", "ai_tools": {"NotebookLM": "pilot", "Claude": "pilot"}, "ai_tools_other": ["Hermes Agent", "OpenClaw", "n8n workflow automation", "Obsidian knowledge vaults"], "data_tiers": "Experimental agents are kept away from student data and live systems; course feedback from students and parents stays under the school's control and is de-identified where possible.", "who_builds": ["innovation or ed-tech team"], "builder_tools": ["OpenAI Codex", "n8n"], "mcp_details": "MCP connections from agents to NotebookLM notebooks used as review 'committees', and to the CRM vendor's MCP server.", "open_question": "How can a statewide virtual school turn public signals from hundreds of districts into planning and recruitment intelligence without trusting automation alone?"}, "highlights": ["Hosts a legislature-funded AI lab that helps Montana K-12 schools build AI skills.", "Building a course-improvement agent that gathers student, parent and teacher feedback into a knowledge vault, where AI 'committees' propose revisions for instructors to review.", "Building an agent that tracks public school-board signals across about 400 Montana districts to support planning and outreach."]}, {"slug": "grand-island-central-sd", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Grand Island Central School District", "state": "NY", "city": "Grand Island", "org_type": "public district", "enrollment_band": "1k-5k", "grade_span": "K-12", "locale": "suburban", "sis": "Infinite Campus", "ai_tools": {"NotebookLM": "pilot", "Claude": "pilot"}, "data_tiers": "Tools that collect no student PII can ship quickly without a data review; notebooks holding personnel and financial procedure are scoped to the office that owns the role.", "who_builds": ["school admins"], "hosting": ["Vercel / Netlify", "Replit / vendor hosting"], "agents_in_production": ["Personal morning brief agent that summarizes AI-in-education news (no district data)"], "biggest_win": "Succession manuals in NotebookLM: a departing treasurer's binders and the personnel office's handbooks and contracts became notebooks, so new staff get answers cited back to their predecessor's own words.", "open_question": "Could a regional service center host models on a local server so districts can use AI more deeply without data leaving the region?", "can_share": ["Earth Science Regents study site", "Trustee governance coach (voice custom GPT)", "Accessible exam-prep study app"]}, "highlights": ["Turned a retiring business official's procedure binders into a NotebookLM notebook, so the successor gets answers cited to the original procedures.", "Built an Earth Science Regents study site from three past exams that collects no student data, so it reached principals and the science department within days.", "Pressing its regional service center to host local models for member districts."]}, {"slug": "maryville-city-schools", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Maryville City Schools", "state": "TN", "city": "Maryville", "org_type": "public district", "enrollment_band": "5k-15k", "grade_span": "K-12", "productivity_suite": "both, Microsoft-led", "primary_idp": "Microsoft Entra ID", "sso_portal": "ClassLink", "ai_tools": {"Claude": "pilot"}, "who_builds": ["IT / data team"], "builder_tools": ["Claude Code"], "agents_in_production": ["Weekly AI review of closed help desk tickets that proposes knowledge-base articles for a technician to approve", "Content-filter policy triage over 10,000+ recovered rules"], "coding_standards": ["Global and per-project CLAUDE.md rules that stop an agent session when personal information appears", "Private repositories for internal tools"], "biggest_win": "A district-built help desk and IT operations platform with change logging, a configuration warehouse for network backups, document mirroring to avoid vendor lock-in, and a knowledge base that drafts itself from closed tickets.", "open_question": "How do you share district-built projects across districts without just handing over repos?", "can_share": ["Public showcase for K-12-built tools", "Help desk / IT operations platform pattern"]}, "highlights": ["Built its own help desk and IT operations platform whose AI reviews each week's tickets and proposes knowledge-base articles for a technician to approve.", "Retired a vendor rostering service after building the replacement in-house.", "Runs a public showcase where K-12 districts can submit the tools they have built."]}, {"slug": "fairfax-county-ps", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Fairfax County Public Schools", "state": "VA", "city": "Falls Church", "org_type": "public district", "enrollment_band": "50k+", "grade_span": "PK-12", "locale": "suburban", "builder_tools": ["OpenAI Codex", "Claude Code", "Lovable", "Google AI Studio"], "hosting": ["Firebase / Google Cloud"], "agents_in_production": ["IdeaCatcher: staff describe automation problems in a portal behind Google sign-in, and a council of agents reviews each submission for curation"]}, "highlights": ["Prototyped an idea-intake portal where a council of AI agents reviews staff automation requests before they are curated for building."]}, {"slug": "ferndale-sd", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Ferndale School District", "state": "WA", "city": "Ferndale", "org_type": "public district", "enrollment_band": "1k-5k", "grade_span": "K-12", "productivity_suite": "Google Workspace", "builder_tools": ["Apps Script", "OpenAI Codex"], "agents_in_production": ["Apps Script generator that builds individual multilingual learning plans plus classroom, grade-band, building and district snapshots in about an hour"], "database": ["Google Sheets", "BigQuery"], "data_warehouse": "spreadsheets", "biggest_win": "Multilingual specialists used to spend the first three to four weeks of school hand-typing learning plans; one script now generates every plan and snapshot in about an hour, still as familiar Google Docs.", "open_question": "How do you move district data out of spreadsheets into a cloud warehouse, and who should be able to see an organizational ontology once it is staff-facing?"}, "highlights": ["One Apps Script now produces every multilingual learning plan and snapshot in about an hour, work that used to take specialists the first three to four weeks of school.", "Building a BigQuery data warehouse on a $40,000 Gates Foundation grant to move data out of spreadsheets.", "Writes generated student plans into each student's existing support folder, so existing Drive permissions decide who can read them."]}, {"slug": "peninsula-sd", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "Peninsula School District", "state": "WA", "city": "Gig Harbor", "org_type": "public district", "enrollment_band": "5k-15k", "grade_span": "K-12", "devices": "1:1 Mac", "productivity_suite": "Google Workspace", "primary_idp": "Google", "sso_portal": "ClassLink", "sis": "PowerSchool", "ai_tools": {"Claude": "staff", "Gemini": "staff", "Self-hosted / local models": "pilot"}, "student_ai_age_gate": "The district AI platform supports teacher-assigned student rooms, but it is staff-only today; students do not use it yet.", "ai_tools_other": ["AI Studio: district-built, open-source AI platform giving staff OpenAI, Gemini and Claude models without per-seat licenses", "OpenClaw personal assistants for the executive cabinet", "AI meeting recorders for administrators (rollout pending SOPs)", "Anthropic and OpenAI cyber-defense programs for security review"], "data_tiers": "Model providers run under data processing / zero-data-retention agreements. The public AI hub tags every tool in its directory by privacy level. Agents reach district data only through role-scoped MCP tools, and student PII is kept out of prompts in development pipelines.", "app_vetting": ["signed DPA"], "who_builds": ["IT / data team", "innovation or ed-tech team"], "builder_tools": ["Claude Code", "OpenAI Codex", "GitHub Copilot", "n8n", "Google AI Studio"], "builder_pathway": "Builder access started with a small group (engineers, help desk, research and assessment) after a roughly three-hour hands-on training. A district Claude Code plugin marketplace and a development-standards repo give builders shared commands, skills and rules.", "app_launch_review": "Pull requests are reviewed automatically by several models (including FERPA, security and accessibility passes), CI gates must pass, and a human approves every merge. AI review never counts as approval.", "hosting": ["AWS", "on-prem (IIS/Linux)"], "mcp_servers": "built our own, in production", "mcp_details": "A role-based data MCP over the district warehouse (read-only tools, access enforced in the data layer, staged from synthetic to de-identified to role-scoped data, with get/write-learnings tools); a system-map MCP of district systems and data flows; an MCP gateway for forms and approval workflows; read-and-propose tools on facility maps; roster and provisioning MCPs.", "agents_in_production": ["Personal OpenClaw assistants for executives in per-user micro-VMs, with draft-only email", "Per-building budget dashboards refreshed by agents every weekend", "Self-healing triage: tagged bugs become issues and fix PRs that models cross-review and a human merges", "Multi-model automated PR review", "AI-assisted public-records triage with human verification", "Web-filter site auto-classification"], "model_api_access": ["AWS Bedrock", "OpenAI API", "Gemini API / Vertex AI", "Azure OpenAI", "self-hosted models"], "version_control": "required, district GitHub/GitLab org", "secrets_handling": "Secrets live in a cloud secrets manager; deployments use short-lived OIDC roles instead of stored cloud keys; agent hooks redact keys from tool output; CI secret scans block commits that contain credentials.", "database": ["Supabase / Postgres", "Google Sheets"], "logging_audit": "yes", "promotion_path": "Code moves through pull requests in the district's GitHub organization: rulesets start in evaluate mode and are switched on one at a time, CI and multi-model review run first, and a human approves every merge.", "coding_standards": ["Per-stack development standards repo enforced by CI", "Dependabot and security scanning on all repos", "Wait 48 hours before adopting new npm package versions", "MDM policy blocks permission-skipping mode for coding agents on district devices", "AGENTS.md / CLAUDE.md rules in each repo", "Human merge approval; AI review is advisory"], "cost_controls": "Per-user agent VMs shut down when idle; cloud environments carry tagged budgets; token-heavy monitoring loops run on district-owned GPU hardware; a district AI platform replaces per-seat licenses.", "semantic_layer": "yes", "pd_model": ["PD days"], "biggest_win": "In 45 minutes with the CFO, agents built per-building budget dashboards on the data warehouse that replaced a $71,000-a-year financial analysis subscription and refresh themselves every weekend.", "open_question": "How do you store reusable agent knowledge (learnings vs skills) at scale without overflowing the context window?", "can_share": ["Open-source (MIT) district AI platform", "Claude Code plugin marketplace for staff", "District development-standards repo", "Emergency operations center stack built to be deployable by a second district", "Public AI hub with AI policies, data-security guidance and 50+ staff use cases"]}, "highlights": ["Runs a district-built, open-source AI platform that gives staff frontier models without per-seat licenses.", "Lets agents see district data only through a role-based MCP server, so each person's agent sees only what that person may see.", "Replaced a $71,000-a-year subscription, a public-records vendor and a closing emergency-alert vendor with district-built tools."]}, {"slug": "white-river-sd", "status": "seeded", "updated": "2026-10-29", "answers": {"district_name": "White River School District", "state": "WA", "city": "Buckley", "org_type": "public district", "enrollment_band": "1k-5k", "grade_span": "K-12", "productivity_suite": "Google Workspace", "primary_idp": "Google", "student_ai_age_gate": "The district AI chat platform launches to staff first; students get access once its K-12 guardrails have proven themselves.", "ai_tools_other": ["District-built AI chat platform on its own cloud project with in-house K-12 guardrails and admin visibility"], "who_builds": ["IT / data team"], "vibe_coding_support": "supported informally", "hosting": ["Firebase / Google Cloud"], "mcp_servers": "exploring", "mcp_details": "Planned: feed staff-facing district data to the chat platform through MCP servers rather than direct system access.", "cost_controls": "Moving AI chat from per-seat subscriptions to token-based pricing, with admin visibility into use.", "open_question": "What patterns work for safely hosting staff-built web apps at district scale?"}, "highlights": ["Building its own AI chat platform with district-written K-12 guardrails, staff first and students once the guardrails have proven themselves.", "Paying for AI by the token instead of per seat."]}], "sections": [{"id": "context", "title": "District context", "blurb": "Who you are, so answers can be compared fairly.", "questions": [{"id": "district_name", "type": "text", "q": "Official district or organization name.", "required": true}, {"id": "state", "type": "text", "q": "Two-letter state code.", "required": true}, {"id": "city", "type": "text", "q": "City where the district office is."}, {"id": "org_type", "type": "choice", "q": "Organization type.", "required": true, "options": ["public district", "charter network", "private/independent", "regional service agency", "state virtual school", "other"]}, {"id": "enrollment_band", "type": "choice", "q": "Student enrollment.", "required": true, "options": ["under 1k", "1k-5k", "5k-15k", "15k-50k", "50k+"]}, {"id": "grade_span", "type": "choice", "q": "Grades served.", "options": ["K-12", "K-8", "9-12", "PK-12", "other"]}, {"id": "locale", "type": "choice", "q": "Locale.", "options": ["urban", "suburban", "town", "rural", "virtual"]}, {"id": "devices", "type": "choice", "q": "Main student device program.", "options": ["1:1 Chromebook", "1:1 Windows", "1:1 iPad", "1:1 Mac", "mixed 1:1", "shared carts", "BYOD"]}, {"id": "respondent_role", "type": "text", "q": "Role of the person submitting (no names needed)."}]}, {"id": "identity", "title": "Identity & platforms", "blurb": "The plumbing every AI tool rides on.", "questions": [{"id": "productivity_suite", "type": "choice", "q": "Primary productivity suite.", "required": true, "options": ["Google Workspace", "Microsoft 365", "both, Google-led", "both, Microsoft-led"]}, {"id": "primary_idp", "type": "choice", "q": "Primary identity provider (where accounts live and SSO starts).", "required": true, "options": ["Google", "Microsoft Entra ID", "on-prem Active Directory", "ClassLink", "Clever", "Okta", "other"]}, {"id": "sso_portal", "type": "choice", "q": "Rostering / SSO launchpad.", "options": ["ClassLink", "Clever", "both", "none"]}, {"id": "mfa_staff", "type": "bool", "q": "Is MFA required for all staff accounts?", "options": ["yes", "partial", "no", "unknown"]}, {"id": "lms", "type": "choice", "q": "Primary LMS.", "options": ["Canvas", "Schoology", "Google Classroom", "Microsoft Teams", "Brightspace", "Buzz", "other"]}, {"id": "sis", "type": "choice", "q": "Student information system.", "options": ["PowerSchool", "Synergy", "Infinite Campus", "Skyward", "Aeries", "Focus", "other"]}]}, {"id": "tools", "title": "AI tools: on or off", "blurb": "What is turned on, for whom.", "questions": [{"id": "ai_tools", "type": "tools", "q": "Status of each AI tool in your district. staff = on for staff only; staff+students = on for both; pilot = limited group; off = available but not enabled; blocked = actively blocked; unknown.", "options": ["Gemini", "NotebookLM", "Microsoft Copilot Chat", "Microsoft 365 Copilot (licensed)", "ChatGPT (Edu/Enterprise)", "ChatGPT (consumer)", "Claude", "MagicSchool", "Brisk", "SchoolAI", "Khanmigo", "Perplexity", "Flint", "Playlab", "Google AI Studio", "Gemini Gems / custom GPTs", "Copilot Studio agents", "Self-hosted / local models"]}, {"id": "default_posture", "type": "choice", "q": "Default posture toward new AI tools.", "options": ["allowlist: blocked until approved", "case-by-case", "open unless flagged"]}, {"id": "student_ai_age_gate", "type": "text", "q": "Any age or grade gate for student AI access? Describe."}, {"id": "ai_tools_other", "type": "list", "q": "Other notable AI tools in use (district-approved)."}]}, {"id": "governance", "title": "Governance & review", "blurb": "How decisions get made and who signs off.", "questions": [{"id": "ai_policy", "type": "choice", "q": "AI policy status.", "required": true, "options": ["board-adopted policy", "administrative guidance / AUP", "in progress", "none yet"]}, {"id": "ai_review_structure", "type": "text", "q": "Who reviews and approves new AI implementations? (committee, roles, cadence)"}, {"id": "app_vetting", "type": "multi", "q": "What does app/vendor vetting require?", "options": ["signed DPA", "SDPC / NDPA", "state privacy agreement", "security questionnaire", "accessibility (VPAT/WCAG) check", "instructional review", "curriculum alignment", "AI-specific rubric", "cost/procurement review", "none formal"]}, {"id": "vetting_checklist", "type": "list", "q": "Key items on your vetting checklist (short phrases)."}, {"id": "teacher_ip_policy", "type": "choice", "q": "Policy on who owns tools/content staff build with AI?", "options": ["yes, written policy", "in progress", "informal understanding", "none", "unknown"]}, {"id": "teacher_ip_notes", "type": "text", "q": "Describe the ownership rule, if any."}, {"id": "data_tiers", "type": "text", "q": "What data may go into AI tools? (e.g. no PII in consumer tools, PII only in approved enterprise tools)"}, {"id": "academic_integrity", "type": "choice", "q": "Student AI-use / academic integrity guidance.", "options": ["district-wide framework", "school or teacher discretion", "in progress", "none"]}, {"id": "parent_comms", "type": "bool", "q": "Have you communicated your AI approach to families?", "options": ["yes", "partial", "no", "unknown"]}]}, {"id": "building", "title": "Democratized building", "blurb": "Who builds, with what, and how it ships.", "questions": [{"id": "who_builds", "type": "multi", "q": "Who builds AI tools or apps in your district?", "required": true, "options": ["IT / data team", "innovation or ed-tech team", "instructional coaches", "teachers", "school admins", "students", "outside contractors", "nobody yet"]}, {"id": "vibe_coding_support", "type": "choice", "q": "How do you support staff 'vibe coding' (building software with AI)?", "options": ["formal program with permits/training", "supported informally", "allowed but unsupported", "discouraged", "not addressed"]}, {"id": "builder_tools", "type": "multi", "q": "Builder tools in use.", "options": ["Claude Code", "OpenAI Codex", "GitHub Copilot", "Cursor", "VS Code", "Replit", "Lovable", "Bolt", "v0", "Gemini Canvas", "Google AI Studio", "Apps Script", "Power Apps / Power Automate", "Copilot Studio", "n8n", "Zapier / Make", "Antigravity"]}, {"id": "builder_pathway", "type": "text", "q": "Training, cohort, or permit pathway for new builders?"}, {"id": "app_launch_review", "type": "text", "q": "What review must a staff-built app pass before real users touch it?"}, {"id": "hosting", "type": "multi", "q": "Where do staff-built apps run?", "options": ["GitHub Pages", "Apps Script web apps", "Firebase / Google Cloud", "Vercel / Netlify", "Azure", "AWS", "on-prem (IIS/Linux)", "Replit / vendor hosting", "nowhere official yet"]}, {"id": "mcp_servers", "type": "choice", "q": "Model Context Protocol (MCP) servers?", "options": ["built our own, in production", "built our own, piloting", "using vendor MCPs only", "exploring", "not yet"]}, {"id": "mcp_details", "type": "text", "q": "What do your MCP servers expose? (no hostnames or secrets)"}, {"id": "agents_in_production", "type": "list", "q": "AI agents or automations in real use (one line each)."}, {"id": "model_api_access", "type": "multi", "q": "Model APIs the district provisions.", "options": ["Gemini API / Vertex AI", "Azure OpenAI", "OpenAI API", "Anthropic API", "AWS Bedrock", "self-hosted models", "none"]}]}, {"id": "sandbox", "title": "Builder sandbox & protocols", "blurb": "The technical guardrails under democratized building.", "questions": [{"id": "sandbox_env", "type": "choice", "q": "Is there a separate development sandbox for builders?", "options": ["yes, dedicated cloud project/tenant", "yes, separate on-prem dev host/environment", "yes, per-app dev copies", "yes, separate OU/test accounts", "builders use personal/dev accounts", "no sandbox"]}, {"id": "dev_environments", "type": "multi", "q": "Where can builders run code before production?", "options": ["local machine, empty or synthetic database", "shared dev server or host", "per-app dev copy", "cloud dev project/tenant", "low-code page sandbox with a review gate", "none"]}, {"id": "version_control", "type": "choice", "q": "Is version control required for staff-built code?", "options": ["required, district GitHub/GitLab org", "encouraged", "not required", "not addressed"]}, {"id": "code_review", "type": "choice", "q": "Is code reviewed before deployment?", "options": ["required review by IT", "peer review", "automated checks only", "no review"]}, {"id": "ai_code_review", "type": "choice", "q": "Is AI-written code reviewed by a second, independent AI agent before a person approves it?", "options": ["required for every live change", "required for security/platform changes", "optional", "no"]}, {"id": "deploy_gate", "type": "choice", "q": "What stands between a merged change and production?", "options": ["named human approves the deploy run", "merge to main deploys automatically", "IT deploys by hand", "builder deploys directly", "no rule yet"]}, {"id": "staged_rollout", "type": "choice", "q": "How do new staff-built tools reach users?", "options": ["staged pilot, then one site, then all", "all at once", "builder decides", "no rule yet"]}, {"id": "secrets_handling", "type": "text", "q": "How are API keys and credentials handled? (approach only, never actual secrets)"}, {"id": "app_identity", "type": "choice", "q": "How do staff-built apps authenticate to databases and services?", "options": ["passwordless per-app identity (managed/integrated)", "per-app service account with stored password", "shared service account", "builder's personal account", "API keys in config"]}, {"id": "secret_scanning", "type": "multi", "q": "Which automated guards keep secrets and student data out of repositories?", "options": ["pre-commit hook", "CI secret scan", "full-history scan before a repo goes public", "forbidden-string scan (hostnames, names)", "none"]}, {"id": "agent_context_standard", "type": "choice", "q": "Do builders' coding agents load a shared, district-maintained set of instructions or skills before building?", "options": ["shared repo every builder's agent pulls before each build", "per-project instruction files only", "informal / per builder", "none"]}, {"id": "accessibility_standard", "type": "choice", "q": "Accessibility bar for staff-built apps.", "options": ["WCAG 2.1 AA with automated + manual checks", "automated scan only", "case by case", "not addressed"]}, {"id": "database", "type": "multi", "q": "Databases builders may use.", "options": ["Google Sheets", "Firestore / Firebase", "Supabase / Postgres", "SQL Server", "MySQL", "BigQuery", "SharePoint / Dataverse", "SQLite / local files"]}, {"id": "sandbox_data", "type": "choice", "q": "What data is allowed in the sandbox?", "options": ["synthetic only", "de-identified", "real data, least privilege", "no rule yet"]}, {"id": "app_auth", "type": "choice", "q": "How must staff-built apps authenticate users?", "options": ["district SSO required", "SSO encouraged", "app-specific logins allowed", "no rule yet"]}, {"id": "logging_audit", "type": "bool", "q": "Are prompts, tool calls, or app actions logged for audit?", "options": ["yes", "partial", "no", "unknown"]}, {"id": "promotion_path", "type": "text", "q": "How does a tool move from sandbox to production, and who approves?"}, {"id": "ownership_handoff", "type": "text", "q": "What happens to a tool when its builder leaves?"}, {"id": "coding_standards", "type": "list", "q": "Coding requirements or standards you enforce (short phrases)."}, {"id": "cost_controls", "type": "text", "q": "How do you cap or track AI/API spend?"}]}, {"id": "agents", "title": "Agents & MCP governance", "blurb": "Where permission lives when a model touches district data.", "questions": [{"id": "mcp_scope_enforcement", "type": "choice", "q": "When an AI model queries district data, where is the user's permission enforced?", "options": ["in the tools, scope resolved server-side per user", "service account; the model is told what to respect", "admin-only tools, no per-user scope", "no AI access to district data yet"]}, {"id": "model_generated_queries", "type": "choice", "q": "May a model write its own queries (SQL, API calls) against district data?", "options": ["never; predefined tools only", "read-only, on a sandbox copy", "read-only, on production data", "no rule yet"]}, {"id": "agent_write_authority", "type": "choice", "q": "What may agents change in district systems?", "options": ["read-only", "propose; a person accepts and is the author of record", "write within set limits", "not addressed"]}, {"id": "mcp_access_grants", "type": "text", "q": "Who approves a person's access to an MCP tool or agent, and is the grant logged?"}, {"id": "model_task_validation", "type": "text", "q": "How do you decide a model (especially a smaller or self-hosted one) is reliable enough for a production task?"}]}, {"id": "data", "title": "Data foundation", "blurb": "What your agents can actually reach, and how app data is structured.", "questions": [{"id": "data_warehouse", "type": "choice", "q": "Central data store for analytics.", "options": ["BigQuery", "Snowflake", "SQL Server / on-prem warehouse", "Azure / Fabric", "vendor dashboard only", "spreadsheets", "none"]}, {"id": "sis_integration", "type": "choice", "q": "How do you pull SIS data?", "options": ["direct API", "OneRoster", "scheduled exports", "vendor connector", "manual"]}, {"id": "reporting_copy", "type": "choice", "q": "Do apps, reports and agents read the live SIS or a district-owned copy?", "options": ["district-owned reporting copy/warehouse only", "live SIS read replica", "live SIS directly", "vendor API only"]}, {"id": "db_per_app", "type": "choice", "q": "How are staff-built app databases structured?", "options": ["own database and own identity per app", "shared database, separate schema per app", "shared database and account", "no rule yet"]}, {"id": "data_access_pattern", "type": "choice", "q": "How do apps and agents read district databases?", "options": ["stored procedures or views only, EXECUTE grants", "read-only role on tables", "direct table access", "through an API layer only", "no rule yet"]}, {"id": "schema_changes", "type": "choice", "q": "How do schema changes ship?", "options": ["numbered migration scripts in the repo, run by a DBA", "ORM migrations applied on deploy", "manual changes by a DBA", "builders change production directly", "no rule yet"]}, {"id": "central_ops_plumbing", "type": "multi", "q": "Which shared services must every staff-built app use instead of building its own?", "options": ["shared sign-in", "central event/audit log", "district job scheduler", "central reminder/notification service", "shared hosting template", "none"]}, {"id": "semantic_layer", "type": "bool", "q": "Do you maintain a data dictionary or ontology agents can use?", "options": ["yes", "partial", "no", "unknown"]}]}, {"id": "learning", "title": "People & learning", "blurb": "How staff learn this, and what you would trade.", "questions": [{"id": "pd_model", "type": "multi", "q": "How staff learn AI.", "options": ["cohorts / communities of practice", "PD days", "coaching", "self-paced courses", "vendor training", "student-led", "none formal"]}, {"id": "biggest_win", "type": "text", "q": "One AI win you would show another district."}, {"id": "open_question", "type": "text", "q": "One question you wish another district would answer for you."}, {"id": "can_share", "type": "list", "q": "Artifacts you would share (policies, checklists, code)."}]}], "status": ["staff", "staff+students", "pilot", "off", "blocked", "unknown"], "standard": {"title": "Agua Fria's builder sandbox reference standard", "summary": "How Agua Fria Union High School District lets staff build with AI while keeping student data, sign-in and production under one set of district rules: a permit to build, one platform to publish on, and permission checks that live in code rather than in the model. Every rule below comes from the district's own organizational ontology; where it records no rule, the standard says so.", "pillars": [{"name": "Builder permit and training", "rule": "Staff earn the Builder's Permit (three modules passed at 80 percent plus a human-reviewed GitHub capstone) before they get builder tooling or may author Apps Script.", "details": ["Invite-only, about fifteen hours, asynchronous; covers FERPA and Arizona privacy, district policy, security, GitHub, permissions and sign-on", "Modules unlock in order; a third failed attempt raises a support flag so an administrator offers help", "Capstone is an https GitHub repository a program administrator approves or returns with notes", "Approval unlocks GitHub Copilot; Apps Script authoring is limited to permit holders after a month's notice", "Already-published scripts keep running for their users; team-wide tools move to the platform", "Site AI champions and ambassadors are the first contact for builders"]}, {"name": "Environments and sandbox", "rule": "Builders work locally against an empty database copy, then a development copy on its own host, and only then production; production is never a place to iterate.", "details": ["Prototypes run on fake data first; the technology team connects real data once a tool proves worth it", "A builder's local database is an empty copy, never production", "Single pages a staff member's assistant made go to a reviewed 'ideas sandbox': private by default, and every visibility above private is a human review at the start", "Development copies publish to their own host name with their own sign-in app copy, key ring and host-only cookie", "Development deploys run on a separate runner that is not an administrator, with CPU and memory limits and per-repository concurrency", "A builder sees their own development copy; who else may open it is enforced by each app's access check"]}, {"name": "Version control and repository structure", "rule": "Every app lives in a private repository in the district's GitHub organization, created from the district app template, and changes arrive only by pull request.", "details": ["The innovation office creates the repository from the template and names the app's address; the builder fills it in", "Main requires a pull request; force-push and branch deletion are refused", "Code owners are recorded on every repository", "Stage files by name (never add everything) and read the diff before pushing", "No student names in source, tests, docs or fixtures", "A repository goes public only as a fresh scrubbed snapshot with a generic name, after a secrets scan over full history, a forbidden-string scan, no data files, config by example, CI on a hosted runner and the director's approval"]}, {"name": "Code review and promotion path", "rule": "A second AI agent reviews, a human merges, and a production deploy publishes only after the Director of Innovation (or a named backup) approves the run.", "details": ["The second agent checks live state, not the first agent's write-up; nothing live is executed from a review workspace", "Pull requests get an adversarial review; a severity 1 to 4 finding means changes requested", "CI must pass, including a check that refuses edits to a SQL script that has already been run", "The production environment click is the one human control on production; administrators cannot bypass it", "The production runner accepts one pinned reusable deploy workflow, hardcoded to main", "What ships is a clean export of the merged commit, never a working checkout", "After a deploy: health check, rollback on failure, an accessibility scan of the pages touched", "Rollout is staged: the innovation office, about five testers at one campus, one whole school, then everyone"]}, {"name": "Hosting standard", "rule": "Every staff app runs as its own sub-application under one district apps hostname on on-prem Windows IIS, with its own app pool and service identity.", "details": ["Apps are built from the district's .NET 10 Razor Pages template", "One app pool per app, running in process, one worker process, always running with preload", "Each pool runs as a dedicated directory service account with no stored password", "Deploys swap atomically and keep rollback folders on the host", "File storage stays outside the web root", "The standard is written as an agent skill that coding agents read before provisioning", "The Python MCP connector runs as a local service behind the same web front door; the self-hosted model runs on its own Linux host"]}, {"name": "Authentication and SSO", "rule": "Every signed-in app uses the shared platform sign-in; no app keeps its own login.", "details": ["One Google Workspace sign-in app issues an identity-only cookie read through a shared key ring", "The Google domain is not the gate, because students share it; the HR system's active-staff status is the deny gate", "Roles come from directory group membership, never per-app lists of names; the top role in every app comes from one shared group", "Authorization is re-resolved on every request; role claims in the cookie are ignored", "Site roles see their own campus by default; districtwide reach is an explicit permission", "A refused person gets a page saying who they are signed in as and how to get access, and is never signed out"]}, {"name": "Secrets and credentials", "rule": "No password lives in any config file: apps use integrated authentication as their own service identity, and people work as themselves.", "details": ["Interactive work (git, database tools, deploys, assistant sessions) runs as the person's own account", "Service identities run only app pools, agents and scheduled tasks, and a service identity is never moved onto a human account to clear an error", "Model access uses one token per caller, shown once and never pasted into an AI; an exposed token is revoked and replaced", "Remaining secrets live in the team password manager, never in a file or repository", "A machine-wide pre-commit hook and pinned CI scanners block credentials and data files", "Builders on the automation canvas hold no database credential", "No agent suppresses a guard or scanner exception to get a green build"]}, {"name": "Database structure and data access", "rule": "Each app gets its own SQL Server database and identity, and reads district data only through stored procedures it has EXECUTE on.", "details": ["No table rights, no schema-wide grants, no blanket reader role; one procedure per consumer so grants stay auditable", "District-owned SIS data comes from a nightly export into a district reporting warehouse; reporting never runs on the production SIS server", "Warehouse student tables rebuild every quarter hour, so jobs avoid :00, :15, :30 and :45", "New SIS exports land in a dedicated exports database written only by the nightly jobs", "Schema changes ship as numbered, forward-only, idempotent SQL scripts with wrong-server and wrong-database guards", "Database administration is run by the director from reviewed scripts that pin their database", "A builder who needs tables writes a markdown spec of tables and accounts in the repository; an administrator creates them", "Workflow apps keep records in their own tables and produce PDFs or emails on demand, not Google Docs"]}, {"name": "Logging, audit and job monitoring", "rule": "Apps log to the one central event log, and all scheduled work registers in the district job scheduler, which is the only scheduler and reminder engine.", "details": ["Sign-ins and major actions go to the central event log through its procedures; no parallel logging store", "Usage events roll up nightly by day, app, user and page so build effort follows use", "Jobs carry a plain-English purpose, an owner and an honest exit code; a swallowed failure still exits non-zero", "Jobs that email people default to test mode until switched live", "A daily digest lists everything in the job fleet that needs fixing", "Monthly app audits compare database permission snapshots against a baseline; a daily signed-in test persona checks what each role sees", "MCP tool-rule changes and model-token mint and revoke are logged; the model gateway logs the caller, never the prompt", "The automation canvas pilot cannot schedule itself or send mail; the job scheduler triggers it and records the outcome"]}, {"name": "Coding requirements", "rule": "Apps are C# on .NET 10 Razor Pages from the district template, scheduled jobs and the MCP connector are Python, and every build pins its versions and fails on warnings.", "details": ["Pinned SDK and packages; warnings are errors; tests run in CI on the organization's reusable workflows", "A skipped test must not read as passed", "WCAG 2.1 AA, with axe scans of every route and five manual passes, by the district's April 2027 target", "Every feature ships with its help-page section in the same pull request", "Times shown to people are Arizona time", "No tool gives a consequence on its own: a tool proposes, a person decides", "Builders' coding agents pull the shared district agent skills before every build and contribute what they learn"]}, {"name": "MCP and agent tool exposure", "rule": "An AI model reaches district data only through defined tools that check the signed-in user's role before returning anything, and never writes its own queries.", "details": ["A teacher's question about other students returns nothing because the tool refuses, not because the model declines", "Three tiers: the hosted connector in the enterprise chat workspace, the district's first-party portal, and the local model", "Hosted-connector tools are read-only; writes such as intervention assignments stay in the district's own apps", "Per-tool user rules are added or removed by an innovation-team super user and logged", "New tools arrive only through code review of the tool server", "One connector app, not one per audience, until group-to-role provisioning exists", "Agents propose; a person accepts and is the author of record"]}, {"name": "Model access", "rule": "Work over student records prefers the district's self-hosted model; a hosted model may receive student data only under a district agreement that covers it.", "details": ["Apps send counts and keys, not values, to assistants by default", "Self-hosted model access is a per-caller token issued by the director; few staff are expected to hold one", "A task moves to the self-hosted model only after it is measured against a frontier model's answers", "General staff use the fast default model in the chat workspace; compute is treated as a finite resource", "Nothing personal is retained or learned from when agents read mail, calendars or transcripts"]}, {"name": "Ownership and handoff", "rule": "A prototype worth sharing is either folded into an existing district tool or given its own hosted home, and the innovation office takes over sign-in, security review and data feeds while the builder keeps shaping it.", "details": ["The first step is a privacy review of how the prototype is shared and who can reach it", "A prototype must not duplicate a district system it overlaps", "Records name roles, never people, so a departure does not change them", "A departing role holder follows a dated handoff: handoff documents, an assistant built on them, access reduced on a schedule", "Offboarding happens once, in HR; app grants become inert when a person leaves"]}], "not_documented": ["Who may request a self-hosted model token and who approves it (only who can mint is defined)", "Whether a builder must hold the Builder's Permit before receiving a model token", "An explicit written rule for what data the sandbox may hold (fake-first is stated practice; development databases are decided app by app)", "A cap or tracking method for AI/API spend beyond model-tier and pilot choices", "An intellectual-property rule for staff-built tools (proposed, pending legal review)", "Where a new table's lineage is recorded (atlas, ontology or a skill)", "A release-day procedure for announcing an internally built app", "Who reviews and approves an MCP tool-access grant (a super user can add any rule; the reason is not recorded)"]}, "baseUrl": "https://lukeallpress.github.io/agentic-builders-commons/atlas/", "contact": "lallpress@aguafria.org", "generated": "2026-10-29"};
+(function () {
+  const D = ATLAS.districts, SECTIONS = ATLAS.sections;
+  const Q = {}; SECTIONS.forEach(s => s.questions.forEach(q => { Q[q.id] = q; }));
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const A = d => d.answers || {};
+  const name = d => A(d).district_name || d.slug;
+  const short = d => name(d).replace(/ (Union High School District|School District|Public Schools|Township High School District|Central School District|Schools)$/,"");
+  const isHome = d => A(d).state === "AZ";
+  const known = v => v !== undefined && v !== null && v !== "" && v !== "unknown" && !(Array.isArray(v) && !v.length);
+  const prompt = `Please read ${ATLAS.baseUrl}agent.md and follow it to add our district to the District AI Atlas. Search my connected email, files and chat for the answers, ask me about anything you can't confirm, and show me the draft before anything is sent.`;
+
+  // ---------- tooltip ----------
+  const tip = $("#tip"); let tipLock = null;
+  function showTip(e, html) {
+    tip.innerHTML = html; tip.classList.add("on");
+    const r = e.target.getBoundingClientRect();
+    const x = Math.min(window.innerWidth - tip.offsetWidth - 8, Math.max(8, r.left + r.width / 2 - tip.offsetWidth / 2));
+    let y = r.top - tip.offsetHeight - 8; if (y < 8) y = r.bottom + 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { tip.classList.remove("on"); tipLock = null; }
+  function bindTip(el, html) {
+    el.addEventListener("mouseenter", e => showTip(e, html));
+    el.addEventListener("mouseleave", () => { if (tipLock !== el) hideTip(); });
+    el.addEventListener("focus", e => showTip(e, html));
+    el.addEventListener("blur", hideTip);
+    el.addEventListener("click", e => { e.stopPropagation(); if (tipLock === el) { hideTip(); return; } showTip(e, html); tipLock = el; });
+  }
+  document.addEventListener("click", hideTip);
+  window.addEventListener("scroll", () => { if (tip.classList.contains("on")) hideTip(); }, {passive:true});
+
+  function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1800); }
+  async function copy(text, btn, label) {
+    try { await navigator.clipboard.writeText(text); }
+    catch (_) { const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); }
+    if (btn) { const old = btn.textContent; btn.textContent = label || "Copied"; btn.classList.add("copied"); setTimeout(() => { btn.textContent = old; btn.classList.remove("copied"); }, 1600); }
+    toast("Copied. Paste it into your AI assistant.");
+  }
+
+  // ---------- contribute ----------
+  $("#promptText").textContent = prompt;
+  $("#copyPrompt").addEventListener("click", e => copy(prompt, e.currentTarget, "Copied ✓"));
+  $("#copyBrief").addEventListener("click", async e => {
+    e.preventDefault();
+    try { const r = await fetch("agent.md", {cache:"no-store"}); copy(await r.text(), null); }
+    catch (_) { location.href = "agent.md"; }
+  });
+  $("#mailBtn").href = "mailto:" + ATLAS.contact + "?subject=" + encodeURIComponent("District Atlas: <district name>, <state>") +
+    "&body=" + encodeURIComponent("Paste your assistant's YAML answers here.\n\n");
+  $("#contactLine").innerHTML = 'Corrections: <a href="mailto:' + ATLAS.contact + '?subject=District%20Atlas%20correction">email the organizer</a>';
+  $("#genLine").textContent = "Updated " + ATLAS.generated;
+
+  // ---------- stats ----------
+  const states = [...new Set(D.map(d => A(d).state).filter(Boolean))];
+  const answers = D.reduce((n, d) => n + Object.values(A(d)).filter(known).length, 0);
+  const nq = SECTIONS.reduce((n, s) => n + s.questions.length, 0);
+  $("#stats").innerHTML = [[D.length, "districts"], [states.length, "states"], [answers, "answers mapped"], [nq, "questions per district"]]
+    .map(([n, l]) => `<div class="stat"><span class="num">${n}</span><span class="lbl">${l}</span></div>`).join("");
+
+  // ---------- tile map ----------
+  const TILES = {AK:[0,0],ME:[10,0],VT:[9,1],NH:[10,1],WA:[0,2],ID:[1,2],MT:[2,2],ND:[3,2],MN:[4,2],IL:[5,2],WI:[6,2],MI:[7,2],NY:[8,2],RI:[9,2],MA:[10,2],
+    OR:[0,3],NV:[1,3],WY:[2,3],SD:[3,3],IA:[4,3],IN:[5,3],OH:[6,3],PA:[7,3],NJ:[8,3],CT:[9,3],CA:[0,4],UT:[1,4],CO:[2,4],NE:[3,4],MO:[4,4],KY:[5,4],WV:[6,4],VA:[7,4],MD:[8,4],DE:[9,4],
+    AZ:[1,5],NM:[2,5],KS:[3,5],AR:[4,5],TN:[5,5],NC:[6,5],SC:[7,5],DC:[8,5],OK:[3,6],LA:[4,6],MS:[5,6],AL:[6,6],GA:[7,6],HI:[0,7],TX:[3,7],FL:[8,7]};
+  const byState = {}; D.forEach(d => { const s = A(d).state; if (s) (byState[s] = byState[s] || []).push(d); });
+  const maxN = Math.max(1, ...Object.values(byState).map(a => a.length));
+  const seq = ["--o5","--o4","--o3","--o2","--o1"].map(css);
+  const seqFor = n => seq[Math.min(seq.length - 1, Math.round((n - 1) / Math.max(1, maxN - 1) * (seq.length - 1)))];
+  const tm = $("#tilemap");
+  for (let r = 0; r < 8; r++) for (let c = 0; c < 11; c++) {
+    const st = Object.keys(TILES).find(k => TILES[k][0] === c && TILES[k][1] === r);
+    if (!st) { tm.appendChild(document.createElement("span")); continue; }
+    const list = byState[st] || [];
+    const el = document.createElement(list.length ? "button" : "span");
+    el.className = "tile" + (list.length ? " has" : "") + (st === "AZ" ? " home" : "");
+    el.textContent = st;
+    if (list.length) {
+      el.style.background = seqFor(list.length); el.type = "button";
+      if (seq.indexOf(seqFor(list.length)) <= 1) el.style.color = "#1a2233";
+      el.setAttribute("aria-label", `${st}: ${list.length} district${list.length > 1 ? "s" : ""}. Show in database`);
+      const html = `<b>${st} · ${list.length} district${list.length > 1 ? "s" : ""}</b>${list.map(d => esc(short(d))).join("<br>")}`;
+      el.addEventListener("mouseenter", e => showTip(e, html));
+      el.addEventListener("mouseleave", hideTip);
+      el.addEventListener("click", () => { hideTip(); filterState(st); });
+    }
+    tm.appendChild(el);
+  }
+  $("#mapRamp").innerHTML = seq.map(c => `<i style="background:${c}"></i>`).join("");
+  $("#mapRampMax").textContent = `1–${maxN}`;
+  $("#statelist").innerHTML = Object.keys(byState).sort((a, b) => byState[b].length - byState[a].length || a.localeCompare(b))
+    .map(s => `<button class="staterow" type="button" data-st="${s}"><span><b>${s}</b> &nbsp;${byState[s].map(d => esc(short(d))).join(", ")}</span><b>${byState[s].length}</b></button>`).join("");
+  document.querySelectorAll(".staterow").forEach(b => b.addEventListener("click", () => filterState(b.dataset.st)));
+  function filterState(st) { $("#fState").value = st; renderList(); $("#database").scrollIntoView(); }
+
+  // ---------- unit charts ----------
+  function unitChart(el, qid, order) {
+    const groups = {}; D.forEach(d => { const v = A(d)[qid]; if (known(v)) (groups[v] = groups[v] || []).push(d); });
+    const keys = (order || Object.keys(groups)).filter(k => groups[k]);
+    const missing = D.length - keys.reduce((n, k) => n + groups[k].length, 0);
+    el.innerHTML = keys.map(k => `<div class="unit-row"><div class="lbl">${esc(k)}<span>${groups[k].length} district${groups[k].length > 1 ? "s" : ""}</span></div><div class="dots" data-k="${esc(k)}"></div></div>`).join("")
+      + (missing ? `<p class="note" style="margin:10px 0 0">${missing} not yet reported.</p>` : "");
+    keys.forEach(k => {
+      const box = el.querySelector(`.dots[data-k="${CSS.escape(k)}"]`);
+      groups[k].forEach(d => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "dot";
+        b.setAttribute("aria-label", name(d)); bindTip(b, `<b>${esc(name(d))}</b><span class="tm">${esc(A(d).state || "")} · ${esc(k)}</span>`);
+        box.appendChild(b);
+      });
+    });
+  }
+  unitChart($("#unitSuite"), "productivity_suite", Q.productivity_suite.options);
+  unitChart($("#unitIdp"), "primary_idp", Q.primary_idp.options);
+
+  // ---------- AI tools stacked bars ----------
+  const TSTAT = [["staff+students","On for staff + students","--t-both"],["staff","Staff only","--t-staff"],["pilot","Pilot","--t-pilot"],["off","Off","--t-off"],["blocked","Blocked","--t-blocked"]];
+  $("#toolLegend").innerHTML = TSTAT.map(([, l, v]) => `<span><i style="background:${css(v)}"></i>${l}</span>`).join("");
+  const tools = Q.ai_tools.options.map(t => {
+    const by = {}; D.forEach(d => { const s = (A(d).ai_tools || {})[t]; if (s && s !== "unknown") (by[s] = by[s] || []).push(d); });
+    const on = ["staff+students","staff","pilot"].reduce((n, s) => n + (by[s] || []).length, 0);
+    const score = (by["staff+students"]||[]).length * 3 + (by.staff||[]).length * 2 + (by.pilot||[]).length;
+    return {t, by, on, score, total: Object.values(by).reduce((n, a) => n + a.length, 0)};
+  }).filter(x => x.total).sort((a, b) => b.on - a.on || b.score - a.score || b.total - a.total);
+  const tb = $("#toolBars");
+  tools.forEach(x => {
+    const row = document.createElement("div"); row.className = "bar-row";
+    row.innerHTML = `<div class="lbl">${esc(x.t)}</div><div class="track"></div><div class="val">${x.on} on</div>`;
+    const tr = row.querySelector(".track");
+    TSTAT.forEach(([s, l, v]) => {
+      const list = x.by[s]; if (!list) return;
+      const seg = document.createElement("button"); seg.type = "button"; seg.className = "seg";
+      seg.style.background = css(v); seg.style.flex = `0 0 ${list.length / D.length * 100}%`;
+      seg.setAttribute("aria-label", `${x.t}: ${l}, ${list.length}`);
+      bindTip(seg, `<b>${esc(x.t)} · ${l}</b>${list.map(d => esc(short(d))).join("<br>")}`);
+      tr.appendChild(seg);
+    });
+    const rest = document.createElement("div"); rest.className = "rest"; tr.appendChild(rest);
+    tb.appendChild(row);
+  });
+  if (!tools.length) tb.innerHTML = '<p class="empty">No tool data yet.</p>';
+
+  // ---------- maturity (ordinal 100%) bars ----------
+  const ORD = ["--o1","--o2","--o3","--o4","--o5"].map(css);
+  const MAT = {
+    ai_policy: ["board-adopted policy","administrative guidance / AUP","in progress","none yet"],
+    default_posture: ["allowlist: blocked until approved","case-by-case","open unless flagged"],
+    teacher_ip_policy: ["yes, written policy","in progress","informal understanding","none"],
+    academic_integrity: ["district-wide framework","school or teacher discretion","in progress","none"],
+    parent_comms: ["yes","partial","no"],
+    vibe_coding_support: ["formal program with permits/training","supported informally","allowed but unsupported","discouraged","not addressed"],
+    sandbox_env: ["yes, dedicated cloud project/tenant","yes, separate on-prem dev host/environment","yes, per-app dev copies","yes, separate OU/test accounts","builders use personal/dev accounts","no sandbox"],
+    ai_code_review: ["required for every live change","required for security/platform changes","optional","no"],
+    deploy_gate: ["named human approves the deploy run","IT deploys by hand","merge to main deploys automatically","builder deploys directly","no rule yet"],
+    app_identity: ["passwordless per-app identity (managed/integrated)","per-app service account with stored password","shared service account","API keys in config","builder's personal account"],
+    agent_context_standard: ["shared repo every builder's agent pulls before each build","per-project instruction files only","informal / per builder","none"],
+    mcp_scope_enforcement: ["in the tools, scope resolved server-side per user","admin-only tools, no per-user scope","service account; the model is told what to respect","no AI access to district data yet"],
+    model_generated_queries: ["never; predefined tools only","read-only, on a sandbox copy","read-only, on production data","no rule yet"],
+    agent_write_authority: ["read-only","propose; a person accepts and is the author of record","write within set limits","not addressed"],
+    data_access_pattern: ["stored procedures or views only, EXECUTE grants","through an API layer only","read-only role on tables","direct table access","no rule yet"],
+    db_per_app: ["own database and own identity per app","shared database, separate schema per app","shared database and account","no rule yet"],
+    reporting_copy: ["district-owned reporting copy/warehouse only","live SIS read replica","vendor API only","live SIS directly"],
+    version_control: ["required, district GitHub/GitLab org","encouraged","not required","not addressed"],
+    code_review: ["required review by IT","peer review","automated checks only","no review"],
+    sandbox_data: ["synthetic only","de-identified","real data, least privilege","no rule yet"],
+    app_auth: ["district SSO required","SSO encouraged","app-specific logins allowed","no rule yet"],
+    mcp_servers: ["built our own, in production","built our own, piloting","using vendor MCPs only","exploring","not yet"],
+    logging_audit: ["yes","partial","no"],
+  };
+  const SHORTQ = {ai_policy:"AI policy", default_posture:"Posture toward new AI tools", teacher_ip_policy:"Who owns what staff build (IP policy)",
+    academic_integrity:"Student AI-use guidance", parent_comms:"Families told about the AI approach", vibe_coding_support:"Support for staff vibe coding",
+    sandbox_env:"Separate development sandbox", version_control:"Version control for staff-built code", code_review:"Code review before deploy",
+    sandbox_data:"Data allowed in the sandbox", app_auth:"Sign-in for staff-built apps", mcp_servers:"MCP servers", logging_audit:"Audit logging of AI actions",
+    ai_code_review:"Second AI agent reviews AI-written code", deploy_gate:"Gate between merge and production", app_identity:"How apps authenticate to data",
+    agent_context_standard:"Shared instructions builders' agents load", mcp_scope_enforcement:"Where a user's data permission is enforced",
+    model_generated_queries:"Models writing their own queries", agent_write_authority:"What agents may change", data_access_pattern:"How apps read district databases",
+    db_per_app:"Database structure per app", reporting_copy:"Live SIS or a district-owned copy"};
+  function maturity(el, ids) {
+    el.innerHTML = "";
+    ids.forEach(id => {
+      const order = MAT[id]; const by = {};
+      D.forEach(d => { const v = A(d)[id]; if (order.includes(v)) (by[v] = by[v] || []).push(d); });
+      const n = Object.values(by).reduce((s, a) => s + a.length, 0);
+      const wrap = document.createElement("div"); wrap.className = "mbar";
+      wrap.innerHTML = `<div class="mq"><span>${esc(SHORTQ[id] || Q[id].q)}</span><small>${n} of ${D.length} answered</small></div><div class="mtrack"></div><div class="mlegend"></div>`;
+      const tr = wrap.querySelector(".mtrack"), lg = wrap.querySelector(".mlegend");
+      if (!n) { tr.innerHTML = '<div class="rest" style="border-radius:4px"></div>'; lg.innerHTML = '<span>Not reported yet</span>'; }
+      const colors = order.length <= 3 ? [ORD[0], ORD[2], ORD[4]] : order.length === 4 ? [ORD[0], ORD[1], ORD[3], ORD[4]] : order.length === 5 ? ORD : [ORD[0], ORD[0], ORD[1], ORD[2], ORD[3], ORD[4]];
+      order.forEach((opt, i) => {
+        const list = by[opt]; const col = colors[i];
+        if (!list) return;
+        lg.insertAdjacentHTML("beforeend", `<span><i style="background:${col}"></i>${esc(opt)} <b>${list.length}</b></span>`);
+        const seg = document.createElement("button"); seg.type = "button"; seg.className = "seg";
+        seg.style.background = col; seg.style.flex = `0 0 ${list.length / D.length * 100}%`;
+        if (i >= colors.length - 1 && colors.length > 2) seg.style.color = "#1a2233";
+        seg.textContent = list.length / D.length >= .07 ? list.length : "";
+        seg.setAttribute("aria-label", `${opt}: ${list.length}`);
+        bindTip(seg, `<b>${esc(opt)} · ${list.length}</b>${list.map(d => esc(short(d))).join("<br>")}`);
+        tr.appendChild(seg);
+      });
+      if (n) tr.insertAdjacentHTML("beforeend", '<div class="rest"></div>');
+      el.appendChild(wrap);
+    });
+  }
+  maturity($("#govBars"), ["ai_policy","teacher_ip_policy","default_posture","academic_integrity","parent_comms"]);
+  maturity($("#sandboxBars"), ["vibe_coding_support","sandbox_env","version_control","code_review","ai_code_review","deploy_gate","app_auth","app_identity","sandbox_data","agent_context_standard"]);
+  maturity($("#agentBars"), ["mcp_servers","mcp_scope_enforcement","model_generated_queries","agent_write_authority"]);
+  maturity($("#dataBars"), ["reporting_copy","db_per_app","data_access_pattern"]);
+
+  // ---------- count bars (multi-select) ----------
+  function countBars(el, id, limit) {
+    const c = {}; D.forEach(d => (A(d)[id] || []).forEach(v => { (c[v] = c[v] || []).push(d); }));
+    const rows = Object.entries(c).sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0])).slice(0, limit || 12);
+    const max = Math.max(1, ...rows.map(r => r[1].length));
+    el.innerHTML = rows.length ? "" : '<p class="empty" style="padding:6px 0;text-align:left">Not yet reported.</p>';
+    rows.forEach(([k, list]) => {
+      const row = document.createElement("div"); row.className = "bar-row";
+      row.innerHTML = `<div class="lbl">${esc(k)}</div><div class="track"></div><div class="val">${list.length}</div>`;
+      const seg = document.createElement("button"); seg.type = "button"; seg.className = "seg";
+      seg.style.flex = `0 0 ${list.length / max * 100}%`; seg.setAttribute("aria-label", `${k}: ${list.length}`);
+      bindTip(seg, `<b>${esc(k)} · ${list.length}</b>${list.map(d => esc(short(d))).join("<br>")}`);
+      row.querySelector(".track").appendChild(seg); el.appendChild(row);
+    });
+  }
+  countBars($("#vettingBars"), "app_vetting");
+  countBars($("#builderToolBars"), "builder_tools", 10);
+  countBars($("#hostingBars"), "hosting", 8);
+  countBars($("#dbBars"), "database", 8);
+
+  // ---------- readiness matrix ----------
+  const COLS = [
+    ["AI policy", "ai_policy", v => v === "board-adopted policy" || v === "administrative guidance / AUP" ? 2 : v === "in progress" ? 1 : 0],
+    ["App vetting", "app_vetting", v => v.includes("none formal") ? 0 : v.some(x => /DPA|NDPA|privacy agreement/.test(x)) ? 2 : 1],
+    ["IP policy", "teacher_ip_policy", v => v === "yes, written policy" ? 2 : v === "none" ? 0 : 1],
+    ["Builder program", "vibe_coding_support", v => v.startsWith("formal") ? 2 : v === "supported informally" ? 1 : 0],
+    ["Sandbox", "sandbox_env", v => v.startsWith("yes") ? 2 : v.startsWith("builders") ? 1 : 0],
+    ["Version control", "version_control", v => v.startsWith("required") ? 2 : v === "encouraged" ? 1 : 0],
+    ["Code review", "code_review", v => v === "required review by IT" || v === "peer review" ? 2 : v === "automated checks only" ? 1 : 0],
+    ["SSO for apps", "app_auth", v => v === "district SSO required" ? 2 : v === "SSO encouraged" ? 1 : 0],
+    ["Deploy gate", "deploy_gate", v => v === "named human approves the deploy run" || v === "IT deploys by hand" ? 2 : v === "merge to main deploys automatically" ? 1 : 0],
+    ["Scoped AI data", "mcp_scope_enforcement", v => v.startsWith("in the tools") ? 2 : v.startsWith("no AI") ? 0 : 1],
+    ["MCP servers", "mcp_servers", v => v === "built our own, in production" ? 2 : v === "not yet" ? 0 : 1],
+  ];
+  const fmt = v => Array.isArray(v) ? v.join(", ") : v;
+  const scored = D.map(d => {
+    const cells = COLS.map(([, id, f]) => { const v = A(d)[id]; return known(v) ? {lvl: f(v), v} : null; });
+    return {d, cells, score: cells.reduce((s, c) => s + (c ? c.lvl : 0), 0), n: cells.filter(Boolean).length};
+  }).filter(r => r.n >= 1).sort((a, b) => b.score - a.score || b.n - a.n);
+  const mx = $("#matrix");
+  mx.innerHTML = `<thead><tr><th class="name">District</th>${COLS.map(c => `<th class="rot"><div>${c[0]}</div></th>`).join("")}</tr></thead><tbody></tbody>`;
+  const mb = mx.querySelector("tbody");
+  scored.forEach(r => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="name" title="${esc(name(r.d))}">${esc(short(r.d))}<small>${esc(A(r.d).state || "")}</small></td>`;
+    r.cells.forEach((c, i) => {
+      const td = document.createElement("td"); const p = document.createElement("button"); p.type = "button";
+      p.className = "pip " + (c ? "l" + c.lvl : "na");
+      p.setAttribute("aria-label", `${name(r.d)}, ${COLS[i][0]}: ${c ? fmt(c.v) : "not reported"}`);
+      bindTip(p, `<b>${esc(short(r.d))} · ${COLS[i][0]}</b>${c ? esc(fmt(c.v)) : '<span class="tm">Not reported yet</span>'}`);
+      td.appendChild(p); tr.appendChild(td);
+    });
+    mb.appendChild(tr);
+  });
+  if (!scored.length) mb.innerHTML = `<tr><td colspan="${COLS.length + 1}" class="empty">Not enough builder data yet.</td></tr>`;
+
+  // ---------- reference standard ----------
+  const S = ATLAS.standard;
+  if (S && S.pillars && S.pillars.length) {
+    const c = $("#standardCard"); c.style.display = "block";
+    c.innerHTML = `<span class="tag">Reference standard</span><h3 style="font-size:1.2rem">${esc(S.title || "How Agua Fria builds")}</h3>
+      <p class="note" style="max-width:70ch;margin-bottom:0">${esc(S.summary || "")}</p>
+      <div class="pillars">${S.pillars.map(p => `<div class="pillar"><h4>${esc(p.name)}</h4><p>${esc(p.rule)}</p>${(p.details || []).length ? `<details><summary>How it works (${p.details.length})</summary><ul>${p.details.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}</div>`).join("")}</div>
+      <p class="note" style="margin:14px 0 0">Shared as one district's working answer, not a mandate. Yours is different? That's the point: <a href="#contribute">add it</a>.</p>`;
+  }
+
+  // ---------- database ----------
+  const fState = $("#fState"), fSuite = $("#fSuite");
+  states.sort().forEach(s => fState.insertAdjacentHTML("beforeend", `<option>${s}</option>`));
+  [...new Set(D.map(d => A(d).productivity_suite).filter(known))].sort().forEach(s => fSuite.insertAdjacentHTML("beforeend", `<option>${esc(s)}</option>`));
+  const TCOL = {"staff+students":"--t-both", staff:"--t-staff", pilot:"--t-pilot", off:"--t-off", blocked:"--t-blocked"};
+  function sheet(d) {
+    return SECTIONS.map(s => {
+      const rows = s.questions.filter(q => known(A(d)[q.id])).map(q => {
+        const v = A(d)[q.id]; let html;
+        if (q.type === "tools") {
+          html = '<div class="toolgrid">' + Object.entries(v).filter(([, st]) => st && st !== "unknown")
+            .map(([t, st]) => `<span class="tstat" style="background:${css(TCOL[st] || "--faint")};${st === "off" || st === "pilot" ? "color:#1a2233" : ""}">${esc(t)}: ${esc(st)}</span>`).join("") + "</div>";
+        } else html = esc(fmt(v));
+        return `<div class="qa"><span class="q">${esc(q.q)}</span><span class="a">${html}</span></div>`;
+      });
+      return rows.length ? `<div class="dsec"><h4>${esc(s.title)}</h4>${rows.join("")}</div>` : "";
+    }).join("");
+  }
+  function haystack(d) { return JSON.stringify(A(d)).toLowerCase() + " " + (d.highlights || []).join(" ").toLowerCase(); }
+  function renderList() {
+    const term = $("#q").value.trim().toLowerCase();
+    const filledOf = d => SECTIONS.reduce((n, s) => n + s.questions.filter(q => known(A(d)[q.id])).length, 0);
+    const list = D.slice().sort((a, b) => filledOf(b) - filledOf(a)).filter(d => (!fState.value || A(d).state === fState.value) && (!fSuite.value || A(d).productivity_suite === fSuite.value) && (!term || haystack(d).includes(term)));
+    $("#countLine").textContent = `${list.length} of ${D.length} districts`;
+    const box = $("#dlist"); box.innerHTML = list.length ? "" : '<p class="empty">No districts match. Yours could be the first: <a href="#contribute">add it</a>.</p>';
+    list.forEach(d => {
+      const a = A(d); const filled = SECTIONS.reduce((n, s) => n + s.questions.filter(q => known(a[q.id])).length, 0);
+      const chips = [a.state, a.org_type, a.enrollment_band && a.enrollment_band + " students", a.productivity_suite, a.lms].filter(known);
+      const card = document.createElement("article"); card.className = "dcard";
+      card.innerHTML = `<button class="dhead" type="button" aria-expanded="false">
+        <div class="dtitle"><h3>${esc(name(d))}</h3><span class="badge ${d.status === "submitted" ? "submitted" : "seeded"}">${d.status === "submitted" ? "Submitted" : "Seeded"}</span></div>
+        <div class="chips">${chips.map(c => `<span class="chip">${esc(c)}</span>`).join("")}</div>
+        ${(d.highlights || []).length ? `<ul class="hl">${d.highlights.map(h => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}
+        <div class="meter"><span class="m"><i style="width:${Math.round(filled / nq * 100)}%"></i></span>${filled} of ${nq} answered · tap for the full sheet</div>
+      </button><div class="ddetail">${sheet(d)}</div>`;
+      const head = card.querySelector(".dhead");
+      head.addEventListener("click", () => { const o = card.classList.toggle("open"); head.setAttribute("aria-expanded", o); });
+      box.appendChild(card);
+    });
+  }
+  ["input","change"].forEach(ev => { $("#q").addEventListener(ev, renderList); fState.addEventListener(ev, renderList); fSuite.addEventListener(ev, renderList); });
+  renderList();
+})();
+</script>
+</body>
+</html>
