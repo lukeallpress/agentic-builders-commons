@@ -36,7 +36,7 @@
   .topbar a { color:#fff; opacity:.85; text-decoration:none; }
   .topbar a:hover { opacity:1; text-decoration:underline; }
   .hero-grid { display:grid; gap:28px; margin-top:28px; }
-  @media (min-width:940px) { .hero-grid { grid-template-columns:1fr 1.05fr; gap:44px; align-items:start; margin-top:40px; } }
+  @media (min-width:940px) { .hero-grid { grid-template-columns:1fr 1fr; gap:44px; align-items:start; margin-top:36px; } }
   .eyebrow { text-transform:uppercase; letter-spacing:.14em; font-size:.74rem; font-weight:700; opacity:.85; }
   h1 { font-size:clamp(2.05rem,6vw,3.4rem); line-height:1.04; margin:.3em 0 .3em; font-weight:800; letter-spacing:-.01em; }
   .lede { font-size:1.1rem; max-width:44ch; opacity:.95; margin:0; }
@@ -51,7 +51,10 @@
   @media (min-width:700px) { .contribute { padding:28px 28px; } }
   .contribute h2 { margin:0; font-size:1.4rem; line-height:1.2; }
   .contribute .kicker { color:var(--accent); font-weight:750; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; }
-  .contribute .why { color:var(--muted); margin:.4em 0 1em; font-size:.95rem; }
+  .contribute .why { color:var(--muted); margin:.4em 0 .2em; font-size:.95rem; }
+  .howbody { margin-top:18px; padding-top:18px; border-top:1px solid var(--line); }
+  .chev { display:inline-block; transition:transform .15s; }
+  #howToggle[aria-expanded="true"] .chev { transform:rotate(180deg); }
   ol.steps { list-style:none; margin:0; padding:0; display:grid; gap:14px; }
   ol.steps li { display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start; }
   .stepnum { width:34px; height:34px; border-radius:50%; background:var(--brand-soft); color:var(--brand);
@@ -269,26 +272,29 @@
       <div class="contribute" id="contribute">
         <div class="kicker">Contribute to the database</div>
         <h2>Add your district in about 10 minutes</h2>
-        <p class="why">Your AI assistant does the digging. It reads your email, files and chat for the answers, asks you what it can't find, and drafts the submission for you to send.</p>
-        <ol class="steps">
-          <li><span class="stepnum">1</span><div>
-            <h3>Copy this prompt</h3>
-            <div class="prompt-box" id="promptText"></div>
-            <div class="btnrow">
-              <button class="btn primary" id="copyPrompt" type="button">Copy prompt</button>
-            </div>
-          </div></li>
-          <li><span class="stepnum">2</span><div>
-            <h3>Paste it into your work AI assistant</h3>
-            <p>Gemini, Copilot, ChatGPT or Claude, ideally the one connected to your district email and drive. Works on your phone.</p>
-          </div></li>
-          <li><span class="stepnum">3</span><div>
-            <h3>Review, then send</h3>
-            <p>It shows you a draft and emails it only after you approve. No assistant connected to email? Copy its answer and tap below.</p>
-            <div class="btnrow"><a class="btn soft" id="mailBtn" href="#">Email my answers</a></div>
-          </div></li>
-        </ol>
-        <p class="fineprint">Assistant can't open links? <a href="#" id="copyBrief">Copy the full brief</a> instead. &nbsp;·&nbsp; <a href="agent.md">Read the questions</a><br>District-level only: no names, no student data, no passwords or server details.</p>
+        <p class="why">Paste one prompt into your work AI assistant. It does the digging; you review and send.</p>
+        <div class="btnrow">
+          <button class="btn primary" id="copyPrompt" type="button">Copy the prompt</button>
+          <button class="btn soft" id="howToggle" type="button" aria-expanded="false" aria-controls="howBody">How it works <span class="chev" aria-hidden="true">▾</span></button>
+        </div>
+        <div class="howbody" id="howBody" hidden>
+          <ol class="steps">
+            <li><span class="stepnum">1</span><div>
+              <h3>Copy this prompt</h3>
+              <div class="prompt-box" id="promptText"></div>
+            </div></li>
+            <li><span class="stepnum">2</span><div>
+              <h3>Paste it into your work AI assistant</h3>
+              <p>Gemini, Copilot, ChatGPT or Claude, ideally the one connected to your district email and drive. It reads your email, files and chat for the answers and asks you what it can't find. Works on your phone.</p>
+            </div></li>
+            <li><span class="stepnum">3</span><div>
+              <h3>Review, then send</h3>
+              <p>It shows you a draft and emails it only after you approve. No assistant connected to email? Copy its answer and tap below.</p>
+              <div class="btnrow"><a class="btn soft" id="mailBtn" href="#">Email my answers</a></div>
+            </div></li>
+          </ol>
+          <p class="fineprint">Assistant can't open links? <a href="#" id="copyBrief">Copy the full brief</a> instead. &nbsp;·&nbsp; <a href="agent.md">Read the questions</a><br>District-level only: no names, no student data, no passwords or server details.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -439,6 +445,11 @@ const ATLAS = {"districts": [{"slug": "asu-prep-digital", "status": "seeded", "u
   // ---------- contribute ----------
   $("#promptText").textContent = prompt;
   $("#copyPrompt").addEventListener("click", e => copy(prompt, e.currentTarget, "Copied ✓"));
+  const howBtn = $("#howToggle"), howBody = $("#howBody");
+  const setHow = open => { howBody.hidden = !open; howBtn.setAttribute("aria-expanded", open); };
+  howBtn.addEventListener("click", () => setHow(howBody.hidden));
+  document.querySelectorAll('a[href="#contribute"]').forEach(a => a.addEventListener("click", () => setHow(true)));
+  if (location.hash === "#contribute") setHow(true);
   $("#copyBrief").addEventListener("click", async e => {
     e.preventDefault();
     try { const r = await fetch("agent.md", {cache:"no-store"}); copy(await r.text(), null); }
