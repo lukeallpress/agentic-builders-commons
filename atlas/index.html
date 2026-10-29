@@ -76,6 +76,8 @@
   .btn.primary:hover { background:var(--brand-deep); }
   .btn.soft { background:var(--brand-soft); color:var(--brand); }
   .btn.soft:hover { background:#e0e4ff; }
+  .btn.link { background:none; color:var(--brand); padding-left:10px; padding-right:10px; }
+  .btn.link:hover { text-decoration:underline; }
   .btn.copied { background:var(--accent); color:#fff; }
   .btnrow { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
   .fineprint { margin:16px 0 0; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:.84rem; }
@@ -281,7 +283,8 @@
         <p class="why">Paste one prompt into your work AI assistant. It does the digging; you review and send.</p>
         <div class="btnrow">
           <button class="btn primary" id="copyPrompt" type="button">Copy the prompt</button>
-          <button class="btn soft" id="howToggle" type="button" aria-expanded="false" aria-controls="howBody">How it works <span class="chev" aria-hidden="true">▾</span></button>
+          <a class="btn soft" id="mailBtn" href="#">Email my answers</a>
+          <button class="btn link" id="howToggle" type="button" aria-expanded="false" aria-controls="howBody">How it works <span class="chev" aria-hidden="true">▾</span></button>
         </div>
         <div class="howbody" id="howBody" hidden>
           <ol class="steps">
@@ -298,8 +301,7 @@
             </div></li>
             <li><span class="stepnum">3</span><div>
               <h3>Review, then send</h3>
-              <p>It shows you a draft and emails it only after you approve. No assistant connected to email? Copy its answer and tap below.</p>
-              <div class="btnrow"><a class="btn soft" id="mailBtn" href="#">Email my answers</a></div>
+              <p>It shows you a draft and emails it only after you approve. No assistant connected to email? Copy its answer and tap <b>Email my answers</b> above.</p>
             </div></li>
           </ol>
           <p class="fineprint">Assistant can't open links? <a href="#" id="copyBrief">Copy the full brief</a> instead. &nbsp;·&nbsp; <a href="agent.md">Read the questions</a><br>District-level only: no names, no student data, no passwords or server details.</p>
