@@ -4,7 +4,7 @@
 
 ## What this is
 
-The Agentic Builders Committee, a nationwide group of K-12 AI practitioners, is mapping how districts actually run AI: identity platforms, which AI tools are on or off, governance and app review, and the technical guardrails under staff-built software. Answers are published at https://lukeallpress.github.io/agentic-builders-commons/atlas/ so districts can learn from each other. Everything below is district-level; nothing personal is collected.
+The Agentic Builders Committee, a nationwide group of K-12 AI practitioners, is mapping how districts actually run AI: identity platforms, which AI tools are on or off, governance and app review, and the technical guardrails under staff-built software. Answers are published at https://lukeallpress.github.io/agentic-builders-commons/atlas/ so districts can learn from each other, **by region only**: the district's name, city, state, size and any written notes are never shown publicly, and only the multiple-choice answers appear. The organizer keeps the named copy privately to handle corrections. Everything below is district-level; nothing personal is collected.
 
 ## Instructions for the AI assistant
 
@@ -24,7 +24,7 @@ Fill in every field. Leave `unknown` (or an empty list `[]`) where you truly can
 
 ```yaml
 atlas_version: 1
-submitted: 2026-10-29  # today's date
+submitted: 2026-10-30  # today's date
 
 context:  # District context
   # Official district or organization name. (required)

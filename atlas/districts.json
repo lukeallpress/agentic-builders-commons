@@ -1,54 +1,82 @@
 {
- "generated": "2026-10-29",
+ "generated": "2026-10-30",
  "districts": [
   {
-   "slug": "asu-prep-digital",
+   "region": "Other U.S.",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "ASU Prep Digital",
-    "state": "AZ",
-    "org_type": "charter network",
-    "grade_span": "K-12",
-    "locale": "virtual",
-    "lms": "Canvas",
+    "productivity_suite": "both, Microsoft-led",
+    "primary_idp": "Microsoft Entra ID",
+    "sso_portal": "ClassLink",
     "ai_tools": {
-     "Claude": "staff",
-     "ChatGPT (consumer)": "staff",
-     "MagicSchool": "staff"
+     "Claude": "pilot"
     },
-    "ai_tools_other": [
-     "Canva",
-     "Kami (elementary)",
-     "Padlet"
+    "who_builds": [
+     "IT / data team"
     ],
-    "ai_policy": "administrative guidance / AUP",
-    "academic_integrity": "district-wide framework",
-    "app_launch_review": "Proposed applications are reviewed against a security checklist before they are hosted.",
-    "can_share": [
-     "Public handbook generative AI policy",
-     "Five-level AI-use framework for assignments",
-     "Application security review checklist"
+    "builder_tools": [
+     "Claude Code"
     ]
    },
-   "highlights": [
-    "Teachers set the allowed level of AI use on every assignment with a five-level framework, and students cite any AI they use.",
-    "Proposed applications go through a security checklist before they are hosted."
-   ]
+   "id": "01"
   },
   {
-   "slug": "agua-fria-uhsd",
+   "region": "Other U.S.",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Agua Fria Union High School District",
-    "state": "AZ",
-    "city": "Avondale",
-    "org_type": "public district",
-    "enrollment_band": "5k-15k",
-    "grade_span": "9-12",
-    "locale": "suburban",
-    "respondent_role": "Director of Innovation (district office)",
+    "sis": "Infinite Campus",
+    "ai_tools": {
+     "NotebookLM": "pilot",
+     "Claude": "pilot"
+    },
+    "who_builds": [
+     "school admins"
+    ],
+    "hosting": [
+     "Vercel / Netlify",
+     "Replit / vendor hosting"
+    ]
+   },
+   "id": "02"
+  },
+  {
+   "region": "Other U.S.",
+   "status": "seeded",
+   "answers": {
+    "who_builds": [
+     "IT / data team"
+    ],
+    "builder_tools": [
+     "Claude Code",
+     "Cursor"
+    ],
+    "hosting": [
+     "on-prem (IIS/Linux)",
+     "AWS"
+    ]
+   },
+   "id": "03"
+  },
+  {
+   "region": "Other U.S.",
+   "status": "seeded",
+   "answers": {
+    "builder_tools": [
+     "OpenAI Codex",
+     "Claude Code",
+     "Lovable",
+     "Google AI Studio"
+    ],
+    "hosting": [
+     "Firebase / Google Cloud"
+    ]
+   },
+   "id": "04"
+  },
+  {
+   "region": "Southwest",
+   "status": "seeded",
+   "answers": {
     "productivity_suite": "Google Workspace",
     "primary_idp": "Google",
     "sso_portal": "ClassLink",
@@ -63,15 +91,7 @@
      "Self-hosted / local models": "pilot"
     },
     "default_posture": "allowlist: blocked until approved",
-    "student_ai_age_gate": "No age gate inside the high school span; students may use only the district-approved AI tools (Gemini, the Gemini notebook tool and Canva) and about fifty other AI sites are blocked for students. Ninth graders get mandatory lessons on evaluating AI critically.",
-    "ai_tools_other": [
-     "Canva (students)",
-     "District data connector inside the enterprise ChatGPT workspace (teachers' own students, read-only)",
-     "Admin Data Agent: a question page for campus administrators answered by the district MCP server and the self-hosted model",
-     "GitHub Copilot for Builder's Permit holders"
-    ],
     "ai_policy": "administrative guidance / AUP",
-    "ai_review_structure": "Software and online services need Technology approval before use on district devices, and a new web resource needs both Academics (instructional value, curriculum fit, accessibility) and Technology (privacy, security, integration, cost); either can veto. Staff-built tools go through the innovation office, and every production deploy waits on the Director of Innovation's approval (a named backup can click).",
     "app_vetting": [
      "security questionnaire",
      "accessibility (VPAT/WCAG) check",
@@ -79,20 +99,7 @@
      "curriculum alignment",
      "cost/procurement review"
     ],
-    "vetting_checklist": [
-     "compliant privacy policy",
-     "what student data is collected and how it is stored",
-     "SIS / LMS integration and compatibility",
-     "data lands in the district warehouse without hand mapping",
-     "WCAG 2.1 accessibility",
-     "security compliance",
-     "vendor support and reputation",
-     "cost, licensing and scalability",
-     "content and network impact"
-    ],
     "teacher_ip_policy": "in progress",
-    "teacher_ip_notes": "Under discussion, not adopted: the builder keeps the intellectual property and the district keeps a free perpetual licence, pending legal review.",
-    "data_tiers": "The district's self-hosted model is preferred for work over student records; a hosted model may receive student data only under a district agreement that covers it (the enterprise ChatGPT workspace is the first). Apps send counts and keys, not values, to assistants by default; no student names in code repositories; nothing personal is retained or learned from.",
     "academic_integrity": "district-wide framework",
     "who_builds": [
      "IT / data team",
@@ -110,71 +117,28 @@
      "n8n",
      "Antigravity"
     ],
-    "builder_pathway": "The Builder's Permit: an invite-only, roughly fifteen-hour asynchronous course of three modules (FERPA and Arizona privacy, district policy, security, GitHub, sign-on), each passed at 80 percent, ending in a GitHub capstone a human reviews. The permit unlocks GitHub Copilot and, after a month's notice, is required to author Apps Script.",
-    "app_launch_review": "A pull request in a private district repository, CI green, an adversarial review by a second AI agent, a human merge, then the Director of Innovation's approval at the production environment gate; health check, rollback on failure, and an accessibility scan of the pages touched. Rollout is staged: the innovation office, about five testers at one campus, one whole school, then everyone.",
     "hosting": [
      "on-prem (IIS/Linux)",
      "Apps Script web apps"
     ],
     "mcp_servers": "built our own, in production",
-    "mcp_details": "Role-checked read tools over the district's reporting warehouse (roster, attendance, struggling-student flags, assignment scores, intervention placements, campus summaries), resolved server-side to the signed-in user's scope: a teacher sees only students they teach, campus administrators their campus. Served to the enterprise ChatGPT workspace, a district portal and the self-hosted model; writes stay in the district's own apps.",
-    "agents_in_production": [
-     "Admin Data Agent: campus administrators ask questions about their own campus on the self-hosted model",
-     "District data connector: teachers query their own students from the enterprise chat workspace",
-     "Weekly headless audit that checks the shared agent skills against live systems and pushes factual fixes",
-     "Weekly headless refresh of the organizational ontology, opened as a pull request for review",
-     "Daily job-fleet digest with a model-assisted advisory on what changed",
-     "Project-board agent that proposes items; a person accepts and is the author of record",
-     "Help-desk intake (pilot) that drafts structured tickets on the self-hosted model for a person to confirm"
-    ],
     "model_api_access": [
      "self-hosted models"
     ],
     "version_control": "required, district GitHub/GitLab org",
     "code_review": "required review by IT",
-    "secrets_handling": "Passwordless by default: each app runs as its own directory service identity with Windows-integrated database access and no password in any config. Model tokens are per caller, shown once, never pasted into an AI, and rotated (not re-minted) on exposure. Remaining secrets live in a team password manager; a pre-commit hook and CI secret scans block credentials in repositories.",
     "database": [
      "SQL Server"
     ],
     "sandbox_data": "synthetic only",
     "app_auth": "district SSO required",
     "logging_audit": "yes",
-    "promotion_path": "Prototype on the builder's machine against an empty local database, or as a single page in the reviewed ideas sandbox; then a development copy on its own host, deployed by a non-administrator runner; then production after a merge to main and the Director of Innovation's approval at the deploy gate. A good prototype is either folded into an existing district tool or given its own hosted app, after a privacy review.",
-    "ownership_handoff": "Tools live in the district's GitHub organization with code owners, so a departure does not orphan them; the innovation office takes over sign-in, security review and data feeds when a prototype is adopted, and the builder keeps shaping it. Records name roles, never people, and a departing role holder follows a dated handoff (handoff docs, an assistant built on them, access reduced on schedule).",
-    "coding_standards": [
-     "every app uses the shared district sign-in",
-     "one database and one service identity per app",
-     "stored procedures only, never table grants",
-     "numbered, forward-only, idempotent SQL migrations",
-     "app events go to the one central event log",
-     "the district job scheduler is the only scheduler and reminder engine",
-     "WCAG 2.1 AA by the district's April 2027 target",
-     "a help-page section ships with every feature",
-     "no student names in repositories",
-     "a second agent reviews before any live change",
-     "warnings as errors, pinned SDKs and packages",
-     "failures exit non-zero; a skipped test never reads as passed",
-     "times shown to people are Arizona time",
-     "an app that refuses someone shows a page and never signs them out"
-    ],
-    "cost_controls": "Compute is treated as a finite resource: general staff are on the fast default model in the ChatGPT workspace with costlier features off, the heaviest users are steered to Gemini, student-data work prefers the self-hosted model, and new automation tools start as free-edition pilots with no budget line.",
     "data_warehouse": "SQL Server / on-prem warehouse",
     "sis_integration": "scheduled exports",
     "semantic_layer": "yes",
     "pd_model": [
      "cohorts / communities of practice",
      "self-paced courses"
-    ],
-    "biggest_win": "A district MCP server where the permission check lives in the tools, not the model: teachers ask about their own students from the enterprise chat workspace and administrators about their own campus on a self-hosted model, and a question outside their scope returns nothing because the tool refuses.",
-    "open_question": "How do you scale democratized building safely, including the governance for exposing a district MCP server to external assistant connectors?",
-    "can_share": [
-     "Shared sign-in app template (.NET Razor Pages)",
-     "Passwordless app-hosting standard as an agent skill",
-     "Accessibility scanning skill and the five manual passes",
-     "Builder's Permit course outline",
-     "Public-readiness checklist for publishing a repository",
-     "Organizational ontology schemas (process, decision, role)",
-     "Cookbook recipe-prep agent instructions"
     ],
     "sandbox_env": "yes, separate on-prem dev host/environment",
     "dev_environments": [
@@ -205,329 +169,38 @@
     ],
     "mcp_scope_enforcement": "in the tools, scope resolved server-side per user",
     "model_generated_queries": "never; predefined tools only",
-    "agent_write_authority": "propose; a person accepts and is the author of record",
-    "model_task_validation": "A smaller self-hosted model earns a production task by being scored against a frontier model's answers on that same task."
+    "agent_write_authority": "propose; a person accepts and is the author of record"
    },
-   "highlights": [
-    "The permission check lives in the tools, not the model: a district MCP server resolves each user's scope server-side, so a teacher's question about other students returns nothing.",
-    "A Builder's Permit (about fifteen hours, three modules plus a reviewed GitHub capstone) gates builder tooling, and Apps Script authoring follows it.",
-    "One shared sign-in for every staff app, passwordless hosting, one database per app, and stored-procedure-only data access.",
-    "Every live change is reviewed by a second AI agent, merged by a human, and published only after one named approver clicks the production gate.",
-    "Student-data work prefers a self-hosted model; hosted models receive it only under a district agreement."
-   ]
+   "id": "01"
   },
   {
-   "slug": "buckeye-union-high-school-district",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Buckeye Union High School District",
-    "state": "AZ",
-    "city": "Buckeye",
-    "org_type": "public district",
-    "grade_span": "9-12",
-    "locale": "suburban",
-    "sis": "Synergy",
-    "open_question": "With a small IT team, what level of production support is realistic for district-built AI tools, and how do you decide what to take on?"
-   },
-   "highlights": [
-    "Visited a peer district to study an in-house AI stack (nightly SIS data warehouse, permission-scoped MCP server, self-hosted LLM) as a model to adapt."
-   ]
-  },
-  {
-   "slug": "chandler-unified-school-district",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Chandler Unified School District",
-    "state": "AZ",
-    "city": "Chandler",
-    "org_type": "public district",
-    "enrollment_band": "15k-50k",
-    "grade_span": "K-12",
-    "locale": "suburban",
-    "productivity_suite": "both, Google-led",
-    "ai_tools": {
-     "Gemini": "staff+students",
-     "NotebookLM": "staff+students",
-     "Microsoft Copilot Chat": "staff",
-     "Microsoft 365 Copilot (licensed)": "pilot"
-    },
-    "student_ai_age_gate": "Student access to Gemini and NotebookLM (Education Plus) is limited to high school.",
-    "ai_tools_other": [
-     "Google AI Pro (small group of staff)",
-     "Canva",
-     "Kami",
-     "Screencastify"
-    ],
-    "parent_comms": "yes",
-    "can_share": [
-     "Public district AI web page",
-     "CoSN TLE business-practices evidence (in progress)"
-    ]
-   },
-   "highlights": [
-    "High school students get Gemini and NotebookLM under Education Plus; staff get Gemini plus a small paid Copilot group.",
-    "Working toward the CoSN Trusted Learning Environment seal through the Arizona TLE cohort, with business practices as a strength."
-   ]
-  },
-  {
-   "slug": "gilbert-public-schools",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Gilbert Public Schools",
-    "state": "AZ",
-    "city": "Gilbert",
-    "org_type": "public district",
-    "enrollment_band": "15k-50k",
-    "grade_span": "K-12",
-    "locale": "suburban",
     "productivity_suite": "Google Workspace",
     "ai_tools": {
      "Self-hosted / local models": "pilot"
     },
     "default_posture": "allowlist: blocked until approved",
-    "ai_review_structure": "Staff submit any unlisted online tool for approval; the curriculum and assessment department reviews it first, then the technology services leadership team reviews the data sharing agreement and privacy policy. Finance will not issue a purchase order until vetting is complete.",
     "app_vetting": [
      "signed DPA",
      "SDPC / NDPA",
      "instructional review",
      "cost/procurement review"
     ],
-    "vetting_checklist": [
-     "Check the approved-apps list first",
-     "Curriculum and assessment approval",
-     "Technology leadership review of DPA and privacy policy",
-     "DPA required for every cloud-based tool",
-     "No purchase order without completed vetting"
-    ],
     "who_builds": [
      "IT / data team"
     ],
     "model_api_access": [
      "self-hosted models"
-    ],
-    "can_share": [
-     "Public Google Site listing approved and denied apps",
-     "App vetting workflow document"
     ]
    },
-   "highlights": [
-    "Finance will not approve a purchase order for an online tool until it clears the privacy vetting workflow.",
-    "Keeps a public, searchable Google Site of approved and denied apps.",
-    "Internal team stood up a local AI server and meets weekly to work through scaling it."
-   ]
+   "id": "02"
   },
   {
-   "slug": "marana-unified-school-district",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Marana Unified School District",
-    "state": "AZ",
-    "city": "Marana",
-    "org_type": "public district",
-    "enrollment_band": "5k-15k",
-    "grade_span": "K-12",
-    "locale": "suburban",
-    "ai_policy": "administrative guidance / AUP",
-    "can_share": [
-     "District AI guidance document"
-    ]
-   },
-   "highlights": [
-    "Publishes district AI guidance and shares it with the Arizona AI Alliance learning network."
-   ]
-  },
-  {
-   "slug": "premier-prep-online-academy",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Premier Prep Online Academy",
-    "state": "AZ",
-    "org_type": "other",
-    "grade_span": "other",
-    "locale": "virtual",
-    "productivity_suite": "Google Workspace",
-    "ai_tools": {
-     "Gemini": "staff+students",
-     "NotebookLM": "staff+students",
-     "ChatGPT (consumer)": "staff",
-     "Claude": "staff"
-    },
-    "ai_tools_other": [
-     "Kami (built-in AI tools)",
-     "Padlet (built-in AI tools)",
-     "Canva"
-    ],
-    "ai_policy": "administrative guidance / AUP",
-    "academic_integrity": "district-wide framework",
-    "parent_comms": "yes",
-    "can_share": [
-     "AI Usage Guide (reviewed each December and June)",
-     "Family AI Guide",
-     "Student-facing AI Guide",
-     "AI literacy pilot misuse data"
-    ]
-   },
-   "highlights": [
-    "After an 8th grade AI literacy class that teaches how AI works, reported AI misuse fell by more than 60% from the prior year.",
-    "Publishes separate AI guides for staff, families and students, and reviews them every December and June."
-   ]
-  },
-  {
-   "slug": "scottsdale-unified-school-district",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Scottsdale Unified School District",
-    "state": "AZ",
-    "city": "Scottsdale",
-    "org_type": "public district",
-    "enrollment_band": "15k-50k",
-    "grade_span": "K-12",
-    "locale": "suburban",
-    "ai_tools": {
-     "Microsoft Copilot Chat": "staff",
-     "MagicSchool": "staff"
-    },
-    "ai_review_structure": "A digital resource committee with members from curriculum, IT and finance reviews requests under a written SOP. Requesters view a short data privacy explainer before submitting.",
-    "app_vetting": [
-     "signed DPA",
-     "state privacy agreement",
-     "instructional review",
-     "cost/procurement review"
-    ],
-    "vetting_checklist": [
-     "Requester views a data privacy explainer before submitting",
-     "Committee review across curriculum, IT and finance",
-     "Arizona DPA sent to the vendor",
-     "Written role guidelines for each review step"
-    ],
-    "can_share": [
-     "Digital resource request SOP",
-     "Dashboard of vetted, district-approved resources"
-    ]
-   },
-   "highlights": [
-    "Staff who request a new digital tool first watch a short data privacy explainer, then a curriculum, IT and finance committee reviews the request.",
-    "A staff member built a dashboard that shows which resources are vetted and approved."
-   ]
-  },
-  {
-   "slug": "tempe-union-high-school-district",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Tempe Union High School District",
-    "state": "AZ",
-    "city": "Tempe",
-    "org_type": "public district",
-    "enrollment_band": "5k-15k",
-    "grade_span": "9-12",
-    "locale": "suburban",
-    "productivity_suite": "Google Workspace",
-    "lms": "Canvas",
-    "ai_tools": {
-     "Gemini": "staff+students",
-     "NotebookLM": "staff+students",
-     "ChatGPT (consumer)": "staff+students",
-     "MagicSchool": "staff",
-     "Gemini Gems / custom GPTs": "staff+students"
-    },
-    "ai_tools_other": [
-     "NoRedInk (AI writing assistant)",
-     "SciSpace",
-     "Suno",
-     "Napkin AI",
-     "Canva",
-     "Padlet"
-    ],
-    "ai_policy": "administrative guidance / AUP",
-    "can_share": [
-     "Public AI guidelines page",
-     "Canvas train-the-trainer AI modules for leaders (in development)",
-     "Teacher playbook for AI conversations with students (in development)"
-    ]
-   },
-   "highlights": [
-    "Teachers are trained to build custom Gemini Gems and embed them in Canvas, so students use purpose-built bots instead of open-ended chat.",
-    "Building Canvas train-the-trainer AI modules for school leaders."
-   ]
-  },
-  {
-   "slug": "vail-unified-school-district",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Vail Unified School District",
-    "state": "AZ",
-    "city": "Vail",
-    "org_type": "public district",
-    "enrollment_band": "5k-15k",
-    "grade_span": "K-12",
-    "productivity_suite": "Google Workspace",
-    "ai_tools": {
-     "MagicSchool": "staff+students",
-     "Gemini": "staff"
-    },
-    "student_ai_age_gate": "MagicSchool Enterprise for students in grades 2-12; NotebookLM for high school students.",
-    "ai_tools_other": [
-     "Vail Edge (district-built custom AI tool, in development)",
-     "Google AI Pro (administrators only)",
-     "Canva",
-     "Kami"
-    ],
-    "who_builds": [
-     "IT / data team"
-    ],
-    "model_api_access": [
-     "self-hosted models"
-    ],
-    "can_share": [
-     "Student AI Advisory Panel overview",
-     "9-12 AI literacy lessons (in development)"
-    ]
-   },
-   "highlights": [
-    "Runs a Student AI Advisory Panel, and its curriculum team is writing 9-12 AI literacy lessons.",
-    "Runs its own self-hosted AI infrastructure and is building a district custom AI tool."
-   ]
-  },
-  {
-   "slug": "washington-elementary-school-district",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Washington Elementary School District",
-    "state": "AZ",
-    "city": "Phoenix",
-    "org_type": "public district",
-    "enrollment_band": "15k-50k",
-    "grade_span": "K-8",
-    "locale": "urban",
-    "ai_policy": "administrative guidance / AUP",
-    "can_share": [
-     "District AI guidance document (being updated to align with 2026 Arizona guidance)"
-    ]
-   },
-   "highlights": [
-    "Updating its district AI guidance to align with Arizona's 2026 K-12 AI guidance."
-   ]
-  },
-  {
-   "slug": "yuma-union-high-school-district",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Yuma Union High School District",
-    "state": "AZ",
-    "city": "Yuma",
-    "org_type": "public district",
-    "enrollment_band": "5k-15k",
-    "grade_span": "9-12",
     "productivity_suite": "Google Workspace",
     "ai_tools": {
      "Gemini": "staff+students",
@@ -537,10 +210,6 @@
      "Brisk": "pilot",
      "Google AI Studio": "staff"
     },
-    "ai_tools_other": [
-     "Gamma",
-     "Canva"
-    ],
     "ai_policy": "administrative guidance / AUP",
     "who_builds": [
      "instructional coaches",
@@ -549,467 +218,137 @@
     "builder_tools": [
      "Apps Script",
      "Google AI Studio"
-    ],
-    "can_share": [
-     "District AI guidance document",
-     "AI habits PD resource",
-     "AI needs assessment data"
     ]
    },
-   "highlights": [
-    "High school students can use free tiers of Gemini, ChatGPT, Claude and NotebookLM.",
-    "Ed tech coaches teach teachers to build Apps Script tools that keep data inside Google Workspace."
-   ]
+   "id": "03"
   },
   {
-   "slug": "alpha-public-schools",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Alpha Public Schools",
-    "state": "CA",
-    "city": "San Jose",
-    "org_type": "charter network",
-    "enrollment_band": "1k-5k",
-    "grade_span": "K-12",
-    "locale": "urban",
     "productivity_suite": "Google Workspace",
-    "primary_idp": "Google",
     "ai_tools": {
-     "Gemini": "staff",
-     "Claude": "pilot"
+     "Gemini": "staff+students",
+     "NotebookLM": "staff+students",
+     "ChatGPT (consumer)": "staff",
+     "Claude": "staff"
     },
-    "ai_tools_other": [
-     "Vertex AI for data analysis inside the organization's Google Cloud project",
-     "An OpenClaw agent being trialed in a container on a dedicated machine"
-    ],
-    "data_tiers": "AI analysis runs on Gemini under the Workspace agreement and stays inside the organization's Google Cloud project. Coaching-meeting audio is destroyed once transcribed, and student-identifiable detail is kept out of distributed data briefs.",
+    "ai_policy": "administrative guidance / AUP",
+    "academic_integrity": "district-wide framework",
+    "parent_comms": "yes"
+   },
+   "id": "04"
+  },
+  {
+   "region": "Southwest",
+   "status": "seeded",
+   "answers": {
+    "productivity_suite": "Google Workspace",
+    "lms": "Canvas",
+    "ai_tools": {
+     "Gemini": "staff+students",
+     "NotebookLM": "staff+students",
+     "ChatGPT (consumer)": "staff+students",
+     "MagicSchool": "staff",
+     "Gemini Gems / custom GPTs": "staff+students"
+    },
+    "ai_policy": "administrative guidance / AUP"
+   },
+   "id": "05"
+  },
+  {
+   "region": "Southwest",
+   "status": "seeded",
+   "answers": {
+    "productivity_suite": "Google Workspace",
+    "ai_tools": {
+     "MagicSchool": "staff+students",
+     "Gemini": "staff"
+    },
     "who_builds": [
      "IT / data team"
     ],
-    "builder_tools": [
-     "Claude Code"
-    ],
-    "hosting": [
-     "Firebase / Google Cloud"
-    ],
-    "agents_in_production": [
-     "Weekly school culture data brief (discipline, referrals, PBIS) drafted with Gemini and approved by a person before it goes to directors",
-     "Teacher observation and coaching app that matches notes to rubric rows for the coach to confirm",
-     "Weekly staff update app that replaced three hours of manual assembly",
-     "Assessment calendar that realigns to each new school-year calendar"
-    ],
     "model_api_access": [
-     "Gemini API / Vertex AI"
-    ],
-    "database": [
-     "BigQuery"
-    ],
-    "data_warehouse": "BigQuery",
-    "biggest_win": "An observation and coaching cycle that took a coach two to three hours now takes about thirty minutes, with a human coach making every rating.",
-    "open_question": "When should AI make recommendations to leaders, and when should it only summarize and leave the decision to people?",
-    "can_share": [
-     "Weekly staff update app recipe",
-     "Teacher observation and coaching app pattern"
+     "self-hosted models"
     ]
    },
-   "highlights": [
-    "Keeps every AI workload inside its own Google Cloud project as a hard boundary, even when coding assistants suggest hosting elsewhere.",
-    "Cut a teacher observation and coaching cycle from two to three hours to about thirty minutes; coaches still make every rating, and meeting audio is destroyed after transcription.",
-    "Sends leaders a weekly culture-data brief drafted by Gemini that a person approves before it goes out."
-   ]
+   "id": "06"
   },
   {
-   "slug": "cajon-valley-union-school-district",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Cajon Valley Union School District",
-    "state": "CA",
-    "city": "El Cajon",
-    "org_type": "public district",
-    "enrollment_band": "15k-50k",
-    "grade_span": "K-8",
-    "locale": "urban",
-    "productivity_suite": "Google Workspace",
-    "ai_policy": "in progress",
-    "who_builds": [
-     "innovation or ed-tech team"
-    ],
-    "builder_tools": [
-     "Apps Script"
-    ],
-    "builder_pathway": "Planning a 5-6 person Apps Script builder cohort, modeled on a peer district's builder permit course.",
-    "agents_in_production": [
-     "Apps Script parent-teacher conference scheduler: families book one block covering all their children's teachers, with interpreter availability as a constraint"
-    ],
-    "biggest_win": "A self-built conference scheduler that handles teacher availability, interpreters (45+ languages) and siblings, for a task principals estimated at about 200 hours a year.",
-    "open_question": "How should an innovation lead structure the partnership with IT when launching a staff builder program?"
+    "lms": "Canvas",
+    "ai_tools": {
+     "Claude": "staff",
+     "ChatGPT (consumer)": "staff",
+     "MagicSchool": "staff"
+    },
+    "ai_policy": "administrative guidance / AUP",
+    "academic_integrity": "district-wide framework"
    },
-   "highlights": [
-    "Built a conference scheduler for a district with 45+ home languages; it books every sibling's teachers, with interpreters, in one visit.",
-    "Starting a small Apps Script builder cohort to spread building beyond the innovation office."
-   ]
+   "id": "07"
   },
   {
-   "slug": "desert-sands-unified-school-district",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Desert Sands Unified School District",
-    "state": "CA",
-    "city": "La Quinta",
-    "org_type": "public district",
-    "enrollment_band": "15k-50k",
-    "grade_span": "K-12",
-    "locale": "suburban",
-    "productivity_suite": "Google Workspace",
-    "sis": "Synergy",
-    "default_posture": "case-by-case",
-    "ai_review_structure": "Software purchases route through a purchasing sheet that needs data privacy sign-off. A regional nonprofit privacy service negotiates and redlines vendor agreements, and the district attorney is consulted on ambiguous terms. AI vendors are interviewed about how their system is built and who their subprocessors are.",
+    "productivity_suite": "both, Google-led",
+    "ai_tools": {
+     "Gemini": "staff+students",
+     "NotebookLM": "staff+students",
+     "Microsoft Copilot Chat": "staff",
+     "Microsoft 365 Copilot (licensed)": "pilot"
+    },
+    "parent_comms": "yes"
+   },
+   "id": "08"
+  },
+  {
+   "region": "Southwest",
+   "status": "seeded",
+   "answers": {
+    "ai_tools": {
+     "Microsoft Copilot Chat": "staff",
+     "MagicSchool": "staff"
+    },
     "app_vetting": [
      "signed DPA",
      "state privacy agreement",
+     "instructional review",
      "cost/procurement review"
-    ],
-    "vetting_checklist": [
-     "Auto-renewal terms",
-     "Breach notification procedures",
-     "Data destruction at contract end",
-     "No selling, advertising or third-party sharing",
-     "AI: proprietary vs third-party model and subprocessor disclosure",
-     "Parent consent where data use requires it"
-    ],
-    "data_tiers": "Share the minimum data needed. Basic identifiers can be shared under a signed agreement; highly protected categories such as meal-program eligibility are not released to outside parties. Vendors may keep de-identified data after a contract ends only if the agreement says so."
-   },
-   "highlights": [
-    "Contracts a regional nonprofit privacy service to negotiate vendor data privacy agreements, including AI terms.",
-    "Asks AI vendors directly whether models are proprietary or third-party and who their subprocessors are before approving them.",
-    "De-identifies data for community partners with a key held by the assessment department."
-   ]
-  },
-  {
-   "slug": "stem-prep",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "STEM Prep",
-    "state": "CA",
-    "city": "Los Angeles",
-    "org_type": "charter network",
-    "locale": "urban",
-    "sis": "PowerSchool",
-    "ai_tools": {
-     "Claude": "pilot"
-    },
-    "who_builds": [
-     "IT / data team"
-    ],
-    "database": [
-     "BigQuery"
-    ],
-    "data_warehouse": "BigQuery",
-    "open_question": "What are the best practices for a one-person, self-taught data team building internal tools with AI?"
-   },
-   "highlights": [
-    "A one-person data team feeding the SIS into BigQuery and building internal tools with Claude."
-   ]
-  },
-  {
-   "slug": "boise-sd",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Boise School District",
-    "state": "ID",
-    "city": "Boise",
-    "org_type": "public district",
-    "enrollment_band": "15k-50k",
-    "grade_span": "K-12",
-    "locale": "urban",
-    "productivity_suite": "Google Workspace",
-    "primary_idp": "Google",
-    "sso_portal": "ClassLink",
-    "sis": "Infinite Campus",
-    "ai_tools": {
-     "Claude": "pilot"
-    },
-    "data_tiers": "Builders start with no student data. Access to student data and district systems comes only after a privacy and security review (level two); district-wide applications are a third gate.",
-    "teacher_ip_policy": "yes, written policy",
-    "teacher_ip_notes": "Builders may spin a tool out into a business later; in exchange for using district technology and AI resources, the district keeps a perpetual free license to the software.",
-    "who_builds": [
-     "IT / data team",
-     "teachers"
-    ],
-    "vibe_coding_support": "formal program with permits/training",
-    "builder_tools": [
-     "Claude Code",
-     "OpenAI Codex",
-     "VS Code"
-    ],
-    "builder_pathway": "A three-gate Agentic Builder program: level one is training with no student data, level two adds student data and systems after a privacy and security review, level three is district-wide. Each level unlocks more tokens, hosting and support, plus a builders' community. Approved with a $35,000 budget.",
-    "app_launch_review": "A privacy and security review before any builder touches student data or district systems; a separate gate before a tool goes district-wide.",
-    "hosting": [
-     "Vercel / Netlify"
-    ],
-    "mcp_servers": "built our own, piloting",
-    "mcp_details": "A read-only, local-only (stdio) MCP server and CLI for web-filter reporting, with no create, update or delete operations.",
-    "agents_in_production": [
-     "Daily filter-evasion detection that finds bypass patterns and grows the block list",
-     "Project-level context agent that gathers email, Drive, calendar and meeting notes per project and drafts updates for human review",
-     "Semantic model that writes SIS queries, run after school hours"
-    ],
-    "version_control": "required, district GitHub/GitLab org",
-    "database": [
-     "Supabase / Postgres",
-     "SQLite / local files"
-    ],
-    "cost_controls": "Token, hosting and support allowances grow with each builder-program level, funded from an approved program budget.",
-    "semantic_layer": "partial",
-    "pd_model": [
-     "cohorts / communities of practice"
-    ],
-    "biggest_win": "A gated builder program that makes the sanctioned path more attractive than shadow IT, with IP terms settled up front.",
-    "open_question": "How should districts handle public-records requests that could sweep in agent memory files? And how do you keep a semantic layer consistent so agents read terms like 'average daily attendance' the same way?",
-    "can_share": [
-     "Staff builder program briefing",
-     "Read-only web-filter reporting CLI and MCP server",
-     "Filter-evasion detection skill",
-     "PHP vulnerability exposure-sweep prompt"
     ]
    },
-   "highlights": [
-    "Runs a three-gate staff builder program: no student data at level one, a privacy and security review before student data, and a separate gate for district-wide tools.",
-    "Settles builder IP up front: staff may spin a tool into a company, and the district keeps a perpetual free license.",
-    "Building a semantic model over its SIS so AI-written queries reflect how attendance and grading actually work, not just the schema."
-   ]
+   "id": "09"
   },
   {
-   "slug": "new-trier-hsd",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "New Trier Township High School District 203",
-    "state": "IL",
-    "city": "Winnetka",
-    "org_type": "public district",
-    "enrollment_band": "1k-5k",
-    "grade_span": "9-12",
-    "locale": "suburban",
-    "who_builds": [
-     "IT / data team"
-    ],
-    "builder_tools": [
-     "Claude Code",
-     "Cursor"
-    ],
-    "hosting": [
-     "on-prem (IIS/Linux)",
-     "AWS"
-    ]
+    "ai_policy": "administrative guidance / AUP"
    },
-   "highlights": [
-    "Technology team exploring agentic coding tools, with any deployments planned for self-hosted servers or AWS."
-   ]
+   "id": "10"
   },
   {
-   "slug": "montana-digital-academy",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Montana Digital Academy (Montana State Virtual School)",
-    "state": "MT",
-    "city": "Missoula",
-    "org_type": "state virtual school",
-    "grade_span": "other",
-    "locale": "virtual",
-    "ai_tools": {
-     "NotebookLM": "pilot",
-     "Claude": "pilot"
-    },
-    "ai_tools_other": [
-     "Hermes Agent",
-     "OpenClaw",
-     "n8n workflow automation",
-     "Obsidian knowledge vaults"
-    ],
-    "data_tiers": "Experimental agents are kept away from student data and live systems; course feedback from students and parents stays under the school's control and is de-identified where possible.",
-    "who_builds": [
-     "innovation or ed-tech team"
-    ],
-    "builder_tools": [
-     "OpenAI Codex",
-     "n8n"
-    ],
-    "mcp_details": "MCP connections from agents to NotebookLM notebooks used as review 'committees', and to the CRM vendor's MCP server.",
-    "open_question": "How can a statewide virtual school turn public signals from hundreds of districts into planning and recruitment intelligence without trusting automation alone?"
+    "ai_policy": "administrative guidance / AUP"
    },
-   "highlights": [
-    "Hosts a legislature-funded AI lab that helps Montana K-12 schools build AI skills.",
-    "Building a course-improvement agent that gathers student, parent and teacher feedback into a knowledge vault, where AI 'committees' propose revisions for instructors to review.",
-    "Building an agent that tracks public school-board signals across about 400 Montana districts to support planning and outreach."
-   ]
+   "id": "11"
   },
   {
-   "slug": "grand-island-central-sd",
+   "region": "Southwest",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Grand Island Central School District",
-    "state": "NY",
-    "city": "Grand Island",
-    "org_type": "public district",
-    "enrollment_band": "1k-5k",
-    "grade_span": "K-12",
-    "locale": "suburban",
-    "sis": "Infinite Campus",
-    "ai_tools": {
-     "NotebookLM": "pilot",
-     "Claude": "pilot"
-    },
-    "data_tiers": "Tools that collect no student PII can ship quickly without a data review; notebooks holding personnel and financial procedure are scoped to the office that owns the role.",
-    "who_builds": [
-     "school admins"
-    ],
-    "hosting": [
-     "Vercel / Netlify",
-     "Replit / vendor hosting"
-    ],
-    "agents_in_production": [
-     "Personal morning brief agent that summarizes AI-in-education news (no district data)"
-    ],
-    "biggest_win": "Succession manuals in NotebookLM: a departing treasurer's binders and the personnel office's handbooks and contracts became notebooks, so new staff get answers cited back to their predecessor's own words.",
-    "open_question": "Could a regional service center host models on a local server so districts can use AI more deeply without data leaving the region?",
-    "can_share": [
-     "Earth Science Regents study site",
-     "Trustee governance coach (voice custom GPT)",
-     "Accessible exam-prep study app"
-    ]
+    "sis": "Synergy"
    },
-   "highlights": [
-    "Turned a retiring business official's procedure binders into a NotebookLM notebook, so the successor gets answers cited to the original procedures.",
-    "Built an Earth Science Regents study site from three past exams that collects no student data, so it reached principals and the science department within days.",
-    "Pressing its regional service center to host local models for member districts."
-   ]
+   "id": "12"
   },
   {
-   "slug": "maryville-city-schools",
+   "region": "West",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "Maryville City Schools",
-    "state": "TN",
-    "city": "Maryville",
-    "org_type": "public district",
-    "enrollment_band": "5k-15k",
-    "grade_span": "K-12",
-    "productivity_suite": "both, Microsoft-led",
-    "primary_idp": "Microsoft Entra ID",
-    "sso_portal": "ClassLink",
-    "ai_tools": {
-     "Claude": "pilot"
-    },
-    "who_builds": [
-     "IT / data team"
-    ],
-    "builder_tools": [
-     "Claude Code"
-    ],
-    "agents_in_production": [
-     "Weekly AI review of closed help desk tickets that proposes knowledge-base articles for a technician to approve",
-     "Content-filter policy triage over 10,000+ recovered rules"
-    ],
-    "coding_standards": [
-     "Global and per-project CLAUDE.md rules that stop an agent session when personal information appears",
-     "Private repositories for internal tools"
-    ],
-    "biggest_win": "A district-built help desk and IT operations platform with change logging, a configuration warehouse for network backups, document mirroring to avoid vendor lock-in, and a knowledge base that drafts itself from closed tickets.",
-    "open_question": "How do you share district-built projects across districts without just handing over repos?",
-    "can_share": [
-     "Public showcase for K-12-built tools",
-     "Help desk / IT operations platform pattern"
-    ]
-   },
-   "highlights": [
-    "Built its own help desk and IT operations platform whose AI reviews each week's tickets and proposes knowledge-base articles for a technician to approve.",
-    "Retired a vendor rostering service after building the replacement in-house.",
-    "Runs a public showcase where K-12 districts can submit the tools they have built."
-   ]
-  },
-  {
-   "slug": "fairfax-county-ps",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Fairfax County Public Schools",
-    "state": "VA",
-    "city": "Falls Church",
-    "org_type": "public district",
-    "enrollment_band": "50k+",
-    "grade_span": "PK-12",
-    "locale": "suburban",
-    "builder_tools": [
-     "OpenAI Codex",
-     "Claude Code",
-     "Lovable",
-     "Google AI Studio"
-    ],
-    "hosting": [
-     "Firebase / Google Cloud"
-    ],
-    "agents_in_production": [
-     "IdeaCatcher: staff describe automation problems in a portal behind Google sign-in, and a council of agents reviews each submission for curation"
-    ]
-   },
-   "highlights": [
-    "Prototyped an idea-intake portal where a council of AI agents reviews staff automation requests before they are curated for building."
-   ]
-  },
-  {
-   "slug": "ferndale-sd",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Ferndale School District",
-    "state": "WA",
-    "city": "Ferndale",
-    "org_type": "public district",
-    "enrollment_band": "1k-5k",
-    "grade_span": "K-12",
-    "productivity_suite": "Google Workspace",
-    "builder_tools": [
-     "Apps Script",
-     "OpenAI Codex"
-    ],
-    "agents_in_production": [
-     "Apps Script generator that builds individual multilingual learning plans plus classroom, grade-band, building and district snapshots in about an hour"
-    ],
-    "database": [
-     "Google Sheets",
-     "BigQuery"
-    ],
-    "data_warehouse": "spreadsheets",
-    "biggest_win": "Multilingual specialists used to spend the first three to four weeks of school hand-typing learning plans; one script now generates every plan and snapshot in about an hour, still as familiar Google Docs.",
-    "open_question": "How do you move district data out of spreadsheets into a cloud warehouse, and who should be able to see an organizational ontology once it is staff-facing?"
-   },
-   "highlights": [
-    "One Apps Script now produces every multilingual learning plan and snapshot in about an hour, work that used to take specialists the first three to four weeks of school.",
-    "Building a BigQuery data warehouse on a $40,000 Gates Foundation grant to move data out of spreadsheets.",
-    "Writes generated student plans into each student's existing support folder, so existing Drive permissions decide who can read them."
-   ]
-  },
-  {
-   "slug": "peninsula-sd",
-   "status": "seeded",
-   "updated": "2026-10-29",
-   "answers": {
-    "district_name": "Peninsula School District",
-    "state": "WA",
-    "city": "Gig Harbor",
-    "org_type": "public district",
-    "enrollment_band": "5k-15k",
-    "grade_span": "K-12",
-    "devices": "1:1 Mac",
     "productivity_suite": "Google Workspace",
     "primary_idp": "Google",
     "sso_portal": "ClassLink",
@@ -1019,14 +358,6 @@
      "Gemini": "staff",
      "Self-hosted / local models": "pilot"
     },
-    "student_ai_age_gate": "The district AI platform supports teacher-assigned student rooms, but it is staff-only today; students do not use it yet.",
-    "ai_tools_other": [
-     "AI Studio: district-built, open-source AI platform giving staff OpenAI, Gemini and Claude models without per-seat licenses",
-     "OpenClaw personal assistants for the executive cabinet",
-     "AI meeting recorders for administrators (rollout pending SOPs)",
-     "Anthropic and OpenAI cyber-defense programs for security review"
-    ],
-    "data_tiers": "Model providers run under data processing / zero-data-retention agreements. The public AI hub tags every tool in its directory by privacy level. Agents reach district data only through role-scoped MCP tools, and student PII is kept out of prompts in development pipelines.",
     "app_vetting": [
      "signed DPA"
     ],
@@ -1041,22 +372,11 @@
      "n8n",
      "Google AI Studio"
     ],
-    "builder_pathway": "Builder access started with a small group (engineers, help desk, research and assessment) after a roughly three-hour hands-on training. A district Claude Code plugin marketplace and a development-standards repo give builders shared commands, skills and rules.",
-    "app_launch_review": "Pull requests are reviewed automatically by several models (including FERPA, security and accessibility passes), CI gates must pass, and a human approves every merge. AI review never counts as approval.",
     "hosting": [
      "AWS",
      "on-prem (IIS/Linux)"
     ],
     "mcp_servers": "built our own, in production",
-    "mcp_details": "A role-based data MCP over the district warehouse (read-only tools, access enforced in the data layer, staged from synthetic to de-identified to role-scoped data, with get/write-learnings tools); a system-map MCP of district systems and data flows; an MCP gateway for forms and approval workflows; read-and-propose tools on facility maps; roster and provisioning MCPs.",
-    "agents_in_production": [
-     "Personal OpenClaw assistants for executives in per-user micro-VMs, with draft-only email",
-     "Per-building budget dashboards refreshed by agents every weekend",
-     "Self-healing triage: tagged bugs become issues and fix PRs that models cross-review and a human merges",
-     "Multi-model automated PR review",
-     "AI-assisted public-records triage with human verification",
-     "Web-filter site auto-classification"
-    ],
     "model_api_access": [
      "AWS Bedrock",
      "OpenAI API",
@@ -1065,59 +385,91 @@
      "self-hosted models"
     ],
     "version_control": "required, district GitHub/GitLab org",
-    "secrets_handling": "Secrets live in a cloud secrets manager; deployments use short-lived OIDC roles instead of stored cloud keys; agent hooks redact keys from tool output; CI secret scans block commits that contain credentials.",
     "database": [
      "Supabase / Postgres",
      "Google Sheets"
     ],
     "logging_audit": "yes",
-    "promotion_path": "Code moves through pull requests in the district's GitHub organization: rulesets start in evaluate mode and are switched on one at a time, CI and multi-model review run first, and a human approves every merge.",
-    "coding_standards": [
-     "Per-stack development standards repo enforced by CI",
-     "Dependabot and security scanning on all repos",
-     "Wait 48 hours before adopting new npm package versions",
-     "MDM policy blocks permission-skipping mode for coding agents on district devices",
-     "AGENTS.md / CLAUDE.md rules in each repo",
-     "Human merge approval; AI review is advisory"
-    ],
-    "cost_controls": "Per-user agent VMs shut down when idle; cloud environments carry tagged budgets; token-heavy monitoring loops run on district-owned GPU hardware; a district AI platform replaces per-seat licenses.",
     "semantic_layer": "yes",
     "pd_model": [
      "PD days"
-    ],
-    "biggest_win": "In 45 minutes with the CFO, agents built per-building budget dashboards on the data warehouse that replaced a $71,000-a-year financial analysis subscription and refresh themselves every weekend.",
-    "open_question": "How do you store reusable agent knowledge (learnings vs skills) at scale without overflowing the context window?",
-    "can_share": [
-     "Open-source (MIT) district AI platform",
-     "Claude Code plugin marketplace for staff",
-     "District development-standards repo",
-     "Emergency operations center stack built to be deployable by a second district",
-     "Public AI hub with AI policies, data-security guidance and 50+ staff use cases"
     ]
    },
-   "highlights": [
-    "Runs a district-built, open-source AI platform that gives staff frontier models without per-seat licenses.",
-    "Lets agents see district data only through a role-based MCP server, so each person's agent sees only what that person may see.",
-    "Replaced a $71,000-a-year subscription, a public-records vendor and a closing emergency-alert vendor with district-built tools."
-   ]
+   "id": "01"
   },
   {
-   "slug": "white-river-sd",
+   "region": "West",
    "status": "seeded",
-   "updated": "2026-10-29",
    "answers": {
-    "district_name": "White River School District",
-    "state": "WA",
-    "city": "Buckley",
-    "org_type": "public district",
-    "enrollment_band": "1k-5k",
-    "grade_span": "K-12",
     "productivity_suite": "Google Workspace",
     "primary_idp": "Google",
-    "student_ai_age_gate": "The district AI chat platform launches to staff first; students get access once its K-12 guardrails have proven themselves.",
-    "ai_tools_other": [
-     "District-built AI chat platform on its own cloud project with in-house K-12 guardrails and admin visibility"
+    "sso_portal": "ClassLink",
+    "sis": "Infinite Campus",
+    "ai_tools": {
+     "Claude": "pilot"
+    },
+    "teacher_ip_policy": "yes, written policy",
+    "who_builds": [
+     "IT / data team",
+     "teachers"
     ],
+    "vibe_coding_support": "formal program with permits/training",
+    "builder_tools": [
+     "Claude Code",
+     "OpenAI Codex",
+     "VS Code"
+    ],
+    "hosting": [
+     "Vercel / Netlify"
+    ],
+    "mcp_servers": "built our own, piloting",
+    "version_control": "required, district GitHub/GitLab org",
+    "database": [
+     "Supabase / Postgres",
+     "SQLite / local files"
+    ],
+    "semantic_layer": "partial",
+    "pd_model": [
+     "cohorts / communities of practice"
+    ]
+   },
+   "id": "02"
+  },
+  {
+   "region": "West",
+   "status": "seeded",
+   "answers": {
+    "productivity_suite": "Google Workspace",
+    "primary_idp": "Google",
+    "ai_tools": {
+     "Gemini": "staff",
+     "Claude": "pilot"
+    },
+    "who_builds": [
+     "IT / data team"
+    ],
+    "builder_tools": [
+     "Claude Code"
+    ],
+    "hosting": [
+     "Firebase / Google Cloud"
+    ],
+    "model_api_access": [
+     "Gemini API / Vertex AI"
+    ],
+    "database": [
+     "BigQuery"
+    ],
+    "data_warehouse": "BigQuery"
+   },
+   "id": "03"
+  },
+  {
+   "region": "West",
+   "status": "seeded",
+   "answers": {
+    "productivity_suite": "Google Workspace",
+    "primary_idp": "Google",
     "who_builds": [
      "IT / data team"
     ],
@@ -1125,15 +477,92 @@
     "hosting": [
      "Firebase / Google Cloud"
     ],
-    "mcp_servers": "exploring",
-    "mcp_details": "Planned: feed staff-facing district data to the chat platform through MCP servers rather than direct system access.",
-    "cost_controls": "Moving AI chat from per-seat subscriptions to token-based pricing, with admin visibility into use.",
-    "open_question": "What patterns work for safely hosting staff-built web apps at district scale?"
+    "mcp_servers": "exploring"
    },
-   "highlights": [
-    "Building its own AI chat platform with district-written K-12 guardrails, staff first and students once the guardrails have proven themselves.",
-    "Paying for AI by the token instead of per seat."
-   ]
+   "id": "04"
+  },
+  {
+   "region": "West",
+   "status": "seeded",
+   "answers": {
+    "sis": "PowerSchool",
+    "ai_tools": {
+     "Claude": "pilot"
+    },
+    "who_builds": [
+     "IT / data team"
+    ],
+    "database": [
+     "BigQuery"
+    ],
+    "data_warehouse": "BigQuery"
+   },
+   "id": "05"
+  },
+  {
+   "region": "West",
+   "status": "seeded",
+   "answers": {
+    "productivity_suite": "Google Workspace",
+    "builder_tools": [
+     "Apps Script",
+     "OpenAI Codex"
+    ],
+    "database": [
+     "Google Sheets",
+     "BigQuery"
+    ],
+    "data_warehouse": "spreadsheets"
+   },
+   "id": "06"
+  },
+  {
+   "region": "West",
+   "status": "seeded",
+   "answers": {
+    "productivity_suite": "Google Workspace",
+    "sis": "Synergy",
+    "default_posture": "case-by-case",
+    "app_vetting": [
+     "signed DPA",
+     "state privacy agreement",
+     "cost/procurement review"
+    ]
+   },
+   "id": "07"
+  },
+  {
+   "region": "West",
+   "status": "seeded",
+   "answers": {
+    "productivity_suite": "Google Workspace",
+    "ai_policy": "in progress",
+    "who_builds": [
+     "innovation or ed-tech team"
+    ],
+    "builder_tools": [
+     "Apps Script"
+    ]
+   },
+   "id": "08"
+  },
+  {
+   "region": "West",
+   "status": "seeded",
+   "answers": {
+    "ai_tools": {
+     "NotebookLM": "pilot",
+     "Claude": "pilot"
+    },
+    "who_builds": [
+     "innovation or ed-tech team"
+    ],
+    "builder_tools": [
+     "OpenAI Codex",
+     "n8n"
+    ]
+   },
+   "id": "09"
   }
  ]
 }
