@@ -24,7 +24,7 @@ Fill in every field. Leave `unknown` (or an empty list `[]`) where you truly can
 
 ```yaml
 atlas_version: 1
-submitted: 2026-10-30  # today's date
+submitted: 2026-10-31  # today's date
 
 context:  # District context
   # Official district or organization name. (required)
