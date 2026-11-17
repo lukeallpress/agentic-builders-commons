@@ -100,6 +100,7 @@
     <div class="cta-row">
       <a class="btn primary" href="mailto:lallpress@aguafria.org?subject=Interested%20in%20the%20Agentic%20Builders%20Committee">Get involved</a>
       <a class="btn ghost" href="cookbook.html">Read the cookbook →</a>
+      <a class="btn ghost" href="#start">What you need to get started →</a>
       <a class="btn ghost" href="atlas/">District AI Atlas →</a>
     </div>
     <div class="stats"><div class="stat"><span class="num">24</span><span class="lbl">practitioners</span></div><div class="stat"><span class="num">9</span><span class="lbl">calls so far</span></div><div class="stat"><span class="num">40</span><span class="lbl">ideas to steal</span></div><div class="stat"><span class="num">92</span><span class="lbl">recipes</span></div><div class="stat"><span class="num">13</span><span class="lbl">open questions</span></div><div class="stat"><span class="num">8</span><span class="lbl">worth reading</span></div></div>
@@ -120,6 +121,22 @@
       <div class="goal"><h3>Share what works</h3><p>Concrete recipes, code patterns, and use cases
         — the implementation-level ideas too technical for broad policy groups.</p></div>
     </div>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <h2>What you need to get started</h2>
+    <p class="sub">The question we get asked most often. Our districts are not all in the same
+      place, and the ones furthest along got there by borrowing. Everything below is something a
+      member runs today, named &mdash; not advice we generated. If you are at the beginning, this is
+      the short list, roughly in the order each item stops being optional.</p>
+    <div class="goals"><div class="goal"><h3>Somewhere to put it</h3><p>You do not need a district data platform to start. Three paths members actually run: <strong>no-login one-offs or Supabase</strong> when nothing has to persist between visits (Anna McDonough, Alpha Public Schools); <strong>Firebase</strong>, because identity, relational and NoSQL sit in one environment an agent can build inside, with a free tier and credits after it (Brian Graham, Grand Island Central); and <strong>DuckDB on a scheduled script writing Parquet to cloud storage</strong>, so the app reads a file and your only bill is storage (Zach Grammon, Idaho Digital Learning Alliance).</p></div><div class="goal"><h3>A way to know who is asking</h3><p>The first thing that stops being optional. One shared district sign-in that every internal app rides, rather than an OAuth client per app (Luke Allpress, Agua Fria) &mdash; and for apps staff build themselves, <strong>an identity-aware proxy in front</strong>, so a staff-built app is never reachable from the public internet and nobody has to review each builder's login page (Zach Grammon, IDLA).</p></div><div class="goal"><h3>Permission to build, and somewhere to publish</h3><p>Staff will build with or without a sanctioned path; the only question is whether you know about it. A <strong>builder's permit</strong> &mdash; demonstrate you understand FERPA, authentication and secure deployment before publishing anything user- or data-facing &mdash; plus a sandbox to publish into: the Idea Lab at Agua Fria, Atrium at Peninsula.</p></div><div class="goal"><h3>Standards your coding agent reads</h3><p>Ask an agent to build the same thing twice and you get two different things. Peninsula keeps its standards as <strong>markdown in a dev-standards repo that Claude and Codex rule files point at</strong> &mdash; governance without an enterprise contract (Reese Herber, Kris Hagel). Write them by letting the agent interview you, and keep the questions it asked: your answers will differ from ours, but the questions transfer.</p></div><div class="goal"><h3>An honest answer about whether you are ready</h3><p>Peninsula once joined a call with neighbouring districts who believed they were ready to build and were nowhere close. <strong>&ldquo;Not yet&rdquo; is a real answer</strong>, and it is far cheaper than the alternative. Ryan Gravette's caution to the group is worth repeating: the vendor market will cover a lot of this within a year, and no district should run an architecture it cannot secure just because someone else runs it.</p></div></div>
+    <p class="sub" style="margin-top:28px">We are putting together a <strong>&ldquo;let&rsquo;s get
+      started&rdquo; session</strong> for districts earlier in this than the monthly call assumes
+      &mdash; readiness first, then the smallest useful thing you could ship. If that is you, say
+      so and we will build it around where you actually are.</p>
+    <a class="btn primary" href="mailto:lallpress@aguafria.org?subject=Interested%20in%20the%20Agentic%20Builders%20Committee">Tell us where you are →</a>
   </div>
 </section>
 
